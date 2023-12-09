@@ -1,0 +1,45 @@
+@import "variables";
+
+.signup {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  border-radius: 5px;
+  padding: 50px;
+  margin-right: 70px;
+  margin-left: 70px;
+  box-shadow: 1px 1px 2px 2px rgb(222, 220, 220);
+  background-color: white;
+}
+
+.signup > img {
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 40px;
+}
+
+.signup-textfield-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+
+.signup-btn {
+  padding: 12px;
+  margin-top: 20px;
+  border-radius: 8px;
+  border: 0;
+  font-weight: bolder;
+  color: white;
+  background-color: $base-color;
+  width: 100%;
+}
+
+.signup-btn:hover {
+  cursor: pointer;
+  background-color: $light-blue;
+  border-color: '#0062cc';
+  box-shadow: 'none';
+}
