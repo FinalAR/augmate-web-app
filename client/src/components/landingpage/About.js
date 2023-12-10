@@ -1,0 +1,80 @@
+import authentication from "../../assets/images/CMS/image_2023_12_06T14_24_47_187Z-modified.png";
+import dashboard from "../../assets/images/CMS/image_2023_12_06T14_25_32_863Z-modified.png";
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
+import arrow1 from "../../assets/images/img/arrow1.svg";
+import arrow2 from "../../assets/images/img/arrow2.svg";
+import colorSharp from "../../assets/images/img/color-sharp.png"
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import interactive from "../../assets/images/CMS/interactive2.png";
+import dynamic from "../../assets/images/CMS/dynamic.png"
+import predictive from "../../assets/images/CMS/predictive.png"
+
+export const About = () => {
+  const responsive = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 5
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 3
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1
+    }
+  };
+  const isAutherized = useSelector((state) => state.data.user.isAutherized)
+  const navigate = useNavigate()
+
+  const handleOnExploreClick = () => {
+    if (isAutherized) {
+      navigate('starter')
+    } else {
+      navigate('/auth')
+    }
+  }
+
+  return (
+    <section className="skill" id="skills">
+      <div className="container">
+        <div className="row">
+          <div className="col-12">
+            <div className="skill-bx wow zoomIn">
+              <h2>Unleash Your Imaginations</h2>
+              <p>AUGMATE will provide you Enhanced User Experience in Web AR.<br></br> Our core-functionalities are revolved around Interactive Strategy,Dynamic Content Management, and Predictive Models for UX.</p>
+              <Carousel responsive={responsive} infinite={true} className="owl-carousel owl-theme skill-slider">
+                <div className="item">
+                  <img src={interactive} alt="Image" />
+                  <h5>Interactive Strategies</h5>
+                  <p>Our interactive strategy ensures users remain captivated while content seamlessly loads.</p>
+                </div>
+                <div className="item">
+                  <img src={dynamic} alt="Image" />
+                  <h5>Dynamic Content Management</h5>
+                  <p>Dynamically change and manage the resources and keep upto-date experiences</p>
+                </div>
+                <div className="item">
+                  <img src={predictive} alt="Image" />
+                  <h5>Predictive Models</h5>
+                  <p>Evaluate contents and gain insights to make proactive decisions for a optimized experience</p>
+                </div>
+              </Carousel>
+              <span className="banner-btn-container">
+                <button onClick={handleOnExploreClick}><span>Get Started</span></button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <img className="background-image-left" src={colorSharp} alt="Image" />
+    </section>
+  )
+}

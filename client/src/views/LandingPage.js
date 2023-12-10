@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { NavBar } from "../components/landingpage/NavBar";
 import { Banner } from "../components/landingpage/Banner";
 import { Skills } from "../components/landingpage/Skills";
+import { About } from "../components/landingpage/About";
 import { Projects } from "../components/landingpage/Projects";
 import { Faq } from "../components/landingpage/Faq";
 import { Contact } from "../components/landingpage/Contact";
@@ -14,8 +15,9 @@ function LandingPage() {
     <div className="App">
       <NavBar />
       <Banner />
-      <Skills />
+      {/* <Skills /> */}
       {/* <Projects /> */}
+      <About />
       <Faq />
       <Contact />
       <Footer />

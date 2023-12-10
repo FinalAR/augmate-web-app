@@ -29,7 +29,8 @@ const ThemeRoutes = () => {
       <Route path="/home" index element={<LandingPage />}></Route>
       <Route path="/explore" index element={<ExploreWindow />}></Route>
       <Route path="/auth"  element={<Authenticate />}></Route>
-      <Route path="/" element={<ProtectedRoute><FullLayout/></ProtectedRoute>}>
+      {/* <Route path="/" element={<ProtectedRoute><Navigate to="/home" /><FullLayout/></ProtectedRoute>}> */}
+      <Route path="/" element={<Navigate to="/home" />}>  
         <Route path="/starter" element={<Starter />} />
         <Route path="/about" element={<About />} />
         <Route path="/alerts" element={<Alerts />} />
