@@ -15,8 +15,6 @@ function LandingPage() {
     <div className="App">
       <NavBar />
       <Banner />
-      {/* <Skills /> */}
-      {/* <Projects /> */}
       <About />
       <Faq />
       <Contact />
