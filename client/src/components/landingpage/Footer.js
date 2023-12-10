@@ -17,6 +17,7 @@ export const Footer = () => {
           <Col size={12} sm={6} className="text-center text-sm-end">
             <p>Copyright 2023. All Rights Reserved</p>
           </Col>
+          <h5>UNLEASH YOUR IMAGINATION</h5>
         </Row>
       </Container>
     </footer>
