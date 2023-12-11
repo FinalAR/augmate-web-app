@@ -20,6 +20,7 @@ const Forms = lazy(() => import("../views/ui/Forms"));
 const Breadcrumbs = lazy(() => import("../views/ui/Breadcrumbs"));
 const LandingPage = lazy(() => import("../views/LandingPage"));
 const ExploreWindow = lazy(() => import("../views/exploreWindow.js"));
+const ExploreLoadWindow = lazy(() => import("../views/exploreLoadMethods.js"));
 
 /*****Routes******/
 
@@ -28,6 +29,7 @@ const ThemeRoutes = () => {
     <Routes>
       <Route path="/home" index element={<LandingPage />}></Route>
       <Route path="/explore" index element={<ExploreWindow />}></Route>
+      <Route path="/exploreMethods" index element={<ExploreLoadWindow />}></Route>
       <Route path="/auth"  element={<Authenticate />}></Route>
       {/* <Route path="/" element={<ProtectedRoute><Navigate to="/home" /><FullLayout/></ProtectedRoute>}> */}
       <Route path="/" element={<Navigate to="/home" />}>  
