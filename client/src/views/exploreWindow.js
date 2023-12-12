@@ -1,9 +1,12 @@
 import "../assets/css/progress.css";
 import "../assets/css/navBar.css";
 import "../assets/css/popup.css";
+import "../assets/css/elements.css";
+
+import { Link } from 'react-router-dom';
 
 import React, { useEffect } from 'react';
-// import * as THREE from 'three';
+
 import { GLTFLoader } from 'https://finalar.github.io/js/GLTFLoader.js';
 import { MindARThree } from 'https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-three.prod.js';
 import * as THREE from 'https://finalar.github.io/build/three.module.js';
@@ -130,8 +133,6 @@ function ExploreWindow() {
           end = Date.now();
           var timeSpent = (end - begin);
           progressTime(targetInfo1.progressPhase, timeSpent);
-
-          // Set the modelLoaded flag to true once the model is loaded
           modelLoaded = true;
           loadingInProcess = false;
 
@@ -149,8 +150,6 @@ function ExploreWindow() {
           var percentage = (xhr.loaded / total * 100);
           console.log(percentage + '% loaded');
           progress('phase 1', percentage);
-          // console.log('Total size is 0; unable to calculate percentage.');
-          // progressBug('phase 1');
         }
       }
 
@@ -180,8 +179,6 @@ function ExploreWindow() {
     ///////////////////////////////////////////////////////////
 
     const markerRoot1 = mindarThree.addAnchor(3);
-
-    // markerRoot1.group.add(plane);
 
     let model1 = null;
 
@@ -236,8 +233,6 @@ function ExploreWindow() {
           var percentage = (xhr.loaded / total * 100);
           console.log(percentage + '% loaded');
           progress('phase 1', percentage);
-          // console.log('Total size is 0; unable to calculate percentage.');
-          // progressBug('phase 1');
         }
       }
 
@@ -266,8 +261,6 @@ function ExploreWindow() {
     ///////////////////////////////////////////////////////////
 
     const markerRoot2 = mindarThree.addAnchor(1);
-
-    // markerRoot2.group.add(plane);
 
     let model2 = null;
 
@@ -322,8 +315,6 @@ function ExploreWindow() {
           var percentage = (xhr.loaded / total * 100);
           console.log(percentage + '% loaded');
           progress('phase 1', percentage);
-          // console.log('Total size is 0; unable to calculate percentage.');
-          // progressBug('phase 1');
         }
       }
 
@@ -352,8 +343,6 @@ function ExploreWindow() {
     ///////////////////////////////////////////////////////////
 
     const markerRoot3 = mindarThree.addAnchor(7);
-
-    // markerRoot3.group.add(plane);
 
     let model3 = null;
 
@@ -408,8 +397,6 @@ function ExploreWindow() {
           var percentage = (xhr.loaded / total * 100);
           console.log(percentage + '% loaded');
           progress('phase 1', percentage);
-          // console.log('Total size is 0; unable to calculate percentage.');
-          // progressBug('phase 1');
         }
       }
 
@@ -438,8 +425,6 @@ function ExploreWindow() {
     ///////////////////////////////////////////////////////////
 
     const markerRoot4 = mindarThree.addAnchor(5);
-
-    // markerRoot4.group.add(plane);
 
     let model4 = null;
 
@@ -494,8 +479,6 @@ function ExploreWindow() {
           var percentage = (xhr.loaded / total * 100);
           console.log(percentage + '% loaded');
           progress('phase 1', percentage);
-          // console.log('Total size is 0; unable to calculate percentage.');
-          // progressBug('phase 1');
         }
       }
 
@@ -524,8 +507,6 @@ function ExploreWindow() {
     ///////////////////////////////////////////////////////////
 
     const markerRoot5 = mindarThree.addAnchor(8);
-
-    // markerRoot5.group.add(plane);
 
     let model5 = null;
 
@@ -580,8 +561,6 @@ function ExploreWindow() {
           var percentage = (xhr.loaded / total * 100);
           console.log(percentage + '% loaded');
           progress('phase 1', percentage);
-          // console.log('Total size is 0; unable to calculate percentage.');
-          // progressBug('phase 1');
         }
       }
 
@@ -645,14 +624,6 @@ function ExploreWindow() {
       console.log("Progress presentage: " + percentage);
     }
 
-    function progressBug(phase) {
-      var elem = document.getElementById(phase);
-
-      elem.style.width = '100%';
-      document.getElementById(phase + " label").innerHTML = 'loading ... unable to calculate percentage.';
-
-    }
-
     //Time loading 
     function progressTime(phase, duration) {
       var elem = document.getElementById(phase);
@@ -664,89 +635,52 @@ function ExploreWindow() {
       console.log("Progress duration: " + duration);
     }
 
+    const handleBack = () => {
+      console.log('Button clicked!');
+      mindarThree.stop();
+      mindarThree.renderer.setAnimationLoop(null);
+    };
+
+    const backButton = document.querySelector("#backButton");
+
+    backButton.addEventListener("click", () => {
+      handleBack();
+    });
+
     return () => {
       mindarThree.stop();
       mindarThree.renderer.setAnimationLoop(null);
     };
   }, []);
 
-  const htmlString = `
-  <html>
-    <head>
-        <style>
-          body {
-            margin: 0;
-          }
 
-          #container {
-            width: 100vw;
-            height: 100vh;
-            position: relative;
-            overflow: hidden;
-          }
-
-          #control {
-            display: flex;
-            align-items: center;
-            /* Center horizontally */
-            justify-content: space-evenly;
-          }
-
-          .btn6,
-          .btn6:link,
-          .btn6:visited {
-            margin-top: 3px;
-            padding: 5px 5px;
-            border: 1px solid #333;
-            color: #333;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 13px;
-            letter-spacing: 3px;
-            transition: all .2s ease-in-out;
-
-            &:hover {
-              background: #333;
-              border: 1px solid #333;
-              color: #fefefe;
-              border-radius: 30px;
-            }
-          }
-          </style>
-    </head>
-      <body>
-        <div id="container">
-          <div id="control">
-            <button id="startButton" class="btn6">Start</button>
-            <button id="stopButton" class="btn6">Stop</button>
-          </div>
-
-          <div class="progress">
-            <div class='bar' id="phase 1">
-              <div class="label" id="phase 1 label">0%</div>
-            </div>
-          </div>
-          <div class='progress2'>
-            <div class="label2">
-              <h3>Total Loading Duration</h3>
-            </div>
-          </div>
-          <div class='progress3'>
-            <div class='bar' id="phase 2">
-              <div class="label" id="phase 2 label">0ms</div>
-            </div>
-          </div>
-
-          <footer>
-            <div id="marker_label">Marker Not Found</div>
-          </footer>
-        </div>
-      </body>
-    </html>
-  `;
 
   return (
-    <div dangerouslySetInnerHTML={{ __html: htmlString }} />
+    <div id="container">
+      <Link to='/home'>
+        <button id="backButton">HOME</button>
+      </Link>
+      <div id="control">
+        <button id="startButton" className="btn6">Start</button>
+        <button id="stopButton" className="btn6">Stop</button>
+      </div>
+      <div className="progress">
+        <div className='bar' id="phase 1">
+          <div className="label" id="phase 1 label">0%</div>
+        </div>
+      </div>
+        <div className="label2">
+          <h3>Total Loading Duration</h3>
+        </div>
+      <div className='progress3'>
+        <div className='bar' id="phase 2">
+          <div className="label" id="phase 2 label">0ms</div>
+        </div>
+      </div>
+      <footer>
+        <div id="marker_label">Marker Not Found</div>
+      </footer>
+    </div>
   );
 }
 

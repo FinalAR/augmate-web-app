@@ -48,6 +48,10 @@ export const Banner = () => {
     }
   }
 
+  const redirectToExternalUrl = () => {
+    window.location.href = 'https://arloader.000webhostapp.com/modelMindARPath1.html';
+  };
+  
   return (
     <section className="banner" id="home">
       <Container>
@@ -59,9 +63,10 @@ export const Banner = () => {
                 <span className="tagline">Welcome to AugMate</span>
                 <h1><span className="txt-rotate" dataPeriod="1000" data-rotate='[ "Web Developer", "Web Designer", "UI/UX Designer" ]'><span className="wrap">{text}</span></span></h1>
                   <p>Welcome to our cutting-edge Web AR experience, where user engagement reaches new heights through the seamless integration of augmented reality and dynamic content linking.</p>
-                  <Link to='/explore' style={{ textDecoration: 'none' }}>
+                  {/* <Link to='/explore' style={{ textDecoration: 'none' }}>
                     <button onClick={() => console.log('connect')}>Let’s Explore <ArrowRightCircle size={25} /></button>
-                  </Link>
+                  </Link> */}
+                  <button onClick={redirectToExternalUrl}>Let’s Explore <ArrowRightCircle size={25} /></button>
               </div>}
             </TrackVisibility>
           </Col>

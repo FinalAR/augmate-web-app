@@ -1,0 +1,16 @@
+.owl-carousel .owl-nav {
+  display: none !important;
+}
+
+.react-multi-carousel-dot button {
+  background-color: transparent;
+  border: none;
+}
+
+.react-multi-carousel-dot button:hover {
+  background-color: transparent;
+}
+
+.react-multi-carousel-arrow {
+  display: none;
+}

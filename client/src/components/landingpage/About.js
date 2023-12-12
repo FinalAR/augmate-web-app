@@ -1,6 +1,7 @@
 import authentication from "../../assets/images/CMS/image_2023_12_06T14_24_47_187Z-modified.png";
 import dashboard from "../../assets/images/CMS/image_2023_12_06T14_25_32_863Z-modified.png";
 import Carousel from 'react-multi-carousel';
+import "../../assets/css/about.css";
 import 'react-multi-carousel/lib/styles.css';
 import arrow1 from "../../assets/images/img/arrow1.svg";
 import arrow2 from "../../assets/images/img/arrow2.svg";
