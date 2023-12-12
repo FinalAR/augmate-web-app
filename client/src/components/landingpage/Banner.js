@@ -62,7 +62,8 @@ export const Banner = () => {
               <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
                 <span className="tagline">Welcome to AugMate</span>
                 <h1><span className="txt-rotate" dataPeriod="1000" data-rotate='[ "Web Developer", "Web Designer", "UI/UX Designer" ]'><span className="wrap">{text}</span></span></h1>
-                  <p>Welcome to our cutting-edge Web AR experience, where user engagement reaches new heights through the seamless integration of augmented reality and dynamic content linking.</p>
+                  {/* <p>Welcome to our cutting-edge Web AR experience, where user engagement reaches new heights through the seamless integration of augmented reality and dynamic content linking.</p> */}
+                  <p>Welcome to our cutting-edge Web AR experience, where user engagement reaches new heights</p>
                   {/* <Link to='/explore' style={{ textDecoration: 'none' }}>
                     <button onClick={() => console.log('connect')}>Let’s Explore <ArrowRightCircle size={25} /></button>
                   </Link> */}
