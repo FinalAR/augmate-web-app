@@ -4,17 +4,11 @@ import "../assets/css/popup.css";
 import "../assets/css/elements.css";
 
 import { Link } from 'react-router-dom';
-
 import React, { useEffect } from 'react';
 
-import {MindARThree} from 'mind-ar/dist/mindar-image-three.prod.js';
-
 import * as THREE from 'three';
-import { GLTFLoader } from "../assets/js/loaders/GLTFLoader";
-
-// import { GLTFLoader } from "gltfloader";
-// import { MindARThree } from 'https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-three.prod.js';
-// import * as THREE from 'https://finalar.github.io/build/three.module.js';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import {MindARThree} from 'mind-ar/dist/mindar-image-three.prod.js';
 
 function ExploreWindow() {
   useEffect(() => {

@@ -3,10 +3,10 @@ import "../assets/css/navBar.css";
 import "../assets/css/popup.css";
 
 import React, { useEffect } from 'react';
-import {MindARThree} from 'mind-ar/dist/mindar-image-three.prod.js';
 
 import * as THREE from 'three';
-import {GLTFLoader} from "../assets/js/loaders/GLTFLoader";
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import {MindARThree} from 'mind-ar/dist/mindar-image-three.prod.js';
 
 function ExploreLoadMethods() {
   useEffect(() => {
