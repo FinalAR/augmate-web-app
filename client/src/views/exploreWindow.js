@@ -7,9 +7,14 @@ import { Link } from 'react-router-dom';
 
 import React, { useEffect } from 'react';
 
-import { GLTFLoader } from 'https://finalar.github.io/js/GLTFLoader.js';
-import { MindARThree } from 'https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-three.prod.js';
-import * as THREE from 'https://finalar.github.io/build/three.module.js';
+import {MindARThree} from 'mind-ar/dist/mindar-image-three.prod.js';
+
+import * as THREE from 'three';
+import { GLTFLoader } from "../assets/js/loaders/GLTFLoader";
+
+// import { GLTFLoader } from "gltfloader";
+// import { MindARThree } from 'https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-three.prod.js';
+// import * as THREE from 'https://finalar.github.io/build/three.module.js';
 
 function ExploreWindow() {
   useEffect(() => {
