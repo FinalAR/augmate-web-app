@@ -1,6 +1,7 @@
 {
   "name": "starter-bt5",
   "version": "0.1.0",
+  "homepage": "https://augmate.netlify.app",
   "private": true,
   "dependencies": {
     "14": "^3.1.6",
