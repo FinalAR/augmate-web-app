@@ -50,14 +50,14 @@ export const NavBar = () => {
             <Nav.Link href="#projects" className={activeLink === 'projects' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('projects')}>FAQ</Nav.Link>
             <Nav.Link href="#connect" className={activeLink === 'connect' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('connect')}>CONTACT</Nav.Link>
           </Nav>
-          {/* <span className="navbar-text">
+          <span className="navbar-text">
             <Link to='/explore'>
               <button className="vvd"><span>Let’s Explore</span></button>
             </Link>
-          </span> */}
-          <span className="navbar-text">
-              <button className="vvd" onClick={redirectToExternalUrl}><span>Let’s Explore</span></button>
           </span>
+          {/* <span className="navbar-text">
+              <button className="vvd" onClick={redirectToExternalUrl}><span>Let’s Explore</span></button>
+          </span> */}
         </Navbar.Collapse>
       </Container>
     </Navbar>
