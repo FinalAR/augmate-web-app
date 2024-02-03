@@ -1,4 +1,3 @@
 # augmate-web-app
 
-Final Year Research Project - Client 
-
+Final Year Research Project - Client - Deployed with master
