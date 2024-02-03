@@ -3,11 +3,11 @@ import React, { useState } from "react";
 import { auth } from "../firebase";
 import "./../assets/scss/login.scss";
 import titleImage from "../assets/images/logos/Logoblack.svg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { loginUser } from "../slices/userSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Alert } from "reactstrap";
 
 const Login = () => {
@@ -28,12 +28,14 @@ const Login = () => {
       .then((userCredential) => {
         console.log("Logged in");
         const user = userCredential.user;
-        navigate("/starter", { replace: true });
         dispatch(loginUser({
           uid: userCredential.uid,
           username: userCredential.username,
           email: userCredential.email
-        }))
+
+        }));
+        localStorage.setItem('isAuthorized', true);
+        navigate("/starter");
       })
       .catch((error) => {
         console.log(error);
@@ -43,7 +45,6 @@ const Login = () => {
         }, 2000);
       });
   };
-
   return (
     <div className="login">
       {isAuthFailed ? <Alert color="danger">Wrong email or password!</Alert> : ""}
@@ -105,6 +106,5 @@ const Login = () => {
       </div>
     </div>
   );
-};
-
+}
 export default Login;

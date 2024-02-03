@@ -1,10 +1,10 @@
 import { lazy } from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
-import {ProtectedRoute}  from "../components/ProtectedRoute.js";
+import { Navigate, Route, Routes, createBrowserRouter } from "react-router-dom";
+import { ProtectedRoute } from "../components/ProtectedRoute.js";
+import FullLayout from "../layouts/FullLayout.js";
 
 /****Layouts*****/
 const Authenticate = lazy(() => import("../views/ui/Authenticate.js"))
-const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
 
 /***** Pages ****/
 
@@ -23,29 +23,100 @@ const ExploreWindow = lazy(() => import("../views/exploreWindow.js"));
 const ExploreLoadWindow = lazy(() => import("../views/exploreLoadMethods.js"));
 
 /*****Routes******/
+// const ThemeRoutes = () => {
+//   return (
+//     <Routes>
+//       <Route path="/home" index element={<LandingPage />}></Route>
+//       <Route path="/explore" index element={<ExploreWindow />}></Route>
+//       <Route path="/exploreMethods" index element={<ExploreLoadWindow />}></Route>
+//       <Route path="/auth"  element={<Authenticate />}></Route>
+//       {/* <Route path="/" element={<ProtectedRoute><Navigate to="/home" /><FullLayout/></ProtectedRoute>}> */}
 
-const ThemeRoutes = () => {
-  return (
-    <Routes>
-      <Route path="/home" index element={<LandingPage />}></Route>
-      <Route path="/explore" index element={<ExploreWindow />}></Route>
-      <Route path="/exploreMethods" index element={<ExploreLoadWindow />}></Route>
-      <Route path="/auth"  element={<Authenticate />}></Route>
-      {/* <Route path="/" element={<ProtectedRoute><Navigate to="/home" /><FullLayout/></ProtectedRoute>}> */}
-      <Route path="/" element={<Navigate to="/home" />}>  
-        <Route path="/starter" element={<Starter />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/alerts" element={<Alerts />} />
-        <Route path="/badges" element={<Badges />} />
-        <Route path="/buttons" element={<Buttons />} />
-        <Route path="/cards" element={<Cards />} />
-        <Route path="/grid" element={<Grid />} />
-        <Route path="/table" element={<Tables />} />
-        <Route path="/forms" element={<Forms />} />
-        <Route path="/breadcrumbs" element={<Breadcrumbs />} />
-      </Route>
-    </Routes>
-  )
-};
+//         <Route path="/">  
+//         <ProtectedRoute>
+//         <Route path="/starter" element={<Starter />} />
 
-export default ThemeRoutes;
+//       </ProtectedRoute>
+//         <Route path="/about" element={<About />} />
+//         <Route path="/alerts" element={<Alerts />} />
+//         <Route path="/badges" element={<Badges />} />
+//         <Route path="/buttons" element={<Buttons />} />
+//         <Route path="/cards" element={<Cards />} />
+//         <Route path="/grid" element={<Grid />} />
+//         <Route path="/table" element={<Tables />} />
+//         <Route path="/forms" element={<Forms />} />
+//         <Route path="/breadcrumbs" element={<Breadcrumbs />} />
+//       </Route>
+//     </Routes>
+//   )
+// };
+
+// export default ThemeRoutes;
+
+
+const router = createBrowserRouter([
+  {
+    path: '/home',
+    element: <LandingPage />
+  },
+  {
+    path: '/explore',
+    element: <ExploreWindow />
+  },
+  {
+    path: '/exploreMethods',
+    element: <ExploreLoadWindow />
+  },
+  {
+    path: '/auth',
+    element: <Authenticate />
+  },
+  {
+    path: '/',
+    element: <ProtectedRoute><FullLayout /></ProtectedRoute>,
+    children: [
+      {
+        path: '/starter',
+        element: <Starter />
+      },
+      {
+        path: '/about',
+        element: <About />
+      },
+      {
+        path: '/alerts',
+        element: <Alerts />
+      },
+      {
+        path: '/badges',
+        element: <Badges />
+      },
+      {
+        path: '/buttons',
+        element: <Buttons />
+      },
+      {
+        path: '/cards',
+        element: <Cards />
+      },
+      {
+        path: '/grid',
+        element: <Grid />
+      },
+      {
+        path: '/table',
+        element: <Tables />
+      },
+      {
+        path: '/forms',
+        element: <Forms />
+      },
+      {
+        path: '/breadcrumbs',
+        element: <Breadcrumbs />
+      }
+    ]
+  }
+])
+
+export default router;

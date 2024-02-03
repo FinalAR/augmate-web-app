@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Navbar,
   Collapse,
@@ -16,7 +16,6 @@ import {
 import { ReactComponent as LogoWhite } from "../assets/images/logos/amplelogowhite.svg";
 import user1 from "../assets/images/users/user1.jpg";
 import { getAuth, signOut } from "firebase/auth";
-import { Navigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../slices/userSlice";
 
@@ -25,6 +24,7 @@ const Header = () => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
   const Handletoggle = () => {
@@ -36,8 +36,9 @@ const Header = () => {
   const handleLogout = () => {
     signOut(auth).then(() => {
       console.log("Logout");
+      localStorage.setItem('isAuthorized', false)
       dispatch(logoutUser(null));
-      <Navigate to="/auth" />
+      navigate("/auth");
     }).catch((error) => {
       // An error happened.
     });

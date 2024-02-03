@@ -6,7 +6,7 @@ import arrow1 from "../../assets/images/img/arrow1.svg";
 import arrow2 from "../../assets/images/img/arrow2.svg";
 import colorSharp from "../../assets/images/img/color-sharp.png"
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 
 export const Skills = () => {
   const responsive = {
@@ -28,14 +28,14 @@ export const Skills = () => {
       items: 1
     }
   };
-  const isAutherized = useSelector((state) => state.data.user.isAutherized)
+  const isAutherized = useSelector((state) => state.data.user.isAuthorized);
   const navigate = useNavigate()
 
   const handleOnExploreClick = () => {
     if (isAutherized) {
-      navigate('starter')
+      <Navigate to='/starter' />
     } else {
-      navigate('/auth')
+      <Navigate to='/auth' />
     }
   }
 
