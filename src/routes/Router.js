@@ -56,6 +56,10 @@ const ExploreLoadWindow = lazy(() => import("../views/exploreLoadMethods.js"));
 
 const router = createBrowserRouter([
   {
+    path: '/',
+    element: <LandingPage />
+  },
+  {
     path: '/home',
     element: <LandingPage />
   },
