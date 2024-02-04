@@ -595,6 +595,17 @@ function ExploreWindow() {
       }
     };
 
+    const stop = async () => {
+      console.log("Before stoping...");
+      try {
+        mindarThree.stop();
+        console.log("After stoping...");
+        mindarThree.renderer.setAnimationLoop(null);
+      } catch (error) {
+        console.error("Error in stop method:", error);
+      }
+    };
+
     const startButton = document.querySelector("#startButton");
     const stopButton = document.querySelector("#stopButton");
 
@@ -603,9 +614,13 @@ function ExploreWindow() {
     });
 
     stopButton.addEventListener("click", () => {
-      mindarThree.stop();
-      mindarThree.renderer.setAnimationLoop(null);
+      stop();
     });
+
+    // stopButton.addEventListener("click", () => {
+    //   mindarThree.stop();
+    //   mindarThree.renderer.setAnimationLoop(null);
+    // });
 
     ////////////////// Supporting Functions
 
