@@ -1,82 +1,120 @@
-import { Card, CardBody, CardTitle, CardSubtitle, Table } from "reactstrap";
+import {useState} from "react";
+import { Card, CardBody, CardTitle, CardSubtitle, Table,Button ,Form,FormGroup, Label,Input} from "reactstrap";
 import user1 from "../../assets/images/users/user1.jpg";
 import user2 from "../../assets/images/users/user2.jpg";
 import user3 from "../../assets/images/users/user3.jpg";
 import user4 from "../../assets/images/users/user4.jpg";
 import user5 from "../../assets/images/users/user5.jpg";
+import ContentLinkingModal from "./ContentLinkingModal";
 
 const tableData = [
   {
     avatar: user1,
-    name: "Hanna Gover",
+    name: "Ant",
     email: "hgover@gmail.com",
     project: "Flexy React",
     status: "pending",
-    weeks: "35",
+    content: user3,
+    target: user2,
     budget: "95K",
   },
   {
     avatar: user2,
-    name: "Hanna Gover",
+    name: "Goat",
     email: "hgover@gmail.com",
     project: "Lading pro React",
     status: "done",
-    weeks: "35",
+    content: user1,
+    target: user4,
     budget: "95K",
   },
   {
     avatar: user3,
-    name: "Hanna Gover",
+    name: "Deer",
     email: "hgover@gmail.com",
     project: "Elite React",
     status: "holt",
-    weeks: "35",
+    content: user4,
+    target: user5,
     budget: "95K",
   },
   {
     avatar: user4,
-    name: "Hanna Gover",
+    name: "Mango",
     email: "hgover@gmail.com",
     project: "Flexy React",
-    status: "pending",
-    weeks: "35",
+    target: user2,
+    content: user5,
     budget: "95K",
   },
   {
     avatar: user5,
-    name: "Hanna Gover",
+    name: "Caffete",
     email: "hgover@gmail.com",
     project: "Ample React",
     status: "done",
-    weeks: "35",
+    target: user1,
+    content: user1,
     budget: "95K",
   },
 ];
 
 const ProjectTables = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedRow, setSelectedRow] = useState(null);
+
+  const toggleModal = () => {
+    console.log("Faalil");
+    setModalOpen(!modalOpen);
+  };
+  
+  const handleEditClick = (rowData) => {
+    setSelectedRow(rowData);
+    toggleModal();
+  };
+
+
   return (
     <div>
       <Card>
         <CardBody>
-          <CardTitle tag="h5">Project Listing</CardTitle>
-          <CardSubtitle className="mb-2 text-muted" tag="h6">
-            Overview of the projects
-          </CardSubtitle>
+          <div className="d-flex justify-content-between">
+          <CardTitle tag="h5">Content Management</CardTitle>
+          <Form>
+  <FormGroup>
+    <Label
+      for="searchConntent"
+      hidden
+    >
+      Email
+    </Label>
+    <Input
+    bsSize="sm"
+      id="searchContent"
+      name="searchContent"
+      placeholder="Search Content"
+      type="text"
+    />
+  </FormGroup>
+  </Form>
+          <Button className="btn" color="primary">Add a New Content</Button>
+          </div>
 
           <Table className="no-wrap mt-3 align-middle" responsive borderless>
             <thead>
               <tr>
-                <th>Team Lead</th>
-                <th>Project</th>
+                <th>Target Name</th>
+                <th>Target Image</th>
 
-                <th>Status</th>
+                <th>Content</th>
 
-                <th>Budget</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               {tableData.map((tdata, index) => (
                 <tr key={index} className="border-top">
+                  <td>{tdata.name}</td>
                   <td>
                     <div className="d-flex align-items-center p-2">
                       <img
@@ -86,28 +124,39 @@ const ProjectTables = () => {
                         width="45"
                         height="45"
                       />
-                      <div className="ms-3">
+                      {/* <div className="ms-3">
                         <h6 className="mb-0">{tdata.name}</h6>
                         <span className="text-muted">{tdata.email}</span>
-                      </div>
+                      </div> */}
                     </div>
                   </td>
-                  <td>{tdata.project}</td>
                   <td>
-                    {tdata.status === "pending" ? (
-                      <span className="p-2 bg-danger rounded-circle d-inline-block ms-3"></span>
-                    ) : tdata.status === "holt" ? (
-                      <span className="p-2 bg-warning rounded-circle d-inline-block ms-3"></span>
-                    ) : (
-                      <span className="p-2 bg-success rounded-circle d-inline-block ms-3"></span>
-                    )}
+                 <div className="d-flex align-items-center p-2">
+                      <img
+                        src={tdata.content}
+                        className="rounded-circle"
+                        alt="avatar"
+                        width="45"
+                        height="45"
+                      />
+                      {/* <div className="ms-3">
+                        <h6 className="mb-0">{tdata.name}</h6>
+                        <span className="text-muted">{tdata.email}</span>
+                      </div> */}
+                    </div>
                   </td>
 
-                  <td>{tdata.budget}</td>
+                  <td>
+                  <div className="d-flex gap-3">
+                  <button type="button" class="btn btn-outline-success" onClick={() => handleEditClick(tdata)}>Edit</button>
+                  <button type="button" class="btn btn-outline-danger">Delete</button>
+                    </div>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </Table>
+          <ContentLinkingModal isOpen={modalOpen} toggle={toggleModal} rowData={selectedRow} />
         </CardBody>
       </Card>
     </div>
