@@ -1,41 +1,25 @@
 import {useState,useEffect} from "react";
-import { Card, CardBody, CardTitle, CardSubtitle, Table,Button ,Form,FormGroup, Label,Input} from "reactstrap";
+import { Card, CardBody, CardTitle,Table,Button ,Form,FormGroup, Label,Input} from "reactstrap";
 import ContentLinkingModal from "./ContentLinkingModal";
-// import { TEST_DATA } from "./testData";
+import axios from "axios";
 
 const ProjectTables = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);
   const [data, setData] = useState([]);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get('http://localhost:3000/api/v1/content/fetch');
-  //       setData(response.data);
-  //     } catch (error) {
-  //       console.error('Error fetching data:', error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, [])
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/v1/content/fetch');
-        const json = await response.json();
-        console.log(json);
-        setData(json.data);
-        console.log(data);// Assuming the API response has a 'data' property containing the array of items
+        const response = await axios.get('http://localhost:3000/api/v1/content/list/active');
+        setData(response.data.data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [])
 
   const toggleModal = () => {
     setModalOpen(!modalOpen);
@@ -43,9 +27,21 @@ const ProjectTables = () => {
   
   const handleEditClick = (rowData) => {
     setSelectedRow(rowData);
-    console.log(rowData);
     toggleModal();
   };
+
+  const updateTableData = (updatedRowData) => {
+    const updatedData = data.map((row) => {
+      if (row.targetpHash === updatedRowData.targetpHash) {
+        console.log("Faalil");
+        return updatedRowData;
+      } else {
+        return row;
+      }
+    });
+    setData(updatedData);
+  };
+
 
 
   return (
@@ -119,7 +115,7 @@ const ProjectTables = () => {
             ))}
         </tbody>
           </Table>
-          <ContentLinkingModal isOpen={modalOpen} toggle={toggleModal} rowData={selectedRow} />
+          <ContentLinkingModal isOpen={modalOpen} toggle={toggleModal} rowData={selectedRow} updateTableData={updateTableData} />
         </CardBody>
       </Card>
     </div>
