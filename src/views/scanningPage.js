@@ -10,7 +10,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import {MindARThree} from 'mind-ar/dist/mindar-image-three.prod.js';
 
-function AdexplorePage() {
+function ScanningPage() {
   useEffect(() => {
     let total;
 
@@ -243,4 +243,4 @@ function AdexplorePage() {
   );
 }
 
-export default AdexplorePage;
+export default ScanningPage;

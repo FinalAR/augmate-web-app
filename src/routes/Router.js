@@ -21,6 +21,8 @@ const Breadcrumbs = lazy(() => import("../views/ui/Breadcrumbs"));
 const LandingPage = lazy(() => import("../views/LandingPage"));
 const ExploreWindow = lazy(() => import("../views/exploreWindow.js"));
 const ExploreLoadWindow = lazy(() => import("../views/exploreLoadMethods.js"));
+const ScanningPage = lazy(() => import("../views/scanningPage.js"));
+const AdexplorePage = lazy(() => import("../views/exploreAdvanced.js"));
 
 /*****Routes******/
 // const ThemeRoutes = () => {
@@ -62,6 +64,14 @@ const router = createBrowserRouter([
   {
     path: '/home',
     element: <LandingPage />
+  },
+  {
+    path: '/scanning',
+    element: <ScanningPage />
+  },
+  {
+    path: '/adexplore',
+    element: <AdexplorePage />
   },
   {
     path: '/explore',
