@@ -4,28 +4,41 @@ import "../assets/css/popup.css";
 import "../assets/css/elements.css";
 
 import { Link } from 'react-router-dom';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import {MindARThree} from 'mind-ar/dist/mindar-image-three.prod.js';
 
+import ContentPollingComponent from '../components/ContentPollingComponent';
+
+import SquareLoading from '../components/loaders/SquareLoader';
+
 function AdexplorePage() {
+
+  const data = {
+    phashId:"fbhfdgfggffg",
+    documentId:"65cacb535fe6edb172c52786",
+    ref_ver:1,
+    contentPath:'https://finalar.github.io/models/SurveySet/FoodPackD.glb',
+    positionY: 0,
+    scaleSet: 0.3,
+    size: 11173332
+  }
+
+  const [loading, setLoading] = useState(false);
+  const [color, setColor] = useState("#9003c3");
+
+  const [arDoc, setDocument] = useState(data);
+
+  const handleContentChange = (newDocument) => {
+    // Update AR scene with new document data
+    setDocument(newDocument);
+  };
+
   useEffect(() => {
+
     let total;
-
-    const targetMeta = {
-      meshColor: 0x0000ff,
-      progressPhase: 'phase 2',
-    }
-
-    const targetInfo = {
-      contentPath: 'https://finalar.github.io/models/SurveySet/FoodPackD.glb',
-      positionY: 0,
-      scaleSet: 0.3,
-      size: 11173332
-    };
-
 
     const mindarThree = new MindARThree({
       container: document.querySelector("#container"),
@@ -49,15 +62,14 @@ function AdexplorePage() {
 
     const markerRoot = mindarThree.addAnchor(2);
 
-    let model = null;
 
     var modelLoaded = false; // Flag to track if the model has been loaded
     var loadingInProcess = false;
 
     markerRoot.onTargetFound = () => {
       console.log("markerFound...");
-      progressTime(targetMeta.progressPhase, 0);
-
+      progressTime('phase 2', 0);
+      setLoading(true)
 
       document.getElementById("marker_label").innerHTML = 'Marker Found';
 
@@ -70,19 +82,20 @@ function AdexplorePage() {
         console.time("Time this");
         let loader = new GLTFLoader();
 
-        total = targetInfo.size
+        total = arDoc.size
 
-        loader.load(targetInfo.contentPath, function (gltf) {
+        loader.load(arDoc.contentPath, function (gltf) {
           mesh0 = gltf.scene;
           mesh0.rotation.x = Math.PI / 2;
-          mesh0.position.y = targetInfo.positionY;
-          mesh0.scale.set(targetInfo.scaleSet, targetInfo.scaleSet, targetInfo.scaleSet);
+          mesh0.position.y = arDoc.positionY;
+          mesh0.scale.set(arDoc.scaleSet, arDoc.scaleSet, arDoc.scaleSet);
           markerRoot.group.add(mesh0);
 
           console.timeEnd("Time this");
           end = Date.now();
           var timeSpent = (end - begin);
-          progressTime(targetMeta.progressPhase, timeSpent);
+          setLoading(false)
+          progressTime('phase 2', timeSpent);
           modelLoaded = true;
           loadingInProcess = false;
 
@@ -239,6 +252,13 @@ function AdexplorePage() {
       <footer>
         <div id="marker_label">Marker Not Found</div>
       </footer>
+      <ContentPollingComponent
+        phashId={arDoc.phashId}
+        initialDocumentId={arDoc.documentId}
+        initialRefVer={arDoc.ref_ver}
+        onContentChange={handleContentChange}
+      />
+       <SquareLoading loading={loading} color={color} />
     </div>
   );
 }
