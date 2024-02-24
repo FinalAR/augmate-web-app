@@ -8,19 +8,20 @@ import React, { useEffect, useState } from 'react';
 
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import {MindARThree} from 'mind-ar/dist/mindar-image-three.prod.js';
+import { MindARThree } from 'mind-ar/dist/mindar-image-three.prod.js';
 
 import ContentPollingComponent from '../components/ContentPollingComponent';
+import ImageHashGenerator from '../tools/ImageHashGenerator';
 
 import SquareLoading from '../components/loaders/SquareLoader';
 
 function AdexplorePage() {
 
   const data = {
-    phashId:"fbhfdgfggffg",
-    documentId:"65cacb535fe6edb172c52786",
-    ref_ver:1,
-    contentPath:'https://finalar.github.io/models/SurveySet/FoodPackD.glb',
+    phashId: "1001110100101101011011111111011100111100011110100111101110110010",
+    documentId: "65cacb535fe6edb172c52786",
+    ref_ver: 1,
+    contentPath: 'https://finalar.github.io/models/SurveySet/FoodPackD.glb',
     positionY: 0,
     scaleSet: 0.3,
     size: 11173332
@@ -236,14 +237,18 @@ function AdexplorePage() {
         <button id="startButton" className="btn6">Start</button>
         <button id="stopButton" className="btn6">Stop</button>
       </div>
+      <div>
+        <h1>Image Hash Generator</h1>
+        <ImageHashGenerator />
+      </div>
       <div className="progress">
         <div className='bar' id="phase 1">
           <div className="label" id="phase 1 label">0%</div>
         </div>
       </div>
-        <div className="label2">
-          <h3>Total Loading Duration</h3>
-        </div>
+      <div className="label2">
+        <h3>Total Loading Duration</h3>
+      </div>
       <div className='progress3'>
         <div className='bar' id="phase 2">
           <div className="label" id="phase 2 label">0ms</div>
@@ -258,7 +263,7 @@ function AdexplorePage() {
         initialRefVer={arDoc.ref_ver}
         onContentChange={handleContentChange}
       />
-       <SquareLoading loading={loading} color={color} />
+      <SquareLoading loading={loading} color={color} />
     </div>
   );
 }

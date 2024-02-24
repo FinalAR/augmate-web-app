@@ -9,9 +9,8 @@ const ContentPollingComponent = ({ phashId, initialDocumentId, initialRefVer, on
     const pollAPI = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('http://localhost:3000/api/v1/content/listner', {
+        const response = await axios.get('http://localhost:5000/api/v1/content/listner/'+phashId, {
           params: {
-            phashId: phashId,
             documentId: initialDocumentId,
             ref_ver: initialRefVer
           }
