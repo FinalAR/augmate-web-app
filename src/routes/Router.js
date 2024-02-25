@@ -23,6 +23,9 @@ const ExploreWindow = lazy(() => import("../views/exploreWindow.js"));
 const ExploreLoadWindow = lazy(() => import("../views/exploreLoadMethods.js"));
 const ScanningPage = lazy(() => import("../views/scanningPage.js"));
 const AdexplorePage = lazy(() => import("../views/exploreAdvanced.js"));
+const AdexploreHashPage = lazy(() => import("../views/exploreHasher.js"));
+const AdexploreLoaderPage = lazy(() => import("../views/exploreloaders.js"));
+const AdexploreARLoaderPage = lazy(() => import("../views/exploreARLoaders.js"));
 
 /*****Routes******/
 // const ThemeRoutes = () => {
@@ -72,6 +75,18 @@ const router = createBrowserRouter([
   {
     path: '/adexplore',
     element: <AdexplorePage />
+  },
+  {
+    path: '/hasher',
+    element: <AdexploreHashPage />
+  },
+  {
+    path: '/spanLoaders',
+    element: <AdexploreLoaderPage />
+  },
+  {
+    path: '/ARLoaders',
+    element: <AdexploreARLoaderPage />
   },
   {
     path: '/explore',
