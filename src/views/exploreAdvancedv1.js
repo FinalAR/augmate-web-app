@@ -17,6 +17,17 @@ import SquareLoading from '../components/loaders/SquareLoader';
 
 function AdexplorePage() {
 
+  // const data = {
+  //   documentId: "65cacb535fe6edb172c52786",
+  //   targetpHash: "1001110100101101011011111111011100111100011110100111101110110010",
+  //   imageTargetSrc: "https://finalar.github.io/imageTargets/targets2.mind",
+  //   contentPath: 'https://finalar.github.io/models/SurveySet/FoodPackD.glb',
+  //   positionY: 0,
+  //   scaleSet: 0.3,
+  //   size: 11173332,
+  //   ref_ver: 1,
+  // }
+
   const [loading, setLoading] = useState(false);
   const [color, setColor] = useState("#9003c3");
 

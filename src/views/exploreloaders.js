@@ -250,12 +250,6 @@ function AdexploreLoaderPage() {
       <footer>
         <div id="marker_label">Marker Not Found</div>
       </footer>
-      <ContentPollingComponent
-        phashId={arDoc.phashId}
-        initialDocumentId={arDoc.documentId}
-        initialRefVer={arDoc.ref_ver}
-        onContentChange={handleContentChange}
-      />
       <SquareLoading loading={loading} color={color} />
     </div>
   );
