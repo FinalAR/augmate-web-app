@@ -37,6 +37,7 @@
     "react-router-dom": "6.12.0",
     "react-router-hash-link": "^2.4.3",
     "react-spinners": "^0.13.8",
+    "react-webcam": "^7.2.0",
     "reactstrap": "9.2.0",
     "sass": "1.63.2",
     "three": "^0.159.0",
