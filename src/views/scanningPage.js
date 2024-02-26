@@ -1,3 +1,5 @@
+
+import "../assets/scss/scanner.scss";
 import React, { useEffect, useRef, useState } from 'react';
 import Webcam from 'react-webcam';
 
@@ -10,26 +12,58 @@ const ScanningPage = () => {
   const [selectedImage, setSelectedImage] = useState(undefined);
   const [highlightedImage, setHighlightedImage] = useState(undefined);
 
+  // useEffect(() => {
+  //   // eslint-disable-next-line no-undef
+  //   const scanner = new jscanify();
+  //   loadOpenCv(() => {
+  //     if (selectedImage) {
+  //       const newImg = document.createElement('img');
+  //       newImg.src = selectedImage.src;
+
+  //       newImg.onload = function () {
+  //         if (newImg && newImg.complete) {
+  //           const resultCanvas = scanner.extractPaper(newImg, 386, 500);
+  //           containerRef.current.append(resultCanvas);
+
+  //           const highlightedCanvas = scanner.highlightPaper(newImg);
+  //           setHighlightedImage(highlightedCanvas);
+  //         } else {
+  //           console.error('Error: Image not loaded or incomplete.');
+  //         }
+  //       };
+  //     }
+  //   });
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [selectedImage]);
   useEffect(() => {
+    if (!selectedImage) return; // Add a check to ensure selectedImage is defined
+  
     // eslint-disable-next-line no-undef
     const scanner = new jscanify();
     loadOpenCv(() => {
-      if (selectedImage) {
-        const newImg = document.createElement('img');
-        newImg.src = selectedImage.src;
-
-        newImg.onload = function () {
-          if (newImg && newImg.complete) {
-            const resultCanvas = scanner.extractPaper(newImg, 386, 500);
+      const newImg = document.createElement('img');
+      newImg.src = selectedImage.src;
+  
+      newImg.onload = function () {
+        if (newImg && newImg.complete) {
+          const resultCanvas = scanner.extractPaper(newImg, 386, 500);
+          if (resultCanvas) {
+            containerRef.current.innerHTML = ''; // Clear container before appending
             containerRef.current.append(resultCanvas);
-
-            const highlightedCanvas = scanner.highlightPaper(newImg);
+          } else {
+            console.error('Error: extractPaper returned null or undefined');
+          }
+  
+          const highlightedCanvas = scanner.highlightPaper(newImg);
+          if (highlightedCanvas) {
             setHighlightedImage(highlightedCanvas);
           } else {
-            console.error('Error: Image not loaded or incomplete.');
+            console.error('Error: highlightPaper returned null or undefined');
           }
-        };
-      }
+        } else {
+          console.error('Error: Image not loaded or incomplete.');
+        }
+      };
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedImage]);
@@ -80,8 +114,15 @@ const ScanningPage = () => {
             ref={webcamRef}
             screenshotFormat="image/jpeg"
             className="webcam"
+            screenshotQuality={1}
           />
-          <button onClick={captureImage}>Capture Image</button>
+          {/* <div className="container">
+            <div className="scan">
+            <button onClick={captureImage}><div className="fingerprint">SCAN</div></button>
+            <h3></h3>
+            </div>
+          </div> */}
+          <button onClick={captureImage}>SCAN</button>  
         </div>
         <div ref={containerRef} id="result-container"></div>
       </div>
