@@ -15,6 +15,11 @@ import ImageHashHandler from '../tools/ImageHashHandler';
 
 import SquareLoading from '../components/loaders/SquareLoader';
 
+// import dotenv from 'dotenv';
+// dotenv.config();
+
+const backendUrl = "http://localhost:5000"
+
 function AdexplorePage() {
 
   const [loading, setLoading] = useState(false);
@@ -27,11 +32,13 @@ function AdexplorePage() {
     setDocument(newDocument);
   };
 
+  const phashId = "1111101001001110010100000000011100100111101100101001101010100000";
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          'http://localhost:5000/api/v1/content/find/1001110100101101011011111111011100111100011110100111101110110010'
+          `${backendUrl}/api/v1/content/findv2/${phashId}`
         );
         if (!response.ok) {
           throw new Error('Failed to fetch data');
@@ -71,7 +78,7 @@ function AdexplorePage() {
     ///////////////// Marker 0 -> targetInfo /////////////////
     ///////////////////////////////////////////////////////////
 
-    const markerRoot = mindarThree.addAnchor(2);
+    const markerRoot = mindarThree.addAnchor(1);
 
 
     var modelLoaded = false; // Flag to track if the model has been loaded
