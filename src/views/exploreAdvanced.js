@@ -14,6 +14,8 @@ import ContentPollingComponent from '../components/ContentPollingComponent';
 import ImageHashHandler from '../tools/ImageHashHandler';
 
 import SquareLoading from '../components/loaders/SquareLoader';
+import BarLoading from '../components/loaders/BarLoader';
+import CircularLoading from "../components/loaders/CircularLoader";
 
 // import dotenv from 'dotenv';
 // dotenv.config();
@@ -26,6 +28,8 @@ function AdexplorePage() {
   const [color, setColor] = useState("#9003c3");
 
   const [arDoc, setDocument] = useState(null);
+
+  const [progressValue, setProgressValue] = useState(0); 
 
   const handleContentChange = (newDocument) => {
     // Update AR scene with new document data
@@ -126,10 +130,12 @@ function AdexplorePage() {
         if (xhr.total > 0) {
           var percentage = (xhr.loaded / total * 100);
           console.log(percentage + '% loaded');
+          setProgressValue(percentage);
           progress('phase 1', percentage);
         } else {
           var percentage = (xhr.loaded / total * 100);
           console.log(percentage + '% loaded');
+          setProgressValue(percentage);
           progress('phase 1', percentage);
         }
       }
@@ -143,9 +149,11 @@ function AdexplorePage() {
     markerRoot.onTargetLost = () => {
       console.log("Marker Lost...");
       setLoading(false)
+      
 
       document.getElementById("marker_label").innerHTML = 'Marker Lost';
 
+      setProgressValue(0);
       progress('phase 1', 0);
 
       const phase2Label = document.getElementById("phase 2 label");
@@ -284,6 +292,8 @@ function AdexplorePage() {
         onContentChange={handleContentChange}
       />
       <SquareLoading loading={loading} color={color} />
+      {/* <BarLoading loading={loading} color={color} /> */}
+      {/* <CircularLoading loading={loading} color={color} progress={progressValue} /> */}
     </div>
   );
 }

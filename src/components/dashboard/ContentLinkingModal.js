@@ -3,6 +3,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter ,Label, Input} from 
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import getApiUrl from '../../utility/apiUtils';
 
 const ContentLinkingModal = ({ isOpen, toggle, rowData,  updateTableData }) => {
   const [contents, setContents] = useState([]);
@@ -12,7 +13,7 @@ const ContentLinkingModal = ({ isOpen, toggle, rowData,  updateTableData }) => {
 
   const fetchContents = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/v1/content/linking/${rowData.targetpHash}`);
+      const response = await axios.get(getApiUrl(`content/linking/${rowData.targetpHash}`));
       setContents(response.data.data);
       setSelectedContentId(rowData._id);
     } catch (error) {
@@ -42,7 +43,7 @@ const ContentLinkingModal = ({ isOpen, toggle, rowData,  updateTableData }) => {
 
   const handleSubmit = async () => {
     try {
-      await axios.patch(`http://localhost:3000/api/v1/content/linking/${rowData.targetpHash}?documentId=${selectedContentId}&flag=true`);
+      await axios.patch(`${getApiUrl(`content/linking/${rowData.targetpHash}`)}?documentId=${selectedContentId}&flag=true`);
       setContents([]);
       fetchContents();
       updateTableData(selectedContentData);
