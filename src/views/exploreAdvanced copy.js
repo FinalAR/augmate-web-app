@@ -4,7 +4,7 @@ import "../assets/css/popup.css";
 import "../assets/css/elements.css";
 
 import { Link } from 'react-router-dom';
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
@@ -15,29 +15,26 @@ import ImageHashHandler from '../tools/ImageHashHandler';
 
 import SquareLoading from '../components/loaders/SquareLoader';
 
+// import dotenv from 'dotenv';
+// dotenv.config();
+
 const backendUrl = "http://localhost:5000"
 
 function AdexplorePage() {
 
   const [loading, setLoading] = useState(false);
   const [color, setColor] = useState("#9003c3");
+  const [modelLoaded, setModelLoad] = useState(false); // Flag to track if the model has been loaded
   const [arDoc, setDocument] = useState(null);
-
-
-  const arDocRef = useRef(null); // Mutable reference for arDoc
-  const modelLoadedRef = useRef(false);
 
 
   const handleContentChange = (newDocument) => {
     // Update AR scene with new document data
-    modelLoadedRef.current = false;
+    setModelLoad(false);
     setDocument(newDocument);
-    console.log("Hi the document is"+ JSON.stringify(arDoc));
   };
 
   const phashId = "1111101001001110010100000000011100100111101100101001101010100000";
-
- let counter = 1;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -50,7 +47,9 @@ function AdexplorePage() {
         }
         const data = await response.json();
 
+        alert(JSON.stringify(data.data));
         setDocument(data.data);
+
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -59,43 +58,47 @@ function AdexplorePage() {
     fetchData();
   }, []);
 
-  let mindarThree; // Declare mindarThree in the outer scope
-
-  let markerRoot;
-
-  let renderer, scene, camera; 
-  
   useEffect(() => {
     if (!arDoc) return;
     
-    arDocRef.current = arDoc;
 
     let total;
 
-    // Only initialize mindarThree if counter is 1
-    if (counter === 1) {
-      mindarThree = new MindARThree({
-        container: document.querySelector("#container"),
-        imageTargetSrc: arDoc.imageTargetSrc
-      });
+    const mindarThree = new MindARThree({
+      container: document.querySelector("#container"),
+      imageTargetSrc: arDoc.imageTargetSrc
+    });
 
-      
-      const obj = mindarThree;
-      renderer = obj.renderer;
-      scene = obj.scene;
-      camera = obj.camera;
+    const { renderer, scene, camera } = mindarThree;
 
-      let ambientLight = new THREE.AmbientLight(0xcccccc, 1.0);
-      scene.add(ambientLight);
-  
-      const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-      directionalLight.position.set(1, 1, 1); // Adjust the light direction
-      scene.add(directionalLight);
+    let ambientLight = new THREE.AmbientLight(0xcccccc, 1.0);
+    scene.add(ambientLight);
 
-      
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(1, 1, 1); // Adjust the light direction
+    scene.add(directionalLight);
 
-      counter++;
-    }
+  }, []);
+
+  useEffect(() => {
+    if (!arDoc) return;
+    
+
+    let total;
+
+    const mindarThree = new MindARThree({
+      container: document.querySelector("#container"),
+      imageTargetSrc: arDoc.imageTargetSrc
+    });
+
+    const { renderer, scene, camera } = mindarThree;
+
+    let ambientLight = new THREE.AmbientLight(0xcccccc, 1.0);
+    scene.add(ambientLight);
+
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(1, 1, 1); // Adjust the light direction
+    scene.add(directionalLight);
 
     //Models init
 
@@ -103,17 +106,13 @@ function AdexplorePage() {
     ///////////////// Marker 0 -> targetInfo /////////////////
     ///////////////////////////////////////////////////////////
 
-    markerRoot = mindarThree.addAnchor(1);
-     
-    var loadingInProcess = false;
+    const markerRoot = mindarThree.addAnchor(1);
 
-    let loadedMesh = null;
+    var loadingInProcess = false;
 
     markerRoot.onTargetFound = () => {
       console.log("markerFound...");
       progressTime('phase 2', 0);
-
-      console.log("loading Model "+ modelLoadedRef.current + " Loading Document"+ JSON.stringify(arDocRef.current));
 
       document.getElementById("marker_label").innerHTML = 'Marker Found';
 
@@ -121,27 +120,19 @@ function AdexplorePage() {
       var end;
       let mesh0;
 
-      // alert("Before the loading"+ modelLoaded + " Seccond - " + loadingInProcess);
-      if (!modelLoadedRef.current && !loadingInProcess) {
-        // alert("Inside the loading");
+      if (!modelLoaded && !loadingInProcess) {
         loadingInProcess = true;
         setLoading(true)
         console.time("Time this");
         let loader = new GLTFLoader();
 
-        total = arDocRef.current.size
+        total = arDoc.size
 
-        loader.load(arDocRef.current.contentPath, function (gltf) {
-
-          if (loadedMesh) {
-            markerRoot.group.remove(loadedMesh);
-            loadedMesh = null;
-          }
-
+        loader.load(arDoc.contentPath, function (gltf) {
           mesh0 = gltf.scene;
           mesh0.rotation.x = Math.PI / 2;
-          mesh0.position.y = arDocRef.current.positionY;
-          mesh0.scale.set(arDocRef.current.scaleSet, arDocRef.current.scaleSet, arDocRef.current.scaleSet);
+          mesh0.position.y = arDoc.positionY;
+          mesh0.scale.set(arDoc.scaleSet, arDoc.scaleSet, arDoc.scaleSet);
           markerRoot.group.add(mesh0);
 
           console.timeEnd("Time this");
@@ -149,10 +140,8 @@ function AdexplorePage() {
           var timeSpent = (end - begin);
           setLoading(false)
           progressTime('phase 2', timeSpent);
-          
-          modelLoadedRef.current = true;
+          setModelLoad(true);
           loadingInProcess = false;
-          loadedMesh = mesh0;
 
         }, onProgress, onError);
       }
@@ -275,10 +264,10 @@ function AdexplorePage() {
       handleBack();
     });
 
-    // return () => {
-    //   mindarThree.stop();
-    //   mindarThree.renderer.setAnimationLoop(null);
-    // };
+    return () => {
+      mindarThree.stop();
+      mindarThree.renderer.setAnimationLoop(null);
+    };
   }, [arDoc]);
 
 

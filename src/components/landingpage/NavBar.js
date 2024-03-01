@@ -51,7 +51,7 @@ export const NavBar = () => {
             <Nav.Link href="#connect" className={activeLink === 'connect' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('connect')}>CONTACT</Nav.Link>
           </Nav>
           <span className="navbar-text">
-            <Link to='/explore'>
+            <Link to='/adexplore'>
               <button className="vvd"><span>Let’s Explore</span></button>
             </Link>
           </span>

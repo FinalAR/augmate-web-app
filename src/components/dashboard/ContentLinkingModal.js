@@ -12,7 +12,7 @@ const ContentLinkingModal = ({ isOpen, toggle, rowData,  updateTableData }) => {
 
   const fetchContents = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/v1/content/linking/${rowData.targetpHash}`);
+      const response = await axios.get(`http://localhost:5000/api/v1/content/linking/${rowData.targetpHash}`);
       setContents(response.data.data);
       setSelectedContentId(rowData._id);
     } catch (error) {
@@ -42,7 +42,7 @@ const ContentLinkingModal = ({ isOpen, toggle, rowData,  updateTableData }) => {
 
   const handleSubmit = async () => {
     try {
-      await axios.patch(`http://localhost:3000/api/v1/content/linking/${rowData.targetpHash}?documentId=${selectedContentId}&flag=true`);
+      await axios.patch(`http://localhost:5000/api/v1/content/linking/${rowData.targetpHash}?documentId=${selectedContentId}&flag=true`);
       setContents([]);
       fetchContents();
       updateTableData(selectedContentData);

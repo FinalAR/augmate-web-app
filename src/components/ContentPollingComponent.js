@@ -8,6 +8,7 @@ const backendUrl = "http://localhost:5000";
 const ContentPollingComponent = ({ phashId, initialDocumentId, initialRefVer, onContentChange }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [message, setMessage] = useState('Content is up-to-date');
 
   useEffect(() => {
     const pollAPI = async () => {
@@ -20,12 +21,16 @@ const ContentPollingComponent = ({ phashId, initialDocumentId, initialRefVer, on
           }
         });
 
-        if (response.data.updateFlag === 'Y') {
+        // alert(JSON.stringify(response.data));
+        if (response.data.data.updateFlag == 'Y') {
           // Content has changed, handle accordingly
+          setMessage('Content has changed');
           console.log('Content has changed:', response.data);
           onContentChange(response.data.data.document);
+
         } else {
           // Content is up-to-date
+          setMessage('Content is up-to-date');
           console.log('Content is up-to-date');
         }
       } catch (error) {
@@ -48,7 +53,7 @@ const ContentPollingComponent = ({ phashId, initialDocumentId, initialRefVer, on
       ) : error ? (
         <p>Error: {error}</p>
       ) : (
-        <p>Content is up-to-date</p>
+        <p>{message}</p>
       )}
     </div>
   );
