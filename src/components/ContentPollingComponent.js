@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-// import dotenv from 'dotenv';
-// dotenv.config();
+
+import getApiUrl from '../utility/apiUtils';
 
 const backendUrl = "http://localhost:5000";
 
@@ -14,7 +14,7 @@ const ContentPollingComponent = ({ phashId, initialDocumentId, initialRefVer, on
     const pollAPI = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`${backendUrl}/api/v1/content/listner/${phashId}`, {
+        const response = await axios.get(getApiUrl(`content/listner/${phashId}`), {
           params: {
             documentId: initialDocumentId,
             ref_ver: initialRefVer

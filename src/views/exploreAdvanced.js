@@ -19,10 +19,9 @@ import CircularLoading from "../components/loaders/CircularLoader";
 import BounceLoading from '../components/loaders/BounceLoader';
 import RiseLoading from '../components/loaders/RiseLoader';
 
-// import dotenv from 'dotenv';
-// dotenv.config();
+import getApiUrl from '../utility/apiUtils';
 
-const backendUrl = "http://localhost:5000"
+// const backendUrl = "http://localhost:5000"
 
 function AdexplorePage() {
 
@@ -42,7 +41,7 @@ function AdexplorePage() {
     modelLoadedRef.current = false;
     updateContentRef.current = true;
     setDocument(newDocument);
-    console.log("Hi the document is"+ JSON.stringify(arDoc));
+    // console.log("Hi the document is"+ JSON.stringify(arDoc));
   };
 
   const phashId = "1111101001001110010100000000011100100111101100101001101010100000";
@@ -53,7 +52,7 @@ function AdexplorePage() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `${backendUrl}/api/v1/content/findv2/${phashId}`
+          getApiUrl(`content/findv2/${phashId}`)
         );
         if (!response.ok) {
           throw new Error('Failed to fetch data');
