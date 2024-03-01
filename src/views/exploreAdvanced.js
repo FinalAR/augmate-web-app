@@ -14,23 +14,27 @@ import ContentPollingComponent from '../components/ContentPollingComponent';
 import ImageHashHandler from '../tools/ImageHashHandler';
 
 import SquareLoading from '../components/loaders/SquareLoader';
+import BounceLoading from '../components/loaders/BounceLoader';
+import RiseLoading from '../components/loaders/RiseLoader';
 
 const backendUrl = "http://localhost:5000"
 
 function AdexplorePage() {
 
   const [loading, setLoading] = useState(false);
-  const [color, setColor] = useState("#9003c3");
+  const [color, setColor] = useState("#c320ff");
   const [arDoc, setDocument] = useState(null);
 
 
   const arDocRef = useRef(null); // Mutable reference for arDoc
   const modelLoadedRef = useRef(false);
+  const updateContentRef = useRef(false);
 
 
   const handleContentChange = (newDocument) => {
     // Update AR scene with new document data
     modelLoadedRef.current = false;
+    updateContentRef.current = true;
     setDocument(newDocument);
     console.log("Hi the document is"+ JSON.stringify(arDoc));
   };
@@ -109,11 +113,77 @@ function AdexplorePage() {
 
     let loadedMesh = null;
 
+    
+    // if(updateContentRef.current === true){
+    //   contentLoader();
+    //   updateContentRef.current = false;
+    // }
+
+    function contentLoader(){
+      var begin = Date.now();
+      var end;
+      let mesh0;
+
+      // alert("Before the loading"+ modelLoaded + " Seccond - " + loadingInProcess);
+      if (!modelLoadedRef.current && !loadingInProcess) {
+        // alert("Inside the loading");
+        loadingInProcess = true;
+        setLoading(true);
+        console.time("Time this");
+        let loader = new GLTFLoader();
+
+        total = arDocRef.current.size
+
+        loader.load(arDocRef.current.contentPath, function (gltf) {
+
+          if (loadedMesh) {
+            markerRoot.group.remove(loadedMesh);
+            loadedMesh = null;
+          }
+
+          mesh0 = gltf.scene;
+          mesh0.rotation.x = Math.PI / 2;
+          mesh0.position.y = arDocRef.current.positionY;
+          mesh0.scale.set(arDocRef.current.scaleSet, arDocRef.current.scaleSet, arDocRef.current.scaleSet);
+          markerRoot.group.add(mesh0);
+
+          console.timeEnd("Time this");
+          end = Date.now();
+          var timeSpent = (end - begin);
+          setLoading(false)
+          progressTime('phase 2', timeSpent);
+          
+          modelLoadedRef.current = true;
+          loadingInProcess = false;
+          loadedMesh = mesh0;
+
+        }, onProgress, onError);
+      }
+
+      function onProgress(xhr) {
+        console.log(xhr);
+
+        if (xhr.total > 0) {
+          var percentage = (xhr.loaded / total * 100);
+          console.log(percentage + '% loaded');
+          progress('phase 1', percentage);
+        } else {
+          var percentage = (xhr.loaded / total * 100);
+          console.log(percentage + '% loaded');
+          progress('phase 1', percentage);
+        }
+      }
+
+      function onError(xhr) {
+        console.log('An error happened');
+        progress('phase 1', 'An error happened');
+      }
+    }
     markerRoot.onTargetFound = () => {
       console.log("markerFound...");
       progressTime('phase 2', 0);
 
-      console.log("loading Model "+ modelLoadedRef.current + " Loading Document"+ JSON.stringify(arDocRef.current));
+      // console.log("loading Model "+ modelLoadedRef.current + " Loading Document"+ JSON.stringify(arDocRef.current));
 
       document.getElementById("marker_label").innerHTML = 'Marker Found';
 
@@ -125,7 +195,7 @@ function AdexplorePage() {
       if (!modelLoadedRef.current && !loadingInProcess) {
         // alert("Inside the loading");
         loadingInProcess = true;
-        setLoading(true)
+        setLoading(true);
         console.time("Time this");
         let loader = new GLTFLoader();
 
@@ -320,7 +390,9 @@ function AdexplorePage() {
         initialRefVer={arDoc.ref_ver}
         onContentChange={handleContentChange}
       />
-      <SquareLoading loading={loading} color={color} />
+      {/* <SquareLoading loading={loading} color={color} /> */}
+      {/* <BounceLoading loading={loading} color={color} /> */}
+      <RiseLoading loading={loading} color={color} />
     </div>
   );
 }
