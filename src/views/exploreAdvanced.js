@@ -28,18 +28,19 @@ function AdexplorePage() {
   const [loading, setLoading] = useState(false);
   const [color, setColor] = useState("#c320ff");
   const [arDoc, setDocument] = useState(null);
+  const [updateContent, setUpdateFlag] = useState(false);
 
 
   const arDocRef = useRef(null); // Mutable reference for arDoc
   const modelLoadedRef = useRef(false);
-  const updateContentRef = useRef(false);
+  
 
   const [progressValue, setProgressValue] = useState(0);
 
   const handleContentChange = (newDocument) => {
     // Update AR scene with new document data
     modelLoadedRef.current = false;
-    updateContentRef.current = true;
+    setUpdateFlag(true);
     setDocument(newDocument);
     // console.log("Hi the document is"+ JSON.stringify(arDoc));
   };
@@ -119,71 +120,139 @@ function AdexplorePage() {
     let loadedMesh = null;
 
     
-    // if(updateContentRef.current === true){
+    // if(updateContent){
+    //   console.log("load updated content");
     //   contentLoader();
-    //   updateContentRef.current = false;
+    //   setUpdateFlag(false);
     // }
 
-    function contentLoader(){
-      var begin = Date.now();
-      var end;
-      let mesh0;
+    // function contentLoader(){
 
-      // alert("Before the loading"+ modelLoaded + " Seccond - " + loadingInProcess);
-      if (!modelLoadedRef.current && !loadingInProcess) {
-        // alert("Inside the loading");
-        loadingInProcess = true;
-        setLoading(true);
-        console.time("Time this");
-        let loader = new GLTFLoader();
+    //   progressTime('phase 2', 0);
 
-        total = arDocRef.current.size
+    //   var begin = Date.now();
+    //   var end;
+    //   let mesh1;
+    //   console.log("inside the loader");
+    //   if (!modelLoadedRef.current && !loadingInProcess) {
+    //     if (loadedMesh) {
+    //       markerRoot.group.remove(loadedMesh);
+    //       loadedMesh = null;
+    //     }
+    //     // alert("Inside the loading");
+    //     loadingInProcess = true;
+    //     setLoading(true);
+    //     console.time("Time this");
+    //     let loader = new GLTFLoader();
 
-        loader.load(arDocRef.current.contentPath, function (gltf) {
+    //     total = arDocRef.current.size
 
-          if (loadedMesh) {
-            markerRoot.group.remove(loadedMesh);
-            loadedMesh = null;
-          }
+    //     loader.load(arDocRef.current.contentPath, function (gltf) {
 
-          mesh0 = gltf.scene;
-          mesh0.rotation.x = Math.PI / 2;
-          mesh0.position.y = arDocRef.current.positionY;
-          mesh0.scale.set(arDocRef.current.scaleSet, arDocRef.current.scaleSet, arDocRef.current.scaleSet);
-          markerRoot.group.add(mesh0);
+    //       mesh1 = gltf.scene;
+    //       mesh1.rotation.x = Math.PI / 2;
+    //       mesh1.position.y = arDocRef.current.positionY;
+    //       mesh1.scale.set(arDocRef.current.scaleSet, arDocRef.current.scaleSet, arDocRef.current.scaleSet);
+    //       markerRoot.group.add(mesh1);
 
-          console.timeEnd("Time this");
-          end = Date.now();
-          var timeSpent = (end - begin);
-          setLoading(false)
-          progressTime('phase 2', timeSpent);
+    //       console.timeEnd("Time this");
+    //       end = Date.now();
+    //       var timeSpent = (end - begin);
+    //       setLoading(false)
+    //       progressTime('phase 2', timeSpent);
           
-          modelLoadedRef.current = true;
-          loadingInProcess = false;
-          loadedMesh = mesh0;
+    //       modelLoadedRef.current = true;
+    //       loadingInProcess = false;
+    //       loadedMesh = mesh1;
 
-        }, onProgress, onError);
-      }
+    //     }, onProgress, onError);
+    //   }
 
-      function onProgress(xhr) {
-        console.log(xhr);
+    //   function onProgress(xhr) {
+    //     console.log(xhr);
 
-        if (xhr.total > 0) {
-          var percentage = (xhr.loaded / total * 100);
-          console.log(percentage + '% loaded');
-          progress('phase 1', percentage);
-        } else {
-          var percentage = (xhr.loaded / total * 100);
-          console.log(percentage + '% loaded');
-          progress('phase 1', percentage);
-        }
-      }
+    //     if (xhr.total > 0) {
+    //       var percentage = (xhr.loaded / total * 100);
+    //       console.log(percentage + '% loaded');
+    //       progress('phase 1', percentage);
+    //     } else {
+    //       var percentage = (xhr.loaded / total * 100);
+    //       console.log(percentage + '% loaded');
+    //       progress('phase 1', percentage);
+    //     }
+    //   }
 
-      function onError(xhr) {
-        console.log('An error happened');
-        progress('phase 1', 'An error happened');
-      }
-    }
+    //   function onError(xhr) {
+    //     console.log('An error happened');
+    //     progress('phase 1', 'An error happened');
+    //   }
+
+    // }
+
+    //     function contentLoader(){
+
+    //   progressTime('phase 2', 0);
+
+    //   var begin = Date.now();
+    //   var end;
+    //   let mesh1;
+    //   console.log("inside the loader");
+    //   if (!modelLoadedRef.current && !loadingInProcess) {
+    //     // alert("Inside the loading");
+    //     loadingInProcess = true;
+    //     setLoading(true);
+    //     console.time("Time this");
+    //     let loader = new GLTFLoader();
+
+    //     total = arDocRef.current.size
+
+    //     loader.load(arDocRef.current.contentPath, function (gltf) {
+
+    //       if (loadedMesh) {
+    //         markerRoot.group.remove(loadedMesh);
+    //         loadedMesh = null;
+    //       }
+
+    //       mesh1 = gltf.scene;
+    //       mesh1.rotation.x = Math.PI / 2;
+    //       mesh1.position.y = arDocRef.current.positionY;
+    //       mesh1.scale.set(arDocRef.current.scaleSet, arDocRef.current.scaleSet, arDocRef.current.scaleSet);
+    //       markerRoot.group.add(mesh1);
+
+    //       console.timeEnd("Time this");
+    //       end = Date.now();
+    //       var timeSpent = (end - begin);
+    //       setLoading(false)
+    //       progressTime('phase 2', timeSpent);
+          
+    //       modelLoadedRef.current = true;
+    //       loadingInProcess = false;
+    //       loadedMesh = mesh1;
+
+    //     }, onProgress, onError);
+    //   }
+
+    //   function onProgress(xhr) {
+    //     console.log(xhr);
+
+    //     if (xhr.total > 0) {
+    //       var percentage = (xhr.loaded / total * 100);
+    //       console.log(percentage + '% loaded');
+    //       progress('phase 1', percentage);
+    //     } else {
+    //       var percentage = (xhr.loaded / total * 100);
+    //       console.log(percentage + '% loaded');
+    //       progress('phase 1', percentage);
+    //     }
+    //   }
+
+    //   function onError(xhr) {
+    //     console.log('An error happened');
+    //     progress('phase 1', 'An error happened');
+    //   }
+
+    // }
+
     markerRoot.onTargetFound = () => {
       console.log("markerFound...");
       progressTime('phase 2', 0);
@@ -199,6 +268,10 @@ function AdexplorePage() {
       // alert("Before the loading"+ modelLoaded + " Seccond - " + loadingInProcess);
       if (!modelLoadedRef.current && !loadingInProcess) {
         // alert("Inside the loading");
+        if (loadedMesh) {
+          markerRoot.group.remove(loadedMesh);
+          loadedMesh = null;
+        }
         loadingInProcess = true;
         setLoading(true);
         console.time("Time this");
@@ -208,10 +281,7 @@ function AdexplorePage() {
 
         loader.load(arDocRef.current.contentPath, function (gltf) {
 
-          if (loadedMesh) {
-            markerRoot.group.remove(loadedMesh);
-            loadedMesh = null;
-          }
+         
 
           mesh0 = gltf.scene;
           mesh0.rotation.x = Math.PI / 2;
