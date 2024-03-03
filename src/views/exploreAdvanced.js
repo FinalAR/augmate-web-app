@@ -21,8 +21,6 @@ import RiseLoading from '../components/loaders/RiseLoader';
 
 import getApiUrl from '../utility/apiUtils';
 
-// const backendUrl = "http://localhost:5000"
-
 function AdexplorePage() {
 
   const [loading, setLoading] = useState(false);

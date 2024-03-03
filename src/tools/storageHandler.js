@@ -1,52 +1,37 @@
-import AWS from 'aws-sdk';
+import axios from "axios";
+import getApiUrl from '../utility/apiUtils';
 
-// import dotenv from 'dotenv';
-// dotenv.config();
+// Function to upload a file to S3
+const uploadFileToS3 = async (file, onUploadProgress) => {
 
-const s3 = new AWS.S3({
-    // Setting AWS credentials and region
-    accessKeyId: process.env.S3_ACCESS_KEY_ID,
-    secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
-    region: process.env.S3_AWS_REGION,
-  });
-  
+  try {
+    // Fetch the presigned URL for uploading the file
+    const { data } = await axios.get(getApiUrl(`content/presignedUrl`));
+    const presignedUrl = data.data.uploadUrl;
+    const savedLocation = data.data.location;
 
-  // Function to upload a file to S3
-const uploadFileToS3 = async (file) => {
-    
-    // Generate a timestamp
-  const timestamp = new Date().toISOString().replace(/:/g, '-');
 
-  // Rename the file with the timestamp
-  const renamedFileName = `${timestamp}_model`;
-
-    const params = {
-      Bucket: process.env.BUCKET,
-      Key: renamedFileName,
-      Body: file,
+    // Configure Axios request for file upload with progress tracking
+    const config = {
+      onUploadProgress: (progressEvent) => {
+        const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+        onUploadProgress(progress);
+      }
     };
-    console.log("Bucket Name1 :"+ process.env.BUCKET);
-    console.log("Bucket Key1 :"+ renamedFileName);
 
-    console.log("Bucket Name :"+ params.Bucket);
-    console.log("FileName: " + params.Key);
-    try {
-      const data = await s3.upload(params).promise();
+    // Upload the file to the presigned URL with the configured Axios request
+    await axios.put(presignedUrl, file, config);
+    
+    // Log the saved location upon successful upload
+    console.log('File uploaded:', savedLocation);
 
-       // Handle success
-      console.log('File uploaded:', data.Location);
+    return savedLocation;
 
-      return data
-    } catch (error) {
-      
-      // Handle error
-      console.error('Error uploading file:', error);
-
-      return error
-    }
-  };
-  
-
-  // Need to Implement other CRUD operations (e.g., listObjects, getObject, deleteObject) similarly
+  } catch (error) {
+    // Handle error
+    console.error('Error uploading file:', error);
+    return error;
+  }
+};
 
 export default uploadFileToS3;
