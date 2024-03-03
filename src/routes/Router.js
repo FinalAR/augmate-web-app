@@ -17,7 +17,6 @@ const Cards = lazy(() => import("../views/ui/Cards"));
 const Grid = lazy(() => import("../views/ui/Grid"));
 const Tables = lazy(() => import("../views/ui/Tables"));
 const Forms = lazy(() => import("../views/ui/Forms"));
-const ContentUpload = lazy(() => import("../views/ui/ContentUpload"));
 const Breadcrumbs = lazy(() => import("../views/ui/Breadcrumbs"));
 const LandingPage = lazy(() => import("../views/LandingPage"));
 const ExploreWindow = lazy(() => import("../views/exploreWindow.js"));
@@ -111,10 +110,6 @@ const router = createBrowserRouter([
       {
         path: '/forms',
         element: <Forms />
-      },
-      {
-        path: '/ContentUpload',
-        element: <ContentUpload />
       },
       {
         path: '/breadcrumbs',

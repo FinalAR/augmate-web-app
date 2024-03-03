@@ -18,11 +18,11 @@ const navigation = [
     href: "/badges",
     icon: "bi bi-hdd-stack",
   },
-  {
-    title: "Buttons",
-    href: "/buttons",
-    icon: "bi bi-hdd-stack",
-  },
+  // {
+  //   title: "Buttons",
+  //   href: "/buttons",
+  //   icon: "bi bi-hdd-stack",
+  // },
   {
     title: "Cards",
     href: "/cards",

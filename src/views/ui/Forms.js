@@ -11,15 +11,14 @@ import {
   Input,
   FormText,
 } from "reactstrap";
-import { useLocation } from "react-router-dom";
 
 const Forms = () => {
-  const location = useLocation();
-  const data = location.state;
-  console.log(data);
   return (
     <Row>
       <Col>
+        {/* --------------------------------------------------------------------------------*/}
+        {/* Card-1*/}
+        {/* --------------------------------------------------------------------------------*/}
         <Card>
           <CardTitle tag="h6" className="border-bottom p-3 mb-0">
             <i className="bi bi-bell me-2"> </i>
