@@ -33,6 +33,11 @@ const navigation = [
     href: "/grid",
     icon: "bi bi-columns",
   },
+  {
+    title: "Content-Mapping",
+    href: "/content-mapping",
+    icon: "bi bi-layout-split",
+  },
   // {
   //   title: "Table",
   //   href: "/table",

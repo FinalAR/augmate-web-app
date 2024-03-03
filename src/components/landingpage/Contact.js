@@ -6,6 +6,11 @@ import contactImg from "../../assets/images/img/contact-us3.png";
 import 'animate.css';
 import TrackVisibility from 'react-on-screen';
 
+// import dotenv from 'dotenv';
+// dotenv.config();
+
+const backendUrl = process.env.BACKEND_URL;
+
 export const Contact = () => {
   const formInitialDetails = {
     firstName: '',
@@ -28,7 +33,7 @@ export const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setButtonText("Sending...");
-    let response = await fetch("http://localhost:5000/contact", {
+    let response = await fetch(`${backendUrl}/contact`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",

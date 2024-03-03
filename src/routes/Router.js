@@ -16,12 +16,18 @@ const Buttons = lazy(() => import("../views/ui/Buttons"));
 const Cards = lazy(() => import("../views/ui/Cards"));
 const Grid = lazy(() => import("../views/ui/Grid"));
 const Tables = lazy(() => import("../views/ui/Tables"));
+const ContentMapping = lazy(()=>import('../views/ui/Content-Mapping.js'));
 const Forms = lazy(() => import("../views/ui/Forms"));
 const ContentUpload = lazy(() => import("../views/ui/ContentUpload"));
 const Breadcrumbs = lazy(() => import("../views/ui/Breadcrumbs"));
 const LandingPage = lazy(() => import("../views/LandingPage"));
 const ExploreWindow = lazy(() => import("../views/exploreWindow.js"));
 const ExploreLoadWindow = lazy(() => import("../views/exploreLoadMethods.js"));
+const ScanningPage = lazy(() => import("../views/scanningPage.js"));
+const AdexplorePage = lazy(() => import("../views/exploreAdvanced.js"));
+const AdexploreHashPage = lazy(() => import("../views/exploreHasher.js"));
+const AdexploreLoaderPage = lazy(() => import("../views/exploreloaders.js"));
+const AdexploreARLoaderPage = lazy(() => import("../views/exploreARLoaders.js"));
 
 /*****Routes******/
 // const ThemeRoutes = () => {
@@ -57,8 +63,32 @@ const ExploreLoadWindow = lazy(() => import("../views/exploreLoadMethods.js"));
 
 const router = createBrowserRouter([
   {
+    path: '/',
+    element: <LandingPage />
+  },
+  {
     path: '/home',
     element: <LandingPage />
+  },
+  {
+    path: '/scanning',
+    element: <ScanningPage />
+  },
+  {
+    path: '/adexplore',
+    element: <AdexplorePage />
+  },
+  {
+    path: '/hasher',
+    element: <AdexploreHashPage />
+  },
+  {
+    path: '/spanLoaders',
+    element: <AdexploreLoaderPage />
+  },
+  {
+    path: '/ARLoaders',
+    element: <AdexploreARLoaderPage />
   },
   {
     path: '/explore',
@@ -107,6 +137,10 @@ const router = createBrowserRouter([
       {
         path: '/table',
         element: <Tables />
+      },
+      {
+        path: '/content-mapping',
+        element: <ContentMapping />
       },
       {
         path: '/forms',
