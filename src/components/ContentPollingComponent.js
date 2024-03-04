@@ -3,7 +3,6 @@ import axios from 'axios';
 
 import getApiUrl from '../utility/apiUtils';
 
-const backendUrl = "http://localhost:5000";
 
 const ContentPollingComponent = ({ phashId, initialDocumentId, initialRefVer, onContentChange }) => {
   const [loading, setLoading] = useState(false);

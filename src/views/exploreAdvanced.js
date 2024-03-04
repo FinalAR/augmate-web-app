@@ -19,6 +19,7 @@ import CircularLoading from "../components/loaders/CircularLoader";
 import BounceLoading from '../components/loaders/BounceLoader';
 import RiseLoading from '../components/loaders/RiseLoader';
 
+import axios from 'axios';
 import getApiUrl from '../utility/apiUtils';
 
 function AdexplorePage() {
@@ -50,9 +51,7 @@ function AdexplorePage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          getApiUrl(`content/findv2/${phashId}`)
-        );
+        const response = await fetch(getApiUrl(`content/findv2/${phashId}`));
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
