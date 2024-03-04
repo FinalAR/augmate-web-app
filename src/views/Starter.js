@@ -10,7 +10,8 @@ import Blog from "../components/dashboard/Blog";
 import { Display } from "react-bootstrap-icons";
 import { getDownloadURL, ref as storageRef, uploadBytes } from "firebase/storage";
 import { storage } from "../firebase";
-import api from "../api";
+import axios from "axios";
+import getApiUrl from "../utility/apiUtils";
 
 const BlogData = [];
 const ImageTargetForm = (props) => {
@@ -37,51 +38,40 @@ const ImageTargetForm = (props) => {
     e.preventDefault()
     props.toggle()
   }
-
+  const [isLoading, setIsLoading] = useState(false);
   const [targetImage, setTargetImage] = useState(null);
+  const [imageUrl, setImageUrl] = useState("");
   const [compileTarget, setCompileTarget] = useState(null);
+  const [compileFileUrl, setCompileFileUrl] = useState("");
+  const [targetHashValue,setHashValue] = useState("");
 
-  function handleImage(e) {
-    console.log(e);
+  function handleImage() {
     const currentDate = new Date();
     if (targetImage == null) {
       return;
     } else {
       const imageRef = storageRef(storage, `targets/${currentDate.getTime()}_${targetImage.name}`);
+
+      try {
+        const hash = window.pHash.hash(targetImage);
+        setHashValue(hash.value);
+      } catch (error) {
+        console.error('Error generating hash:', error);
+      }
+
       uploadBytes(imageRef, targetImage)
         .then((snapshot) => {
           getDownloadURL(snapshot.ref)
             .then((url) => {
               console.log(url);
+              setIsLoading(false);
+              setImageUrl(url);
               // pushTargetData({
               //   targetId: BlogData.length++,
               //   imageName: e.imageName,
               //   targetImage: url,
               //   btnbg: "primary",
               // });
-
-              api.post('/api/v1/content/create', {
-                targetpHash: "1111101001001110010100000000011100100111101100101001101010100000",
-                targetImage: url,
-                // contentImage: "",
-                // contentPath: "",
-                description: e.imageName,
-                // analysis: {},
-                // meshColor: "0x0000ff",
-                // modelPath: "",
-                // modelFile: "",
-                // progressPhase: "phase 2",
-                // positionY: "",
-                // scaleSet: "",
-                // size: "",
-                ref_ver: 1,
-                imageTargetSrc: url
-              })
-              .then((response) => {
-                console.log(response);
-              }, (error) => {
-                console.log(error);
-              });
             })
             .catch((error) => {
               console.log(error.message);
@@ -92,11 +82,34 @@ const ImageTargetForm = (props) => {
           // toastifyError(error.message);
         });
     }
+  }
+
+  const handleSubmit = (e) => {
+    axios.post(getApiUrl('/content/create'), {
+      targetpHash: targetHashValue,
+      targetImage: imageUrl,
+      contentImage: "",
+      contentPath: "",
+      description: e.imageName,
+      analysis: {},
+      contents: {},
+      positionY: "",
+      scaleSet: "",
+      size: "",
+      ref_ver: 1,
+      imageTargetSrc: imageUrl
+    })
+      .then((response) => {
+        console.log(response);
+      }, (error) => {
+        console.log(error);
+      });
+
     props.toggle()
   }
 
   const pushTargetData = (targetData) => {
-    BlogData.push({targetData});
+    BlogData.push({ targetData });
   }
 
   return (
@@ -110,7 +123,7 @@ const ImageTargetForm = (props) => {
             imageName: ""
           }}
           validationSchema={imageSchema}
-          onSubmit={handleImage}>
+          onSubmit={handleSubmit}>
           {
             (props) => (
               <Form>
@@ -153,17 +166,19 @@ const ImageTargetForm = (props) => {
                     name="targetImage"
                     placeholder="Upload image target"
                     onChange={(e) => {
+                      setIsLoading(true);
                       setTargetImage(e.target.files[0]);
+                      handleImage();
                     }}
                     className={`mt-2 form-control`}
                   />
                 </div>
-                {targetImage && compileTarget ?  
-                <Button type="submit" className="btn" color="success" >Confirm</Button>
-                :
-                <Button type="submit" className="btn" color="success" disabled >Confirm</Button>
-                  }
-                
+                {targetImage && compileTarget ?
+                  <Button type="submit" className="btn" color="success" >Confirm</Button>
+                  :
+                  <Button type="submit" className="btn" color="success" disabled >Confirm</Button>
+                }
+
               </Form>
             )
           }
@@ -176,18 +191,17 @@ const ImageTargetForm = (props) => {
 const Starter = () => {
   const [seen, setSeen] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [data,setData] = useState([]);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-
-    const fetchData = async () =>{
+    const fetchData = async () => {
       setLoading(true);
       try {
-        const {data: response} = await api.get('/api/v1/content/fetch');
-        // console.log(response);
-       response.data.forEach(element => {
-        BlogData.push({element});
-       });
+        const { data: response } = await axios.get(getApiUrl('content/fetch'));
+        console.log(response);
+        response.data.forEach(element => {
+          BlogData.push({ element });
+        });
       } catch (error) {
         console.error(error.message);
       }

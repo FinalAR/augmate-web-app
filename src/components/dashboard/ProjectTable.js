@@ -2,6 +2,7 @@ import {useState,useEffect} from "react";
 import { Card, CardBody, CardTitle,Table,Button ,Form,FormGroup, Label,Input} from "reactstrap";
 import ContentLinkingModal from "./ContentLinkingModal";
 import axios from "axios";
+import getApiUrl from "../../utility/apiUtils";
 
 const ProjectTables = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -11,7 +12,7 @@ const ProjectTables = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/v1/content/list/active');
+        const response = await axios.get(getApiUrl(`content/list/active`));
         setData(response.data.data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -33,7 +34,6 @@ const ProjectTables = () => {
   const updateTableData = (updatedRowData) => {
     const updatedData = data.map((row) => {
       if (row.targetpHash === updatedRowData.targetpHash) {
-        console.log("Faalil");
         return updatedRowData;
       } else {
         return row;
