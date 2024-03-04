@@ -54,7 +54,7 @@ function AdexploreHashPage() {
         <button id="backButton">HOME</button>
       </Link>
       <div>
-        {/* <QRScanner /> */}
+        <QRScanner />
       </div>
       <div>
         <h1>Image Hash Generator</h1>
