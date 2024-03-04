@@ -11,7 +11,7 @@ const ProjectTables = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/v1/content/list/active');
+        const response = await axios.get('http://localhost:3000/api/v1/content/list/active');
         setData(response.data.data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -33,7 +33,6 @@ const ProjectTables = () => {
   const updateTableData = (updatedRowData) => {
     const updatedData = data.map((row) => {
       if (row.targetpHash === updatedRowData.targetpHash) {
-        console.log("Faalil");
         return updatedRowData;
       } else {
         return row;

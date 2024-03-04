@@ -8,31 +8,31 @@ const navigation = [
     href: "/starter",
     icon: "bi bi-speedometer2",
   },
-  {
-    title: "Alert",
-    href: "/alerts",
-    icon: "bi bi-bell",
-  },
-  {
-    title: "Contents",
-    href: "/badges",
-    icon: "bi bi-hdd-stack",
-  },
-  {
-    title: "Buttons",
-    href: "/buttons",
-    icon: "bi bi-hdd-stack",
-  },
-  {
-    title: "Cards",
-    href: "/cards",
-    icon: "bi bi-card-text",
-  },
-  {
-    title: "Mapping",
-    href: "/grid",
-    icon: "bi bi-columns",
-  },
+  // {
+  //   title: "Alert",
+  //   href: "/alerts",
+  //   icon: "bi bi-bell",
+  // },
+  // {
+  //   title: "Contents",
+  //   href: "/badges",
+  //   icon: "bi bi-hdd-stack",
+  // },
+  // {
+  //   title: "Buttons",
+  //   href: "/buttons",
+  //   icon: "bi bi-hdd-stack",
+  // },
+  // {
+  //   title: "Cards",
+  //   href: "/cards",
+  //   icon: "bi bi-card-text",
+  // },
+  // {
+  //   title: "Mapping",
+  //   href: "/grid",
+  //   icon: "bi bi-columns",
+  // },
   {
     title: "Content-Mapping",
     href: "/content-mapping",
@@ -43,11 +43,11 @@ const navigation = [
   //   href: "/table",
   //   icon: "bi bi-layout-split",
   // },
-  {
-    title: "Forms",
-    href: "/forms",
-    icon: "bi bi-textarea-resize",
-  },
+  // {
+  //   title: "Forms",
+  //   href: "/forms",
+  //   icon: "bi bi-textarea-resize",
+  // },
   // {
   //   title: "Breadcrumbs",
   //   href: "/breadcrumbs",
