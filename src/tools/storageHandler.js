@@ -6,7 +6,8 @@ const uploadFileToS3 = async (file, onUploadProgress) => {
 
   try {
     // Fetch the presigned URL for uploading the file
-    const { data } = await axios.get(getApiUrl(`content/presignedUrl`));
+    // const { data } = await axios.get(getApiUrl(`content/presignedUrl`));
+    const { data } = await axios.get("https://augmate-webapp-server.vercel.app/api/v1/content/presignedUrl");
     const presignedUrl = data.data.uploadUrl;
     const savedLocation = data.data.location;
 

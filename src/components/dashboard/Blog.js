@@ -21,7 +21,7 @@ const Blog = (props) => {
       <CardBody className="p-4" >
         <CardTitle tag="h5" >{props.title}</CardTitle>
         <CardText className="mt-3" style={{ height: "30px" }}>{props.text}</CardText>
-        <Button color={props.color} onClick={() => { navigate("/ContentUpload", { state: { imageId: props.imageId, title: props.title , image:props.image} }); }}>Add AR content</Button>
+        <Button color={props.color} onClick={() => { navigate("/ContentUpload", { state: { title: props.title , image:props.image, compileFile:props.compileFileUrl, contents:props.contents, targetpHash:props.targetpHash, docID: props.docID} }); }}>Add AR content</Button>
       </CardBody>
     </Card>
   );
