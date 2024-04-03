@@ -21,6 +21,7 @@ import RiseLoading from '../components/loaders/RiseLoader';
 
 import axios from 'axios';
 import getApiUrl from '../utility/apiUtils';
+import getUserAgentInfoWithDownloadSpeed from '../utility/userAgentUtil';
 
 function AdexplorePage() {
 
@@ -28,6 +29,7 @@ function AdexplorePage() {
   const [color, setColor] = useState("#c320ff");
   const [arDoc, setDocument] = useState(null);
   const [updateContent, setUpdateFlag] = useState(false);
+  const [deviceSpec, setDeviceSpec] = useState("Intializing...");
 
 
   const arDocRef = useRef(null); // Mutable reference for arDoc
@@ -51,6 +53,11 @@ function AdexplorePage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        
+        const { os, browser, downloadSpeed } = await getUserAgentInfoWithDownloadSpeed(navigator.userAgent);
+        console.log('OS:'+ os + ' ' +'Browser:'+ browser + ' ' + 'DownloadSpeed:'+ downloadSpeed );
+        setDeviceSpec('OS:'+ os + ' ' +'Browser:'+ browser + ' ' + 'DownloadSpeed(MBps):'+ downloadSpeed);
+
         const response = await fetch(getApiUrl(`content/findv2/${phashId}`));
         if (!response.ok) {
           throw new Error('Failed to fetch data');
@@ -442,6 +449,7 @@ function AdexplorePage() {
       <Link to='/home'>
         <button id="backButton">HOME</button>
       </Link>
+      <div id="device_label">{deviceSpec}</div>
       <div id="control">
         <button id="startButton" className="btn6">Start</button>
         <button id="stopButton" className="btn6">Stop</button>
