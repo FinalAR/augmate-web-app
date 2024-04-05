@@ -9,9 +9,11 @@ import { storage } from "../../firebase";
 import UploadComponent from "../../components/contentUploader";
 import axios from "axios";
 import getApiUrl from "../../utility/apiUtils";
+import { useNavigate } from "react-router-dom";
 
 const ContentUpload = () => {
     const location = useLocation();
+    const navigate = useNavigate();
     const data = location.state; // Ensure you're using this data correctly within your component.
     var [contentCount, setContentCount] = useState(1);
     const MAX_FILE_SIZE = 104857600; // Example: 100MB in bytes
@@ -19,76 +21,74 @@ const ContentUpload = () => {
 
     const validationSchema = Yup.object().shape({
         content_name: Yup.string().required("Content name is required"),
-        contentImage: Yup.mixed().required("Content image file is required"),
+        contentImage: Yup.mixed().required("Content image file is required"), 
+        scale: Yup.number().required("Scale is required").positive("Scale must be positive"),
         high_quality: Yup.object().shape({
             fileSize: Yup.number().required("File size is required").positive("File size must be positive"),
-            scale: Yup.number().required("Scale is required").positive("Scale must be positive"),
+            animationRate: Yup.number().required("Animation rate is required").positive("Animation rate must be positive"),
             polygon_count: Yup.number().required("Polygon count is required").integer("Polygon count must be an integer").positive("Polygon count must be positive"),
             file: Yup.mixed().required("File is required")
         }),
         mid_quality: Yup.object().shape({
             fileSize: Yup.number().required("File size is required").positive("File size must be positive"),
-            scale: Yup.number().required("Scale is required").positive("Scale must be positive"),
+            animationRate: Yup.number().required("Animation rate is required").positive("Animation rate must be positive"),
             polygon_count: Yup.number().required("Polygon count is required").integer("Polygon count must be an integer").positive("Polygon count must be positive"),
             file: Yup.mixed().required("File is required")
         }),
         low_quality: Yup.object().shape({
             fileSize: Yup.number().required("File size is required").positive("File size must be positive"),
-            scale: Yup.number().required("Scale is required").positive("Scale must be positive"),
+            animationRate: Yup.number().required("Animation rate is required").positive("Animation rate must be positive"),
             polygon_count: Yup.number().required("Polygon count is required").integer("Polygon count must be an integer").positive("Polygon count must be positive"),
             file: Yup.mixed().required("File is required")
         }),
     });
-    console.log(data);
+
     function handleContentUpload(values) {
+        console.log(values);
         if(data.contentCount){
-            axios.post(getApiUrl(`content/create/${data.docID}`), {
+            axios.put(getApiUrl(`content/addContent/${data.docID}`), {
                 contentImage: values.contentImage,
                 contents: {
-                    high: { animationRate: '', contentPath: '', polygonCount: '', size: '' },
-                    low: { contentPath: '', size: '', polygonCount: '', animationRate: '' },
-                    mid: { contentPath: '', size: '', polygonCount: '', animationRate: '' }
+                    high: { contentPath: values.high.file, size: values.high.fileSize, polygonCount: values.high.polygon_count, animationRate: values.high.animationRate},
+                    low: { contentPath: values.low.file, size: values.low.fileSize, polygonCount: values.low.polygon_count, animationRate: values.low.animationRate},
+                    mid: { contentPath: values.mid.file, size: values.mid.fileSize, polygonCount: values.mid.polygon_count, animationRate: values.mid.animationRate},
                 },
                 size: "",
+                scaleSet: values.scale,
                 flag: true,
                 ref_ver: 1,
               })
                 .then((response) => {
                   console.log(response);
+                  navigate("/starter");
                 }, (error) => {
                   console.log(error);
                 });
         }else{
-            axios.post(getApiUrl('content/create'), {
-                targetpHash: data.targetpHash,
-                targetImage: data.image,
+            console.log("hit");
+            axios.patch(getApiUrl(`content/data/${data.docID}`), {
                 contentImage: values.contentImage,
-                contentPath: "",
-                description: data.imageName,
                 analysis: {},
                 contents: {
-                    high: { animationRate: '', contentPath: '', polygonCount: '', size: '' },
-                    low: { contentPath: '', size: '', polygonCount: '', animationRate: '' },
-                    mid: { contentPath: '', size: '', polygonCount: '', animationRate: '' }
+                    high: { contentPath: values.high_quality.file, size: values.high_quality.fileSize, polygonCount: values.high_quality.polygon_count, animationRate: values.high_quality.animationRate},
+                    low: { contentPath: values.low_quality.file, size: values.low_quality.fileSize, polygonCount: values.low_quality.polygon_count, animationRate: values.low_quality.animationRate},
+                    mid: { contentPath: values.mid_quality.file, size: values.mid_quality.fileSize, polygonCount: values.mid_quality.polygon_count, animationRate: values.mid_quality.animationRate},
                 },
-                positionY: "",
-                scaleSet: "",
-                size: "",
-                flag: false,
+                scaleSet: values.scale,
+                flag: true,
                 ref_ver: 1,
-                imageTargetSrc: data.imageTargetSrc
               })
                 .then((response) => {
                   console.log(response);
+                  navigate("/starter");
                 }, (error) => {
                   console.log(error);
                 });
         }
-        // setInitUpload(false);
-        // console.log(values);
     }
 
     const [progress, setProgress] = useState(0);
+    
 
     const handleImage = async (file, values) => {
       setProgress(0)
@@ -123,21 +123,22 @@ const ContentUpload = () => {
     const initialValues = {
         content_name: "",
         contentImage: null,
+        scale: "",
         high_quality: {
             fileSize: "", // Consider changing this to a numeric type if you're validating as a number.
-            scale: "",
+            animationRate: "",
             polygon_count: "",
             file: null
         },
         mid_quality: {
             fileSize: "", // Consider changing this to a numeric type if you're validating as a number.
-            scale: "",
+            animationRate: "",
             polygon_count: "",
             file: null
         },
         low_quality: {
             fileSize: "", // Consider changing this to a numeric type if you're validating as a number.
-            scale: "",
+            animationRate: "",
             polygon_count: "",
             file: null
         }
@@ -185,7 +186,22 @@ const ContentUpload = () => {
                                                     <label></label>
                                                 </div>
                                                 <div className="form-group">
-                                                    <label>Image target</label>
+                                                    <label htmlFor="scale">Content scale set</label>
+                                                    <Field
+                                                        name="scale"
+                                                        placeholder="Enter the scale"
+                                                        type="number"
+                                                        className={`mt-2 form-control ${values.touched.scale && values.errors.scale ? "is-invalid" : ""}`}
+                                                    />
+                                                    <ErrorMessage
+                                                        component="div"
+                                                        name="scale"
+                                                        className="invalid-feedback"
+                                                    />
+                                                    <label></label>
+                                                </div>
+                                                <div className="form-group">
+                                                    <label>Image of the content</label>
                                                     <input
                                                         type="file"
                                                         name="contentImage"
@@ -217,15 +233,15 @@ const ContentUpload = () => {
                                                         <label></label>
                                                     </div>
                                                     <div className="form-group">
-                                                        <label>Content the polygon count</label>
+                                                        <label>Polygon count</label>
                                                         <Field type="number" name="high_quality.polygon_count" placeholder="Enter the polygon count" className={`mt-2 form-control ${values.touched.high_quality?.polygon_count && values.errors.high_quality?.polygon_count ? "is-invalid" : ""}`} />
                                                         <ErrorMessage name="high_quality.polygon_count" className="invalid-feedback" component="div" />
                                                         <label></label>
                                                     </div>
                                                     <div className="form-group">
-                                                        <label>Content the Scale</label>
-                                                        <Field type="number" name="high_quality.scale" placeholder="Enter the Scale" className={`mt-2 form-control ${values.touched.high_quality?.scale && values.errors.high_quality?.scale ? "is-invalid" : ""}`} />
-                                                        <ErrorMessage name="high_quality.scale" className="invalid-feedback" component="div" />
+                                                        <label>Animation Rate</label>
+                                                        <Field type="number" name="high_quality.animationRate" placeholder="Enter the animation rate" className={`mt-2 form-control ${values.touched.high_quality?.animationRate && values.errors.high_quality?.animationRate ? "is-invalid" : ""}`} />
+                                                        <ErrorMessage name="high_quality.animationRate" className="invalid-feedback" component="div" />
                                                         <label></label>
                                                     </div>
                                                     <div className="form-group">
@@ -247,15 +263,15 @@ const ContentUpload = () => {
                                                         <label></label>
                                                     </div>
                                                     <div className="form-group">
-                                                        <label>Content the polygon count</label>
+                                                        <label>Polygon count</label>
                                                         <Field type="number" name="mid_quality.polygon_count" placeholder="Enter the polygon count" className={`mt-2 form-control ${values.touched.mid_quality?.polygon_count && values.errors.mid_quality?.polygon_count ? "is-invalid" : ""}`} />
                                                         <ErrorMessage name="mid_quality.polygon_count" className="invalid-feedback" component="div" />
                                                         <label></label>
                                                     </div>
                                                     <div className="form-group">
-                                                        <label>Content the Scale</label>
-                                                        <Field type="number" name="mid_quality.scale" placeholder="Enter the Scale" className={`mt-2 form-control ${values.touched.mid_quality?.scale && values.errors.mid_quality?.scale ? "is-invalid" : ""}`} />
-                                                        <ErrorMessage name="mid_quality.scale" className="invalid-feedback" component="div" />
+                                                        <label>Animation rate</label>
+                                                        <Field type="number" name="mid_quality.animationRate" placeholder="Enter the animation Rate" className={`mt-2 form-control ${values.touched.mid_quality?.animationRate && values.errors.mid_quality?.animationRate ? "is-invalid" : ""}`} />
+                                                        <ErrorMessage name="mid_quality.animationRate" className="invalid-feedback" component="div" />
                                                         <label></label>
                                                     </div>
                                                     <div className="form-group">
@@ -277,15 +293,15 @@ const ContentUpload = () => {
                                                         <label></label>
                                                     </div>
                                                     <div className="form-group">
-                                                        <label>Content the polygon count</label>
+                                                        <label>Polygon count</label>
                                                         <Field type="number" name="low_quality.polygon_count" placeholder="Enter the polygon count" className={`mt-2 form-control ${values.touched.low_quality?.polygon_count && values.errors.low_quality?.polygon_count ? "is-invalid" : ""}`} />
                                                         <ErrorMessage name="low_quality.polygon_count" className="invalid-feedback" component="div" />
                                                         <label></label>
                                                     </div>
                                                     <div className="form-group">
-                                                        <label>Content the Scale</label>
-                                                        <Field type="text" name="low_quality.scale" placeholder="Enter the Scale" className={`mt-2 form-control ${values.touched.low_quality?.scale && values.errors.low_quality?.scale ? "is-invalid" : ""}`} />
-                                                        <ErrorMessage name="low_quality.scale" className="invalid-feedback" component="div" />
+                                                        <label>Animation Rate</label>
+                                                        <Field type="text" name="low_quality.animationRate" placeholder="Enter the animation rate" className={`mt-2 form-control ${values.touched.low_quality?.animationRate && values.errors.low_quality?.animationRate ? "is-invalid" : ""}`} />
+                                                        <ErrorMessage name="low_quality.animationRate" className="invalid-feedback" component="div" />
                                                         <label></label>
                                                     </div>
                                                     <div className="form-group">

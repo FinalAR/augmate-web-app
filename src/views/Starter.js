@@ -48,7 +48,7 @@ const ImageTargetForm = (props) => {
   // const [compileFileUrl, setCompileFileUrl] = useState("");
   const [targetHashValue, setHashValue] = useState("");
 
-//Firebase upload
+  //Firebase upload
   const [progress, setProgress] = useState(0);
 
   const handleImage = async (file) => {
@@ -221,14 +221,20 @@ const Starter = () => {
       <div className="button-container"><Button color="primary" onClick={togglePop}>Add image target</Button></div>
       {seen ? <ImageTargetForm toggle={togglePop} /> : null}
       <Row>
-        {BlogData.map((blg, index) => (
+        {BlogData.reduce((acc, blg) => {
+          // Check if the targetImage is already in acc array
+          if (!acc.some(item => item.element.targetImage === blg.element.targetImage)) {
+            acc.push(blg);
+          }
+          return acc;
+        }, []).map((blg, index) => (
           <Col sm="6" lg="6" xl="3" key={index}>
             <Blog
               image={blg.element.targetImage}
               title={blg.element.description}
               compileFileUrl={blg.element.imageTargetSrc}
               targetpHash={blg.element.targetpHash}
-              contents={blg.element.contents}
+              contents={BlogData.filter(item => item.element.targetImage === blg.element.targetImage)}
               docID={blg.element._id}
               color="primary"
             />
