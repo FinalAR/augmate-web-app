@@ -12,6 +12,7 @@ import { getDownloadURL, ref as storageRef, uploadBytes } from "firebase/storage
 import { storage } from "../firebase";
 import axios from "axios";
 import getApiUrl from "../utility/apiUtils";
+import UploadComponent from "../components/contentUploader";
 
 const BlogData = [];
 const ImageTargetForm = (props) => {
@@ -22,6 +23,12 @@ const ImageTargetForm = (props) => {
   }
   const imageSchema = Yup.object().shape({
     imageName: Yup.string().required("Image target name is required"),
+    targetImage: Yup
+      .mixed()
+      .required("Target image file is required"),
+    imageTargetSrc: Yup
+      .mixed()
+      .required("compiled .mind file is required"),
     // targetImage: Yup
     //   .mixed()
     //   .required("Required"),
@@ -33,45 +40,38 @@ const ImageTargetForm = (props) => {
     // .test("is-valid-size", "Max allowed size is 100MB",
     //   value => value && value.size <= MAX_FILE_SIZE)
   });
-
   function handleToggle(e) {
     e.preventDefault()
     props.toggle()
   }
-  const [isLoading, setIsLoading] = useState(false);
-  const [targetImage, setTargetImage] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
-  const [compileTarget, setCompileTarget] = useState(null);
-  const [compileFileUrl, setCompileFileUrl] = useState("");
-  const [targetHashValue,setHashValue] = useState("");
+  // const [compileFileUrl, setCompileFileUrl] = useState("");
+  const [targetHashValue, setHashValue] = useState("");
 
-  function handleImage() {
-    const currentDate = new Date();
-    if (targetImage == null) {
+  //Firebase upload
+  const [progress, setProgress] = useState(0);
+
+  const handleImage = async (file) => {
+    setProgress(0)
+    if (file == null) {
       return;
     } else {
-      const imageRef = storageRef(storage, `targets/${currentDate.getTime()}_${targetImage.name}`);
-
+      const currentDate = new Date();
+      const imageRef = storageRef(storage, `targets/${currentDate.getTime()}_${file.name}`);
       try {
-        const hash = window.pHash.hash(targetImage);
+        const hash = await window.pHash.hash(file);
+        console.log(hash.value)
         setHashValue(hash.value);
       } catch (error) {
         console.error('Error generating hash:', error);
       }
-
-      uploadBytes(imageRef, targetImage)
+      await uploadBytes(imageRef, file)
         .then((snapshot) => {
           getDownloadURL(snapshot.ref)
             .then((url) => {
+              setProgress(100);
               console.log(url);
-              setIsLoading(false);
               setImageUrl(url);
-              // pushTargetData({
-              //   targetId: BlogData.length++,
-              //   imageName: e.imageName,
-              //   targetImage: url,
-              //   btnbg: "primary",
-              // });
             })
             .catch((error) => {
               console.log(error.message);
@@ -84,8 +84,14 @@ const ImageTargetForm = (props) => {
     }
   }
 
+  //File upload
+  // const handleFileUpload = (fileUrl) => {
+  //   setCompileFileUrl(fileUrl);
+  // };
+
   const handleSubmit = (e) => {
-    axios.post(getApiUrl('/content/create'), {
+    console.log(e);
+    axios.post(getApiUrl('content/create'), {
       targetpHash: targetHashValue,
       targetImage: imageUrl,
       contentImage: "",
@@ -97,7 +103,7 @@ const ImageTargetForm = (props) => {
       scaleSet: "",
       size: "",
       ref_ver: 1,
-      imageTargetSrc: imageUrl
+      imageTargetSrc: e.imageTargetSrc
     })
       .then((response) => {
         console.log(response);
@@ -120,7 +126,9 @@ const ImageTargetForm = (props) => {
         <h2>Add image target</h2>
         <Formik
           initialValues={{
-            imageName: ""
+            imageName: "",
+            targetImage: "",
+            imageTargetSrc: ""
           }}
           validationSchema={imageSchema}
           onSubmit={handleSubmit}>
@@ -144,20 +152,7 @@ const ImageTargetForm = (props) => {
                 </div>
                 <div className="form-group">
                   <label>Upload compiled .mind file</label>
-                  <input
-                    type="file"
-                    name="imageTargetSrc"
-                    placeholder="Enter description"
-                    onChange={(e) => {
-                      setCompileTarget(e.target.files[0]);
-                    }}
-                    className={`mt-2 form-control`}
-                  />
-                  <ErrorMessage
-                    component="div"
-                    name="imageTargetSrc"
-                    className="invalid-feedback"
-                  />
+                  <UploadComponent validationProps={props} fieldName="imageTargetSrc" />
                 </div>
                 <div className="form-group">
                   <label>Image target</label>
@@ -165,20 +160,26 @@ const ImageTargetForm = (props) => {
                     type="file"
                     name="targetImage"
                     placeholder="Upload image target"
-                    onChange={(e) => {
-                      setIsLoading(true);
-                      setTargetImage(e.target.files[0]);
-                      handleImage();
+                    onChange={async (e) => {
+                      await handleImage(e.target.files[0]);
+                      props.setFieldValue("targetImage", e.target.files[0]);
                     }}
-                    className={`mt-2 form-control`}
+                    className={`mt-2 form-control ${props.touched.targetImage && props.errors.targetImage ? "is-invalid" : ""}`}
+                  />
+                  <progress value={progress} max={100} />
+                  <span>{progress}%</span>
+                  <ErrorMessage
+                    component="div"
+                    name="targetImage"
+                    className="invalid-feedback"
                   />
                 </div>
-                {targetImage && compileTarget ?
+                <Button type="submit" className="btn" color="success" >Confirm</Button>
+                {/* {imageUrl && isLoading ?
                   <Button type="submit" className="btn" color="success" >Confirm</Button>
                   :
                   <Button type="submit" className="btn" color="success" disabled >Confirm</Button>
-                }
-
+                } */}
               </Form>
             )
           }
@@ -190,8 +191,8 @@ const ImageTargetForm = (props) => {
 
 const Starter = () => {
   const [seen, setSeen] = useState(false);
-  const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -199,6 +200,7 @@ const Starter = () => {
       try {
         const { data: response } = await axios.get(getApiUrl('content/fetch'));
         console.log(response);
+        BlogData.length = 0;
         response.data.forEach(element => {
           BlogData.push({ element });
         });
@@ -219,12 +221,21 @@ const Starter = () => {
       <div className="button-container"><Button color="primary" onClick={togglePop}>Add image target</Button></div>
       {seen ? <ImageTargetForm toggle={togglePop} /> : null}
       <Row>
-        {BlogData.map((blg, index) => (
+        {BlogData.reduce((acc, blg) => {
+          // Check if the targetImage is already in acc array
+          if (!acc.some(item => item.element.targetImage === blg.element.targetImage)) {
+            acc.push(blg);
+          }
+          return acc;
+        }, []).map((blg, index) => (
           <Col sm="6" lg="6" xl="3" key={index}>
             <Blog
-              imageId={blg.element.targetpHash}
               image={blg.element.targetImage}
               title={blg.element.description}
+              compileFileUrl={blg.element.imageTargetSrc}
+              targetpHash={blg.element.targetpHash}
+              contents={BlogData.filter(item => item.element.targetImage === blg.element.targetImage)}
+              docID={blg.element._id}
               color="primary"
             />
           </Col>
