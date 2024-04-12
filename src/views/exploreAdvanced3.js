@@ -25,7 +25,7 @@ import axios from 'axios';
 import getApiUrl from '../utility/apiUtils';
 import getUserAgentInfoWithDownloadSpeed from '../utility/userAgentUtil';
 
-function AdexplorePage() {
+function AdexplorePage3() {
 
   const [loading, setLoading] = useState(false);
   const [color, setColor] = useState("#c320ff");
@@ -371,7 +371,6 @@ function AdexplorePage() {
         console.log("After starting...");
         renderer.setAnimationLoop(() => {
           let t = clock.getElapsedTime() * 0.5;
-          // po.update(progressValue)
           renderer.render(scene, camera);
         });
       } catch (error) {
@@ -501,9 +500,9 @@ function AdexplorePage() {
       {/* <CircularLoading loading={loading} color={color} progress={progressValue} /> */}
       {/* <SquareLoading loading={loading} color={color} style={{ zIndex: 9999 }} />   */}
       {/* <BounceLoading loading={loading} color={color} style={{ zIndex: 9999 }} />  */}
-      <RiseLoading loading={loading} color={color} style={{ zIndex: 9999 }} />
+      {/* <RiseLoading loading={loading} color={color} style={{ zIndex: 9999 }} /> */}
     </div>
   );
 }
 
-export default AdexplorePage;
+export default AdexplorePage3;

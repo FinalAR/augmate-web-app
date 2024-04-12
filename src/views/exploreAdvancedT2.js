@@ -371,7 +371,7 @@ function AdexplorePage() {
         console.log("After starting...");
         renderer.setAnimationLoop(() => {
           let t = clock.getElapsedTime() * 0.5;
-          // po.update(progressValue)
+          //po.update(t)
           renderer.render(scene, camera);
         });
       } catch (error) {
@@ -401,10 +401,10 @@ function AdexplorePage() {
     //   stop();
     // });
 
-    // stopButton.addEventListener("click", () => {
-    //   console.log("Before Pause")
-    //   mindarThree.pause();
-    // });
+    stopButton.addEventListener("click", () => {
+      console.log("Before Pause")
+      mindarThree.pause();
+    });
 
     // stopButton.addEventListener("click", () => {
     //   mindarThree.stop();
@@ -469,7 +469,7 @@ function AdexplorePage() {
       <div id="device_label">{deviceSpec}</div>
       <div id="control">
         <button id="startButton" className="btn6">Start</button>
-        {/* <button id="stopButton" className="btn6">Stop</button> */}
+        <button id="stopButton" className="btn6">Stop</button>
       </div>
       {/* <div>
         <ImageHashHandler />

@@ -29,6 +29,14 @@ const AdexploreHashPage = lazy(() => import("../views/exploreHasher.js"));
 const AdexploreLoaderPage = lazy(() => import("../views/exploreloaders.js"));
 const AdexploreARLoaderPage = lazy(() => import("../views/exploreARLoaders.js"));
 
+/********* Interactive Strategies ************/
+const AdexplorePage1 = lazy(() => import("../views/exploreAdvanced1.js")); // Rise loader on screen
+const AdexplorePage2 = lazy(() => import("../views/exploreAdvanced2.js")); // Circular Progress loader on screen
+const AdexplorePage3 = lazy(() => import("../views/exploreAdvanced3.js")); // Progress bar on target
+const AdexplorePage4 = lazy(() => import("../views/exploreAdvanced4.js")); // Rotation Cube on target
+const AdexplorePage5 = lazy(() => import("../views/exploreAdvanced5.js")); // Rise loader on screen with Progress bar on target
+const AdexplorePage6 = lazy(() => import("../views/exploreAdvanced6.js")); // Circular Progress loader on screen with Rotation Cube on target
+
 /*****Routes******/
 // const ThemeRoutes = () => {
 //   return (
@@ -77,6 +85,30 @@ const router = createBrowserRouter([
   {
     path: '/adexplore',
     element: <AdexplorePage />
+  },
+  {
+    path: '/adexplore1',
+    element: <AdexplorePage1 />
+  },
+  {
+    path: '/adexplore2',
+    element: <AdexplorePage2 />
+  },
+  {
+    path: '/adexplore3',
+    element: <AdexplorePage3 />
+  },
+  {
+    path: '/adexplore4',
+    element: <AdexplorePage4 />
+  },
+  {
+    path: '/adexplore5',
+    element: <AdexplorePage5 />
+  },
+  {
+    path: '/adexplore6',
+    element: <AdexplorePage6 />
   },
   {
     path: '/hasher',

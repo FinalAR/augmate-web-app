@@ -11,7 +11,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { MindARThree } from 'mind-ar/dist/mindar-image-three.prod.js';
 
 import ContentPollingComponent from '../components/ContentPollingComponent';
-import ImageHashHandler from '../tools/ImageHashHandler';
+// import ImageHashHandler from '../tools/ImageHashHandler';
 
 import SquareLoading from '../components/loaders/SquareLoader';
 import BarLoading from '../components/loaders/BarLoader';
@@ -19,13 +19,11 @@ import CircularLoading from "../components/loaders/CircularLoader";
 import BounceLoading from '../components/loaders/BounceLoader';
 import RiseLoading from '../components/loaders/RiseLoader';
 
-import ProgressObject from '../components/loaders/arLoaders/progLoader';
-
 import axios from 'axios';
 import getApiUrl from '../utility/apiUtils';
 import getUserAgentInfoWithDownloadSpeed from '../utility/userAgentUtil';
 
-function AdexplorePage() {
+function AdexplorePage2() {
 
   const [loading, setLoading] = useState(false);
   const [color, setColor] = useState("#c320ff");
@@ -115,156 +113,12 @@ function AdexplorePage() {
 
     //Models init
 
-    ///////////////////////////////////////////////////////////
-    ///////////////// Marker 0 -> targetInfo /////////////////
-    ///////////////////////////////////////////////////////////
-
     markerRoot = mindarThree.addAnchor(1);
 
     var loadingInProcess = false;
 
     let loadedMesh = null;
 
-
-    // if(updateContent){
-    //   console.log("load updated content");
-    //   contentLoader();
-    //   // markerRoot.trigger("onTargetFound");
-
-    //   setUpdateFlag(false);
-    // }
-
-    // function contentLoader(){
-
-    //   progressTime('phase 2', 0);
-
-    //   var begin = Date.now();
-    //   var end; 
-    //   let mesh1;
-    //   console.log("inside the loader"); 
-    //   if (!modelLoadedRef.current && !loadingInProcess) {
-    //      console.log("I'm inside the progress");
-    //     if (loadedMesh) {
-    //       markerRoot.group.remove(loadedMesh);
-    //       loadedMesh = null;
-    //       console.log("Clear the mesh");
-    //     }
-    //     // alert("Inside the loading");
-    //     loadingInProcess = true;
-    //     setLoading(true);
-    //     console.time("Time this");
-    //     let loader = new GLTFLoader();
-
-    //     total = arDocRef.current.size
-
-    //     loader.load(arDocRef.current.contentPath, function (gltf) {
-    //       console.log("updating the content");
-
-    //       mesh1 = gltf.scene;
-    //       mesh1.rotation.x = Math.PI / 2;
-    //       mesh1.position.y = arDocRef.current.positionY;
-    //       mesh1.scale.set(arDocRef.current.scaleSet, arDocRef.current.scaleSet, arDocRef.current.scaleSet);
-    //       markerRoot.group.add(mesh1);
-
-    //       console.timeEnd("Time this");
-    //       end = Date.now();
-    //       var timeSpent = (end - begin);
-    //       setLoading(false)
-    //       progressTime('phase 2', timeSpent);
-
-    //       modelLoadedRef.current = true;
-    //       loadingInProcess = false;
-    //       loadedMesh = mesh1;
-
-    //     }, onProgress, onError);
-    //   }
-
-    //   function onProgress(xhr) {
-    //     console.log(xhr);
-
-    //     if (xhr.total > 0) {
-    //       var percentage = (xhr.loaded / total * 100);
-    //       console.log(percentage + '% loaded');
-    //       progress('phase 1', percentage);
-    //     } else {
-    //       var percentage = (xhr.loaded / total * 100);
-    //       console.log(percentage + '% loaded');
-    //       progress('phase 1', percentage);
-    //     }
-    //   }
-
-    //   function onError(xhr) {
-    //     console.log('An error happened');
-    //     progress('phase 1', 'An error happened');
-    //   }
-
-    // }
-
-    //     function contentLoader(){
-
-    //   progressTime('phase 2', 0);
-
-    //   var begin = Date.now();
-    //   var end;
-    //   let mesh1;
-    //   console.log("inside the loader");
-    //   if (!modelLoadedRef.current && !loadingInProcess) {
-    //     // alert("Inside the loading");
-    //     loadingInProcess = true;
-    //     setLoading(true);
-    //     console.time("Time this");
-    //     let loader = new GLTFLoader();
-
-    //     total = arDocRef.current.size
-
-    //     loader.load(arDocRef.current.contentPath, function (gltf) {
-
-    //       if (loadedMesh) {
-    //         markerRoot.group.remove(loadedMesh);
-    //         loadedMesh = null;
-    //       }
-
-    //       mesh1 = gltf.scene;
-    //       mesh1.rotation.x = Math.PI / 2;
-    //       mesh1.position.y = arDocRef.current.positionY;
-    //       mesh1.scale.set(arDocRef.current.scaleSet, arDocRef.current.scaleSet, arDocRef.current.scaleSet);
-    //       markerRoot.group.add(mesh1);
-
-    //       console.timeEnd("Time this");
-    //       end = Date.now();
-    //       var timeSpent = (end - begin);
-    //       setLoading(false)
-    //       progressTime('phase 2', timeSpent);
-
-    //       modelLoadedRef.current = true;
-    //       loadingInProcess = false;
-    //       loadedMesh = mesh1;
-
-    //     }, onProgress, onError);
-    //   }
-
-    //   function onProgress(xhr) {
-    //     console.log(xhr);
-
-    //     if (xhr.total > 0) {
-    //       var percentage = (xhr.loaded / total * 100);
-    //       console.log(percentage + '% loaded');
-    //       progress('phase 1', percentage);
-    //     } else {
-    //       var percentage = (xhr.loaded / total * 100);
-    //       console.log(percentage + '% loaded');
-    //       progress('phase 1', percentage);
-    //     }
-    //   }
-
-    //   function onError(xhr) {
-    //     console.log('An error happened');
-    //     progress('phase 1', 'An error happened');
-    //   }
-
-    // }
-
-    let po = new ProgressObject(1);
 
     markerRoot.onTargetFound = () => {
       console.log("markerFound...");
@@ -288,9 +142,6 @@ function AdexplorePage() {
           loadedMesh = null;
         }
 
-        markerRoot.group.add(po);
-        let loadedMesh1 = po;
-
         loadingInProcess = true;
         setLoading(true);
         console.time("Time this");
@@ -299,11 +150,6 @@ function AdexplorePage() {
         total = arDocRef.current.size
 
         loader.load(arDocRef.current.contentPath, function (gltf) {
-
-          if (loadedMesh1) {
-            markerRoot.group.remove(loadedMesh1);
-            loadedMesh1 = null;
-          }
 
           mesh0 = gltf.scene;
           mesh0.rotation.x = Math.PI / 2;
@@ -332,7 +178,6 @@ function AdexplorePage() {
           console.log(percentage + '% loaded');
           setProgressValue(percentage);
           progress('phase 1', percentage);
-          po.update(percentage);
         } else {
           var percentage = (xhr.loaded / total * 100);
           console.log(percentage + '% loaded');
@@ -363,15 +208,13 @@ function AdexplorePage() {
     }
 
     ///////////////////////////////////////////////////////////////
+
     const start = async () => {
       console.log("Before starting...");
-      let clock = new THREE.Clock();
       try {
         await mindarThree.start();
         console.log("After starting...");
         renderer.setAnimationLoop(() => {
-          let t = clock.getElapsedTime() * 0.5;
-          // po.update(progressValue)
           renderer.render(scene, camera);
         });
       } catch (error) {
@@ -498,12 +341,12 @@ function AdexplorePage() {
       />
       {/* <SquareLoading loading={loading} color={color} style={{ zIndex: 9999 }} /> */}
       {/* <BarLoading loading={loading} color={color} style={{ zIndex: 9999 }} />  */}
-      {/* <CircularLoading loading={loading} color={color} progress={progressValue} /> */}
+      <CircularLoading loading={loading} color={color} progress={progressValue} />
       {/* <SquareLoading loading={loading} color={color} style={{ zIndex: 9999 }} />   */}
       {/* <BounceLoading loading={loading} color={color} style={{ zIndex: 9999 }} />  */}
-      <RiseLoading loading={loading} color={color} style={{ zIndex: 9999 }} />
+      {/* <RiseLoading loading={loading} color={color} style={{ zIndex: 9999 }} /> */}
     </div>
   );
 }
 
-export default AdexplorePage;
+export default AdexplorePage2;

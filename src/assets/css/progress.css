@@ -16,6 +16,7 @@
     background-color: #ddd;
     margin-top: 5px;
     margin-bottom: 5px;
+    visibility: hidden;
   }
   .bar {
     position: absolute;
@@ -48,7 +49,10 @@
     line-height: 50px;
     /* color: white; */
   }
-
+/* 
+  #stopButton{
+    visibility: hidden;
+  } */
 
 /* body > footer {
   flex-shrink: 0;

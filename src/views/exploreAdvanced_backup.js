@@ -264,8 +264,6 @@ function AdexplorePage() {
 
     // }
 
-    let po = new ProgressObject(1);
-
     markerRoot.onTargetFound = () => {
       console.log("markerFound...");
       progressTime('phase 2', 0);
@@ -278,7 +276,7 @@ function AdexplorePage() {
       var end;
       let mesh0;
 
-      
+      // let po = new ProgressObject(0.1);
 
       // alert("Before the loading"+ modelLoaded + " Seccond - " + loadingInProcess);
       if (!modelLoadedRef.current && !loadingInProcess) {
@@ -288,8 +286,8 @@ function AdexplorePage() {
           loadedMesh = null;
         }
 
-        markerRoot.group.add(po);
-        let loadedMesh1 = po;
+        // markerRoot.group.add(po);
+        // let loadedMesh1 = po;
 
         loadingInProcess = true;
         setLoading(true);
@@ -300,10 +298,10 @@ function AdexplorePage() {
 
         loader.load(arDocRef.current.contentPath, function (gltf) {
 
-          if (loadedMesh1) {
-            markerRoot.group.remove(loadedMesh1);
-            loadedMesh1 = null;
-          }
+          // if (loadedMesh1) {
+          //   markerRoot.group.remove(loadedMesh1);
+          //   loadedMesh1 = null;
+          // }
 
           mesh0 = gltf.scene;
           mesh0.rotation.x = Math.PI / 2;
@@ -332,7 +330,6 @@ function AdexplorePage() {
           console.log(percentage + '% loaded');
           setProgressValue(percentage);
           progress('phase 1', percentage);
-          po.update(percentage);
         } else {
           var percentage = (xhr.loaded / total * 100);
           console.log(percentage + '% loaded');
@@ -365,13 +362,10 @@ function AdexplorePage() {
     ///////////////////////////////////////////////////////////////
     const start = async () => {
       console.log("Before starting...");
-      let clock = new THREE.Clock();
       try {
         await mindarThree.start();
         console.log("After starting...");
         renderer.setAnimationLoop(() => {
-          let t = clock.getElapsedTime() * 0.5;
-          // po.update(progressValue)
           renderer.render(scene, camera);
         });
       } catch (error) {
@@ -401,10 +395,10 @@ function AdexplorePage() {
     //   stop();
     // });
 
-    // stopButton.addEventListener("click", () => {
-    //   console.log("Before Pause")
-    //   mindarThree.pause();
-    // });
+    stopButton.addEventListener("click", () => {
+      console.log("Before Pause")
+      mindarThree.pause();
+    });
 
     // stopButton.addEventListener("click", () => {
     //   mindarThree.stop();
@@ -469,7 +463,7 @@ function AdexplorePage() {
       <div id="device_label">{deviceSpec}</div>
       <div id="control">
         <button id="startButton" className="btn6">Start</button>
-        {/* <button id="stopButton" className="btn6">Stop</button> */}
+        <button id="stopButton" className="btn6">Stop</button>
       </div>
       {/* <div>
         <ImageHashHandler />
@@ -496,12 +490,12 @@ function AdexplorePage() {
         initialRefVer={arDoc.ref_ver}
         onContentChange={handleContentChange}
       />
-      {/* <SquareLoading loading={loading} color={color} style={{ zIndex: 9999 }} /> */}
-      {/* <BarLoading loading={loading} color={color} style={{ zIndex: 9999 }} />  */}
+      {/* <SquareLoading loading={loading} color={color} /> */}
+      {/* <BarLoading loading={loading} color={color} /> */}
       {/* <CircularLoading loading={loading} color={color} progress={progressValue} /> */}
-      {/* <SquareLoading loading={loading} color={color} style={{ zIndex: 9999 }} />   */}
-      {/* <BounceLoading loading={loading} color={color} style={{ zIndex: 9999 }} />  */}
-      <RiseLoading loading={loading} color={color} style={{ zIndex: 9999 }} />
+      {/* <SquareLoading loading={loading} color={color} /> */}
+      {/* <BounceLoading loading={loading} color={color} /> */}
+      <RiseLoading loading={loading} color={color} />
     </div>
   );
 }
