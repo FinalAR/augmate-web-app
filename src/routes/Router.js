@@ -29,6 +29,9 @@ const AdexploreHashPage = lazy(() => import("../views/exploreHasher.js"));
 const AdexploreLoaderPage = lazy(() => import("../views/exploreloaders.js"));
 const AdexploreARLoaderPage = lazy(() => import("../views/exploreARLoaders.js"));
 
+
+const AdexplorePageDefault = lazy(() => import("../views/exploreAdvancedDefault.js"));
+
 /********* Interactive Strategies ************/
 const AdexplorePage1 = lazy(() => import("../views/exploreAdvanced1.js")); // Rise loader on screen
 const AdexplorePage2 = lazy(() => import("../views/exploreAdvanced2.js")); // Circular Progress loader on screen
@@ -85,6 +88,10 @@ const router = createBrowserRouter([
   {
     path: '/adexplore',
     element: <AdexplorePage />
+  },
+  {
+    path: '/adexploreDefault',
+    element: <AdexplorePageDefault />
   },
   {
     path: '/adexplore1',
