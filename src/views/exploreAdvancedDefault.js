@@ -25,7 +25,7 @@ import axios from 'axios';
 import getApiUrl from '../utility/apiUtils';
 import getUserAgentInfoWithDownloadSpeed from '../utility/userAgentUtil';
 
-function AdexplorePage() {
+function AdexplorePageDefault() {
 
   const [loading, setLoading] = useState(false);
   const [color, setColor] = useState("#c320ff");
@@ -60,17 +60,7 @@ function AdexplorePage() {
         console.log('OS:' + os + ' ' + 'Browser:' + browser + ' ' + 'DownloadSpeed:' + downloadSpeed);
         setDeviceSpec('OS:' + os + ' ' + 'Browser:' + browser + ' ' + 'DownloadSpeed(Mbps):' + downloadSpeed*8);
 
-        // const response = await fetch(getApiUrl(`content/findv2/${phashId}`));
-        const params = new URLSearchParams({
-          os: os,
-          browser: browser,
-          downloadSpeed: downloadSpeed
-        });
-    
-        console.log(`content/findv2/${phashId}?${params.toString()}`);
-
-        const response = await fetch(getApiUrl(`content/findv2/${phashId}?${params.toString()}`));
-
+        const response = await fetch(getApiUrl(`content/findv2/${phashId}`));
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
@@ -516,4 +506,4 @@ function AdexplorePage() {
   );
 }
 
-export default AdexplorePage;
+export default AdexplorePageDefault;
