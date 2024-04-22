@@ -29,18 +29,24 @@ function CapturingComponent({ onStateChange, onPhashChange }) {
 
     const chooseFacingMode = async () => {
         const availableDevices = await navigator.mediaDevices.enumerateDevices();
+        console.log(JSON.stringify(availableDevices, null, 2));
         const rearCamera = availableDevices.find(device => device.kind === 'videoinput' && device.label.toLowerCase().includes('back'));
         return rearCamera ? 'environment' : 'user';
     };
 
-    const [videoConstraints, setVideoConstraints] = useState({
-        facingMode: chooseFacingMode(),
-    });
+    // const [videoConstraints, setVideoConstraints] = useState({
+    //     facingMode: chooseFacingMode(),
+    // });
 
 
     // const videoConstraints = {
     //     facingMode: "user",
     // };
+
+     const videoConstraints = {
+        facingMode: "environment",
+    };
+
 
     const capture = useCallback(async () => {
         const imageSrc = webcamRef.current.getScreenshot();
