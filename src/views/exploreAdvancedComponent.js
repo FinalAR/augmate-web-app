@@ -161,7 +161,7 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
           loadedMesh = null;
         }
 
-        markerRoot.group.add(po);
+        //markerRoot.group.add(po);
         let loadedMesh1 = po;
 
         loadingInProcess = true;

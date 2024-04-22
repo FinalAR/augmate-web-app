@@ -27,9 +27,19 @@ function CapturingComponent({ onStateChange, onPhashChange }) {
         height: "200px",
     });
 
-    const videoConstraints = {
-        facingMode: "user",
+    const chooseFacingMode = async () => {
+        const availableDevices = await navigator.mediaDevices.enumerateDevices();
+        const rearCamera = availableDevices.find(device => device.kind === 'videoinput' && device.label.toLowerCase().includes('back'));
+        return rearCamera ? 'environment' : 'user';
     };
+
+    const [videoConstraints, setVideoConstraints] = useState({
+        facingMode: chooseFacingMode(),
+    });
+    
+    // const videoConstraints = {
+    //     facingMode: "user",
+    // };
 
     const capture = useCallback(async () => {
         const imageSrc = webcamRef.current.getScreenshot();
