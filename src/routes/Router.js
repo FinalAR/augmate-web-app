@@ -32,6 +32,8 @@ const AdexploreARLoaderPage = lazy(() => import("../views/exploreARLoaders.js"))
 const ArexplorePage = lazy(() => import("../views/arExplore.js"));
 const ArexplorePage2 = lazy(() => import("../views/arExplore2.js"));
 
+const AdexplorePageL2 = lazy(() => import("../views/exploreAdvancedL2.js"));
+
 const AdexplorePageDefault = lazy(() => import("../views/exploreAdvancedDefault.js"));
 
 /********* Interactive Strategies ************/
@@ -96,8 +98,12 @@ const router = createBrowserRouter([
     element: <ArexplorePage />
   },
   {
-    path: '/arexplore',
+    path: '/adexploreL1',
     element: <AdexplorePage />
+  },
+  {
+    path: '/adexploreL2',
+    element: <AdexplorePageL2 />
   },
   {
     path: '/adexploreDefault',

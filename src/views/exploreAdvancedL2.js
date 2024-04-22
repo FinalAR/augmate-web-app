@@ -70,7 +70,7 @@ function AdexplorePage() {
           downloadSpeed: downloadSpeed
         });
     
-        console.log(`content/findv2/${phashId}?${params.toString()}`);
+        console.log(`content/find/advanced/${phashId}?${params.toString()}`);
 
         const response = await fetch(getApiUrl(`content/findv2/${phashId}?${params.toString()}`));
 
@@ -359,6 +359,10 @@ function AdexplorePage() {
         <div className='bar' id="phase 1">
           <div className="label" id="phase 1 label">0%</div>
         </div>
+      </div>
+      <div className="label2">
+        <h5>LOD</h5><p>{arDoc.lodValue}</p>
+        <h5>Score</h5><p>{arDoc.loadingScore}</p>
       </div>
       <div className="label2">
         <h4>Duration</h4>

@@ -44,7 +44,7 @@ function CapturingComponent({ onStateChange, onPhashChange }) {
     // };
 
      const videoConstraints = {
-        facingMode: "environment",
+        facingMode: "environment"
     };
 
 

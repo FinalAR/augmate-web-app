@@ -33,14 +33,18 @@ function CapturingComponent({ onStateChange, onPhashChange }) {
         return rearCamera ? 'environment' : 'user';
     };
 
-    const [videoConstraints, setVideoConstraints] = useState({
-        facingMode: chooseFacingMode(),
-    });
-    
+    // const [videoConstraints, setVideoConstraints] = useState({
+    //     facingMode: chooseFacingMode(),
+    // });
+
     // const videoConstraints = {
     //     facingMode: "user",
     // };
 
+    const videoConstraints = {
+        facingMode: "environment"
+    };
+    
     const capture = useCallback(async () => {
         const imageSrc = webcamRef.current.getScreenshot();
         setCapturedImage(imageSrc);
