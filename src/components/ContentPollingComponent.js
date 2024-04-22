@@ -46,15 +46,25 @@ const ContentPollingComponent = ({ phashId, initialDocumentId, initialRefVer, on
   }, [phashId, initialDocumentId, initialRefVer, onContentChange]);
 
   return (
-    <div>
+    // <div>
+    //   {loading ? (
+    //     <p>Loading...</p>
+    //   ) : error ? (
+    //     <p>Error: {error}</p>
+    //   ) : (
+    //     <p>{message}</p>
+    //   )}
+    // </div>
+    <div style={{ padding: '5px', backgroundColor: '#c320ff', borderRadius: '5px', textAlign: 'center', color: 'white', justifyContent: 'center'}}>
       {loading ? (
         <p>Loading...</p>
       ) : error ? (
         <p>Error: {error}</p>
       ) : (
-        <p>{message}</p>
+        <p><b>{message}</b></p>
       )}
     </div>
+
   );
 };
 

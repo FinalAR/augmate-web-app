@@ -21,9 +21,6 @@ import RiseLoading from '../components/loaders/RiseLoader';
 
 import ProgressObject from '../components/loaders/arLoaders/progLoader';
 
-import InitializeLoader from '../components/loaders/InitializeLoader'; 
-
-
 import axios from 'axios';
 import getApiUrl from '../utility/apiUtils';
 import getUserAgentInfoWithDownloadSpeed from '../utility/userAgentUtil';
@@ -35,7 +32,7 @@ function AdexplorePage() {
   const [arDoc, setDocument] = useState(null);
   const [updateContent, setUpdateFlag] = useState(false);
   const [deviceSpec, setDeviceSpec] = useState("Intializing...");
-  const [phashId, setPhashId] = useState("1111101001001110010100000000011100100111101100101001101010100000");
+
 
   const arDocRef = useRef(null); // Mutable reference for arDoc
   const modelLoadedRef = useRef(false);
@@ -51,7 +48,7 @@ function AdexplorePage() {
     // console.log("Hi the document is"+ JSON.stringify(arDoc));
   };
 
-  // const phashId = "1111101001001110010100000000011100100111101100101001101010100000";
+  const phashId = "1111101001001110010100000000011100100111101100101001101010100000";
 
   let counter = 1;
 
@@ -63,7 +60,7 @@ function AdexplorePage() {
         console.log('OS:' + os + ' ' + 'Browser:' + browser + ' ' + 'DownloadSpeed:' + downloadSpeed);
         setDeviceSpec('OS:' + os + ' ' + 'Browser:' + browser + ' ' + 'DownloadSpeed(Mbps):' + downloadSpeed*8);
 
-        //const response = await fetch(getApiUrl(`content/findv2/${phashId}`));
+        // const response = await fetch(getApiUrl(`content/findv2/${phashId}`));
         const params = new URLSearchParams({
           os: os,
           browser: browser,
@@ -101,8 +98,6 @@ function AdexplorePage() {
 
     let total;
 
-   
-
     // Only initialize mindarThree if counter is 1
     if (counter === 1) {
       mindarThree = new MindARThree({
@@ -126,16 +121,158 @@ function AdexplorePage() {
 
 
       counter++;
-      
     }
 
     //Models init
+
+    ///////////////////////////////////////////////////////////
+    ///////////////// Marker 0 -> targetInfo /////////////////
+    ///////////////////////////////////////////////////////////
 
     markerRoot = mindarThree.addAnchor(1);
 
     var loadingInProcess = false;
 
     let loadedMesh = null;
+
+
+    // if(updateContent){
+    //   console.log("load updated content");
+    //   contentLoader();
+    //   // markerRoot.trigger("onTargetFound");
+
+    //   setUpdateFlag(false);
+    // }
+
+    // function contentLoader(){
+
+    //   progressTime('phase 2', 0);
+
+    //   var begin = Date.now();
+    //   var end; 
+    //   let mesh1;
+    //   console.log("inside the loader"); 
+    //   if (!modelLoadedRef.current && !loadingInProcess) {
+    //      console.log("I'm inside the progress");
+    //     if (loadedMesh) {
+    //       markerRoot.group.remove(loadedMesh);
+    //       loadedMesh = null;
+    //       console.log("Clear the mesh");
+    //     }
+    //     // alert("Inside the loading");
+    //     loadingInProcess = true;
+    //     setLoading(true);
+    //     console.time("Time this");
+    //     let loader = new GLTFLoader();
+
+    //     total = arDocRef.current.size
+
+    //     loader.load(arDocRef.current.contentPath, function (gltf) {
+    //       console.log("updating the content");
+
+    //       mesh1 = gltf.scene;
+    //       mesh1.rotation.x = Math.PI / 2;
+    //       mesh1.position.y = arDocRef.current.positionY;
+    //       mesh1.scale.set(arDocRef.current.scaleSet, arDocRef.current.scaleSet, arDocRef.current.scaleSet);
+    //       markerRoot.group.add(mesh1);
+
+    //       console.timeEnd("Time this");
+    //       end = Date.now();
+    //       var timeSpent = (end - begin);
+    //       setLoading(false)
+    //       progressTime('phase 2', timeSpent);
+
+    //       modelLoadedRef.current = true;
+    //       loadingInProcess = false;
+    //       loadedMesh = mesh1;
+
+    //     }, onProgress, onError);
+    //   }
+
+    //   function onProgress(xhr) {
+    //     console.log(xhr);
+
+    //     if (xhr.total > 0) {
+    //       var percentage = (xhr.loaded / total * 100);
+    //       console.log(percentage + '% loaded');
+    //       progress('phase 1', percentage);
+    //     } else {
+    //       var percentage = (xhr.loaded / total * 100);
+    //       console.log(percentage + '% loaded');
+    //       progress('phase 1', percentage);
+    //     }
+    //   }
+
+    //   function onError(xhr) {
+    //     console.log('An error happened');
+    //     progress('phase 1', 'An error happened');
+    //   }
+
+    // }
+
+    //     function contentLoader(){
+
+    //   progressTime('phase 2', 0);
+
+    //   var begin = Date.now();
+    //   var end;
+    //   let mesh1;
+    //   console.log("inside the loader");
+    //   if (!modelLoadedRef.current && !loadingInProcess) {
+    //     // alert("Inside the loading");
+    //     loadingInProcess = true;
+    //     setLoading(true);
+    //     console.time("Time this");
+    //     let loader = new GLTFLoader();
+
+    //     total = arDocRef.current.size
+
+    //     loader.load(arDocRef.current.contentPath, function (gltf) {
+
+    //       if (loadedMesh) {
+    //         markerRoot.group.remove(loadedMesh);
+    //         loadedMesh = null;
+    //       }
+
+    //       mesh1 = gltf.scene;
+    //       mesh1.rotation.x = Math.PI / 2;
+    //       mesh1.position.y = arDocRef.current.positionY;
+    //       mesh1.scale.set(arDocRef.current.scaleSet, arDocRef.current.scaleSet, arDocRef.current.scaleSet);
+    //       markerRoot.group.add(mesh1);
+
+    //       console.timeEnd("Time this");
+    //       end = Date.now();
+    //       var timeSpent = (end - begin);
+    //       setLoading(false)
+    //       progressTime('phase 2', timeSpent);
+
+    //       modelLoadedRef.current = true;
+    //       loadingInProcess = false;
+    //       loadedMesh = mesh1;
+
+    //     }, onProgress, onError);
+    //   }
+
+    //   function onProgress(xhr) {
+    //     console.log(xhr);
+
+    //     if (xhr.total > 0) {
+    //       var percentage = (xhr.loaded / total * 100);
+    //       console.log(percentage + '% loaded');
+    //       progress('phase 1', percentage);
+    //     } else {
+    //       var percentage = (xhr.loaded / total * 100);
+    //       console.log(percentage + '% loaded');
+    //       progress('phase 1', percentage);
+    //     }
+    //   }
+
+    //   function onError(xhr) {
+    //     console.log('An error happened');
+    //     progress('phase 1', 'An error happened');
+    //   }
+
+    // }
 
     let po = new ProgressObject(1);
 
@@ -145,7 +282,7 @@ function AdexplorePage() {
 
       // console.log("loading Model "+ modelLoadedRef.current + " Loading Document"+ JSON.stringify(arDocRef.current));
 
-      document.getElementById("marker_label").innerHTML = '<b>Target Found</b>';
+      document.getElementById("marker_label").innerHTML = 'Marker Found';
 
       var begin = Date.now();
       var end;
@@ -221,11 +358,11 @@ function AdexplorePage() {
     }
 
     markerRoot.onTargetLost = () => {
-      console.log("Target Lost...");
+      console.log("Marker Lost...");
       setLoading(false)
 
 
-      document.getElementById("marker_label").innerHTML = '<b>Target Lost</b>';
+      document.getElementById("marker_label").innerHTML = 'Marker Lost';
 
       setProgressValue(0);
       progress('phase 1', 0);
@@ -269,7 +406,6 @@ function AdexplorePage() {
     startButton.addEventListener("click", () => {
       start();
     });
-    startButton.click();
 
     // stopButton.addEventListener("click", () => {
     //   stop();
@@ -318,11 +454,11 @@ function AdexplorePage() {
       mindarThree.renderer.setAnimationLoop(null);
     };
 
-    // const backButton = document.querySelector("#backButton");
+    const backButton = document.querySelector("#backButton");
 
-    // backButton.addEventListener("click", () => {
-    //   handleBack();
-    // });
+    backButton.addEventListener("click", () => {
+      handleBack();
+    });
 
     // return () => {
     //   mindarThree.stop();
@@ -332,24 +468,17 @@ function AdexplorePage() {
 
 
   if (!arDoc) {
-    //return <div>Loading ...</div>; // Render a loading indicator while fetching data
-    return <InitializeLoader />
+    return <div>Loading ...</div>; // Render a loading indicator while fetching data
   }
 
   return (
     <div id="container">
-      {/* <Link to='/home'>
+      <Link to='/home'>
         <button id="backButton">HOME</button>
-      </Link> */}
-      {/* <div id="device_label">{deviceSpec}</div> */}
-      <ContentPollingComponent
-        phashId={arDoc.targetpHash}
-        initialDocumentId={arDoc.documentId}
-        initialRefVer={arDoc.ref_ver}
-        onContentChange={handleContentChange}
-      />
+      </Link>
+      <div id="device_label">{deviceSpec}</div>
       <div id="control">
-        <button id="startButton" className="btn6" style={{visibility:"hidden"}}>Start</button>
+        <button id="startButton" className="btn6">Start</button>
         {/* <button id="stopButton" className="btn6">Stop</button> */}
       </div>
       {/* <div>
@@ -361,7 +490,7 @@ function AdexplorePage() {
         </div>
       </div>
       <div className="label2">
-        <h4>Duration</h4>
+        <h3>Total Loading Duration</h3>
       </div>
       <div className='progress3'>
         <div className='bar' id="phase 2">
@@ -369,8 +498,14 @@ function AdexplorePage() {
         </div>
       </div>
       <footer>
-        <div id="marker_label"><b>Target Not Found</b></div>
+        <div id="marker_label">Marker Not Found</div>
       </footer>
+      <ContentPollingComponent
+        phashId={arDoc.targetpHash}
+        initialDocumentId={arDoc.documentId}
+        initialRefVer={arDoc.ref_ver}
+        onContentChange={handleContentChange}
+      />
       {/* <SquareLoading loading={loading} color={color} style={{ zIndex: 9999 }} /> */}
       {/* <BarLoading loading={loading} color={color} style={{ zIndex: 9999 }} />  */}
       {/* <CircularLoading loading={loading} color={color} progress={progressValue} /> */}
