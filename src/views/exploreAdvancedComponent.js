@@ -28,14 +28,14 @@ import axios from 'axios';
 import getApiUrl from '../utility/apiUtils';
 import getUserAgentInfoWithDownloadSpeed from '../utility/userAgentUtil';
 
-function AdexplorePage() {
+function AdexplorePage({ phashIdvalue, onStateChange }) {
 
   const [loading, setLoading] = useState(false);
   const [color, setColor] = useState("#c320ff");
   const [arDoc, setDocument] = useState(null);
   const [updateContent, setUpdateFlag] = useState(false);
   const [deviceSpec, setDeviceSpec] = useState("Intializing...");
-  const [phashId, setPhashId] = useState("1111101001001110010100000000011100100111101100101001101010100000");
+  const [phashId, setPhashId] = useState(phashIdvalue);
 
   const arDocRef = useRef(null); // Mutable reference for arDoc
   const modelLoadedRef = useRef(false);

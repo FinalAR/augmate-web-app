@@ -29,6 +29,8 @@ const AdexploreHashPage = lazy(() => import("../views/exploreHasher.js"));
 const AdexploreLoaderPage = lazy(() => import("../views/exploreloaders.js"));
 const AdexploreARLoaderPage = lazy(() => import("../views/exploreARLoaders.js"));
 
+const ArexplorePage = lazy(() => import("../views/arExplore.js"));
+const ArexplorePage2 = lazy(() => import("../views/arExplore2.js"));
 
 const AdexplorePageDefault = lazy(() => import("../views/exploreAdvancedDefault.js"));
 
@@ -86,7 +88,15 @@ const router = createBrowserRouter([
     element: <ScanningPage />
   },
   {
+    path: '/adexplore11',
+    element: <ArexplorePage2 />
+  },
+  {
     path: '/adexplore',
+    element: <ArexplorePage />
+  },
+  {
+    path: '/arexplore',
     element: <AdexplorePage />
   },
   {

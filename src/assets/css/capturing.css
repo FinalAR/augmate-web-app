@@ -1,0 +1,232 @@
+.webcontainer {
+    position: relative;
+    background-color: black;
+  }
+  
+  .webcam {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    background-color: black;
+  }
+  
+  .boundary-box {
+    position: fixed;
+    border: 3px solid #2289ff;
+    border-radius: 5px; 
+    box-shadow: 0px 0px 10px rgba(34, 130, 255, 0.35); 
+  }
+  
+  .border1 {
+    border: 3px solid transparent; /* Set a transparent solid border */
+    border-image: radial-gradient(circle, #0000 89%, #B0ACD5 0); /* Define the radial gradient */
+    border-image-slice: 1; /* Specify the border image slice */
+  }
+  
+  .bottom-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 120px;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .photo-button {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .circle {
+    position: absolute;
+    top: 12%;
+    left: 12%;
+    bottom: 12%;
+    right: 12%;
+    border-radius: 100%;
+    background-color: #ffffff;
+    opacity: 0;
+  }
+  
+  .ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    border-radius: 100%;
+    border: 0.5em solid #ffffff;
+    opacity: 0.8;
+  }
+  
+  .photo-button .circle,
+  .photo-button .ring {
+    transition: all 0.25s;
+  }
+  
+  .photo-button:hover .circle {
+    opacity: 1;
+  }
+  
+  .photo-button:active .ring {
+    opacity: 1;
+  }
+  
+  .photo-button:active .circle {
+    opacity: 0.5;
+  }
+  
+  /* .modal-logo {
+    display: block;
+    margin: 0 auto;
+    max-width: 100px; 
+  } */
+  
+  .modal-logo {
+    display: block;
+    margin: 0 auto; /* Center the image horizontally */
+    width: 80px; /* Set the desired width */
+    height: auto; /* Automatically adjust height */
+    margin-bottom: 20px; /* Add some margin at the bottom */
+  }
+  .home-button {
+    font-size: 50px; /* Increase font size */
+    padding: 20px; /* Increase padding */
+    border-radius: 50%; /* Make it circular */
+    background-color: #4caf50; /* Add background color */
+    color: white; /* Set text color to white */
+    border: none; /* Remove border */
+    transition: all 0.3s; /* Add transition effect */
+    z-index: 999;
+  }
+  
+  .home-button:hover {
+    background-color: #45a049; /* Change background color on hover */
+  }
+  
+  .home-button:active {
+    background-color: #3e8e41; /* Change background color when clicked */
+  }
+  
+  .modal-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .modal-buttons button {
+    margin: 0 10px;
+  }
+  
+  .captured-image {
+    display: block;
+    margin: 0 auto;
+    max-width: 90%;
+    max-height: 90vh;
+  }
+  
+  
+  /* body {background:#f3efe8;} */
+  .searchLoading {
+    font-family: "Arial Black", "Arial Bold", Gadget, sans-serif;
+    text-transform:uppercase;
+    font-size: small;
+    width:150px;
+    text-align:center;
+    line-height:50px;
+    
+    position:absolute;
+    left:0;right:0;top:50%;
+    margin:auto;
+    transform:translateY(-50%);
+  }
+  
+  .searchLoading span {
+    position:relative;
+    z-index:999;
+    color:#fff;
+  }
+  .searchLoading:before {
+    content:'';
+    background:#61bdb6;
+    width:128px;
+    height:36px;
+    display:block;
+    position:absolute;
+    top:0;left:0;right:0;bottom:0;
+    margin:auto;
+    
+    animation:2s loadingBefore infinite ease-in-out;
+  }
+  
+  @keyframes loadingBefore {
+    0%   {transform:translateX(-14px);}
+    50%  {transform:translateX(14px);}
+    100% {transform:translateX(-14px);}
+  }
+  
+  
+  .searchLoading:after {
+    content:'';
+    background:#ff3600;
+    width:14px;
+    height:60px;
+    display:block;
+    position:absolute;
+    top:0;left:0;right:0;bottom:0;
+    margin:auto;
+    opacity:.5;
+    
+    animation:2s loadingAfter infinite ease-in-out;
+  }
+  
+  @keyframes loadingAfter {
+    0%   {transform:translateX(-50px);}
+    50%  {transform:translateX(50px);}
+    100% {transform:translateX(-50px);}
+  }
+  
+  /* Add styles for success message */
+  .message.success {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4caf50; /* Green background color */
+    color: white; /* White text color */
+    padding: 10px 20px; /* Padding around the message */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Shadow effect */
+  }
+  
+  /* Add styles for failure message */
+  .message.failure {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #f44336; /* Red background color */
+    color: white; /* White text color */
+    padding: 10px 20px; /* Padding around the message */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Shadow effect */
+  }
+  
+  /* Add styles for the message icon */
+  .message span {
+    margin-left: 5px; /* Add some spacing between the icon and text */
+  }
+  
