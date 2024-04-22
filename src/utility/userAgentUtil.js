@@ -1,14 +1,20 @@
 async function getUserAgentInfoWithDownloadSpeed(userAgentString) {
     // Identify OS (Mobile and Computer)
-    const osRegex = /(Windows NT \d+\.\d+|Mac OS X \d+(\_\d+)?|Android \d+(\.\d+)?|iPhone|iPad|Windows Phone)/; // Combined regex for mobile and computer OS
+    const osRegex = /(Windows NT \d+\.\d+|Mac OS X \d+(\_\d+)?|Android|iPhone|iPad|Windows Phone)/; // Combined regex for mobile and computer OS
     const osMatch = userAgentString.match(osRegex);
     const operatingSystem = osMatch ? osMatch[0] : "Unknown";
+
+    // let os;
+
+    // if(operatingSystem="iPhone"){
+    //   os="IOS";
+    // }
   
     // Identify Browser
     const browserRegex = /(Chrome|Firefox|Safari|Edge)\/\d+(\.\d+)+/; // Regex to match popular browsers
     const browserMatch = userAgentString.match(browserRegex);
     const browser = browserMatch ? browserMatch[1] : "Unknown";
-  
+
     // Log OS and Browser to Console
     console.log("Operating System:", operatingSystem);
     console.log("Browser:", browser);

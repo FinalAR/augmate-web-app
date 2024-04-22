@@ -72,7 +72,7 @@ function AdexplorePage() {
     
         console.log(`content/find/advanced/${phashId}?${params.toString()}`);
 
-        const response = await fetch(getApiUrl(`content/findv2/${phashId}?${params.toString()}`));
+        const response = await fetch(getApiUrl(`content/find/advanced/${phashId}?${params.toString()}`));
 
         if (!response.ok) {
           throw new Error('Failed to fetch data');
