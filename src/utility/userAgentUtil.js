@@ -4,11 +4,11 @@ async function getUserAgentInfoWithDownloadSpeed(userAgentString) {
     const osMatch = userAgentString.match(osRegex);
     const operatingSystem = osMatch ? osMatch[0] : "Unknown";
 
-    // let os;
+    let osType;
 
-    // if(operatingSystem="iPhone"){
-    //   os="IOS";
-    // }
+    if(operatingSystem == "iPhone"){
+      osType="IOS";
+    }
   
     // Identify Browser
     const browserRegex = /(Chrome|Firefox|Safari|Edge)\/\d+(\.\d+)+/; // Regex to match popular browsers
@@ -42,7 +42,7 @@ async function getUserAgentInfoWithDownloadSpeed(userAgentString) {
       
       // Return Data Object with OS, Browser, and Download Speed
       return {
-        os: operatingSystem,
+        os: osType,
         browser: browser,
         downloadSpeed: downloadSpeedMbps // Return download speed in kilobytes per second
       };
@@ -50,7 +50,7 @@ async function getUserAgentInfoWithDownloadSpeed(userAgentString) {
       console.error("Error downloading file:", error);
       // Return Data Object with OS and Browser only if download fails
       return {
-        os: operatingSystem,
+        os: osType,
         browser: browser,
         downloadSpeed: "Error" // Indicate error in download speed
       };

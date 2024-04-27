@@ -341,7 +341,7 @@ function AdexplorePage() {
       {/* <Link to='/home'>
         <button id="backButton">HOME</button>
       </Link> */}
-      {/* <div id="device_label">{deviceSpec}</div> */}
+      <div id="device_label">{deviceSpec}</div> 
       <ContentPollingComponent
         phashId={arDoc.targetpHash}
         initialDocumentId={arDoc.documentId}
