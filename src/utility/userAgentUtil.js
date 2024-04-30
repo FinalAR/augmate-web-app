@@ -8,8 +8,10 @@ async function getUserAgentInfoWithDownloadSpeed(userAgentString) {
 
     osType = operatingSystem;
 
-    if(operatingSystem === "iPhone"){
+    if(operatingSystem === "iPhone" || operatingSystem === "iPad"){
       osType="IOS";
+    }else if(operatingSystem === "Windows Phone"){
+      osType="Android";
     }
   
     // Identify Browser
