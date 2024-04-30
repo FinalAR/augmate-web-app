@@ -5,10 +5,10 @@ async function getUserAgentInfoWithDownloadSpeed(userAgentString) {
     const operatingSystem = osMatch ? osMatch[0] : "Unknown";
 
     let osType;
-    
-    osType=operatingSystem;
 
-    if(operatingSystem == "iPhone"){
+    osType = operatingSystem;
+
+    if(operatingSystem === "iPhone"){
       osType="IOS";
     }
   
@@ -19,6 +19,7 @@ async function getUserAgentInfoWithDownloadSpeed(userAgentString) {
 
     // Log OS and Browser to Console
     console.log("Operating System:", operatingSystem);
+    console.log("OS Type:", osType);
     console.log("Browser:", browser);
   
     // Download Speed Calculation

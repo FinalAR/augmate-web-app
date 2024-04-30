@@ -63,6 +63,7 @@ function AdexplorePage() {
         console.log('OS:' + os + ' ' + 'Browser:' + browser + ' ' + 'DownloadSpeed:' + downloadSpeed);
         setDeviceSpec('OS:' + os + ' ' + 'Browser:' + browser + ' ' + 'DownloadSpeed(Mbps):' + downloadSpeed*8);
 
+
         //const response = await fetch(getApiUrl(`content/findv2/${phashId}`));
         const params = new URLSearchParams({
           os: os,
@@ -72,6 +73,8 @@ function AdexplorePage() {
     
         console.log(`content/findv2/${phashId}?${params.toString()}`);
 
+        alert(`content/findv2/${phashId}?${params.toString()}`);
+        
         const response = await fetch(getApiUrl(`content/findv2/${phashId}?${params.toString()}`));
 
         if (!response.ok) {

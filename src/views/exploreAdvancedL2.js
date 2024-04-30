@@ -72,6 +72,8 @@ function AdexplorePage() {
     
         console.log(`content/find/advanced/${phashId}?${params.toString()}`);
 
+        alert(`content/find/advanced/${phashId}?${params.toString()}`);
+
         const response = await fetch(getApiUrl(`content/find/advanced/${phashId}?${params.toString()}`));
 
         if (!response.ok) {
@@ -341,7 +343,7 @@ function AdexplorePage() {
       {/* <Link to='/home'>
         <button id="backButton">HOME</button>
       </Link> */}
-      {/* <div id="device_label">{deviceSpec}</div> */}
+      <div id="device_label">{deviceSpec}</div>
       <ContentPollingComponent
         phashId={arDoc.targetpHash}
         initialDocumentId={arDoc.documentId}
