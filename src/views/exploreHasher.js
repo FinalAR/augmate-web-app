@@ -11,6 +11,7 @@ import QRCodeGenerator from '../components/QRCodeGenerator';
 import QRScanner from '../components/QRScanner';
 
 import ImageHashGenerator from '../tools/ImageHashGenerator';
+import ImageFeatureGenerator from '../tools/ImageFeatureGenerator';
 
 import uploadFileToS3 from '../tools/storageHandler';
 
@@ -53,6 +54,10 @@ function AdexploreHashPage() {
       <Link to='/home'>
         <button id="backButton">HOME</button>
       </Link>
+      <div>
+        <h1>Image Feature Generator</h1>
+        {/* <ImageFeatureGenerator /> */}
+      </div>
       <div>
         <QRScanner />
       </div>

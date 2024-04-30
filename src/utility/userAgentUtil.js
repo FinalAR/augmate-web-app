@@ -5,6 +5,8 @@ async function getUserAgentInfoWithDownloadSpeed(userAgentString) {
     const operatingSystem = osMatch ? osMatch[0] : "Unknown";
 
     let osType;
+    
+    osType=operatingSystem;
 
     if(operatingSystem == "iPhone"){
       osType="IOS";

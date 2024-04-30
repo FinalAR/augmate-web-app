@@ -27,6 +27,7 @@
     "mind-ar": "^1.2.3",
     "netlify-cli": "^17.15.7",
     "node-sass": "9.0.0",
+    "opencv.js": "^1.2.1",
     "os-browserify": "^0.3.0",
     "path-browserify": "^1.0.1",
     "perceptual-hash": "^0.1.1",
