@@ -25,7 +25,7 @@ function ArExplore() {
       {/* Pass pHash to AR experience */}
       {state==1 && <AdexplorePage phashIdvalue={pHash} onStateChange={handleStateChange}/>}
        
-      <exploreFooter />
+      {/* <exploreFooter /> */}
     </div>
   );
 }
