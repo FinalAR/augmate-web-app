@@ -22,7 +22,7 @@ const CircularLoading = ({ loading, color, progress }) => {
             text: {
               fill: color || "#ffffff",
               fontFamily: "Arial, sans-serif", 
-              fontSize: "18px", 
+              fontSize: "16px", 
               fontWeight: "bold" 
             }
           }}
