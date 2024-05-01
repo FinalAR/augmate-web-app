@@ -73,7 +73,7 @@ function AdexplorePage() {
     
         console.log(`content/findv2/${phashId}?${params.toString()}`);
 
-        alert(`content/findv2/${phashId}?${params.toString()}`);
+        // alert(`content/findv2/${phashId}?${params.toString()}`);
         
         const response = await fetch(getApiUrl(`content/findv2/${phashId}?${params.toString()}`));
 
