@@ -343,13 +343,13 @@ function AdexplorePage() {
       {/* <Link to='/home'>
         <button id="backButton">HOME</button>
       </Link> */}
-      <div id="device_label">{deviceSpec}</div>
       <ContentPollingComponent
         phashId={arDoc.targetpHash}
         initialDocumentId={arDoc.documentId}
         initialRefVer={arDoc.ref_ver}
         onContentChange={handleContentChange}
       />
+      <div id="device_label">{deviceSpec}</div>
       <div id="control">
         <button id="startButton" className="btn6" style={{visibility:"hidden"}}>Start</button>
         {/* <button id="stopButton" className="btn6">Stop</button> */}

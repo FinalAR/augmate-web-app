@@ -56,11 +56,11 @@ function AdexploreHashPage() {
       </Link>
       <div>
         <h1>Image Feature Generator</h1>
-        {/* <ImageFeatureGenerator /> */}
+        <ImageFeatureGenerator />
       </div>
-      <div>
+      {/* <div>
         <QRScanner />
-      </div>
+      </div> */}
       <div>
         <h1>Image Hash Generator</h1>
         <ImageHashGenerator />
@@ -78,11 +78,11 @@ function AdexploreHashPage() {
         <h1>QR Generator component</h1>
         <QRCodeGenerator perceptualHash={phashId} />
       </div> */}
-      <div>
+      {/* <div>
         <h1>QR Generator main</h1>
         <h2>QR Code</h2>
         <QRCode value={phashId} />
-      </div>
+      </div> */}
     </div>
   );
 }
