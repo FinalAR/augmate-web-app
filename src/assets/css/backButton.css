@@ -3,7 +3,7 @@
     height: 50px;
     /* position: absolute; */
     /* top: 5%; */
-    left: 5%;
+    left: 20px;
     transform: translate(-50%, -50%);
     border-radius: 50%;
     border: #8c03f4 1px solid;
@@ -65,12 +65,12 @@
     flex: 1;
   }
   
-  .back-button .rescan-text {
+  .rescan-text {
     color: white; /* Adjust text color as needed */
     font-size: 14px; /* Adjust font size as needed */
     font-weight: bold; /* Adjust font weight as needed */
     margin-left: 10px; /* Adjust margin as needed */
-    background: #03A9F4; /* Adjust background color as needed */
-    padding: 5px 10px; /* Adjust padding as needed */
-    border-radius: 5px; /* Adjust border radius as needed */
+    /* background: #03A9F4;  */
+    /* padding: 5px 10px;  */
+    /* border-radius: 5px;  */
   }

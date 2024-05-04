@@ -154,19 +154,19 @@ function CapturingComponent({ onStateChange, onPhashChange }) {
             <Modal isOpen={showModal} onRequestClose={() => setShowModal(false)}>
                 {message === "Success" && (
                     <div className="message success">
-                        <FaCheckCircle /> {/* Add the success icon */}
+                        {/* <FaCheckCircle />  */}
                         <span>Identification Successfull</span> {/* Add the success message */}
                     </div>
                 )}
                 {/* Display the failure message */}
                 {message === "Failure" && (
                     <div className="message failure">
-                        <FaTimesCircle /> {/* Add the failure icon */}
+                        {/* <FaTimesCircle />  */}
                         <span>Identification Failed</span> {/* Add the failure message */}
                     </div>
                 )}
                 <img src={logo} alt="Logo" className="modal-logo" />
-                <h2 style={{ textAlign: "center", marginBottom: "20px" }}>IMAGE</h2>
+                <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Identify Image</h2>
                 {/* {message && (
           <div className="message" style={{ color: "green", textAlign: "center" }}>
             {message}

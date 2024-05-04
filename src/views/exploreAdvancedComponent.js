@@ -345,13 +345,13 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
 
       <div id="device_label" style={{ visibility: "hidden" }} >{deviceSpec}</div>
       <div className="back-button" onClick={handleStateChange}>
-        <div className="arrow-wrap">
+        <div className="arrow-wrap"onClick={handleStateChange}>
           <span className="arrow-part-1"></span>
           <span className="arrow-part-2"></span>
           <span className="arrow-part-3"></span>
         </div>
-        <div className="rescan-text">Rescan</div>
       </div>
+      <div className="rescan-text">Rescan</div>
       <ContentPollingComponent
         phashId={arDoc.targetpHash}
         initialDocumentId={arDoc.documentId}
