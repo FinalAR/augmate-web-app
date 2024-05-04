@@ -3,6 +3,7 @@ import "../assets/css/navBar.css";
 import "../assets/css/popup.css";
 import "../assets/css/elements.css";
 import "../assets/css/backButton.css";
+// import "../assets/css/popupNote.css";
 
 import { Link } from 'react-router-dom';
 import React, { useEffect, useState, useRef } from 'react';
@@ -38,6 +39,17 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
   const [deviceSpec, setDeviceSpec] = useState("Intializing...");
   const [phashId, setPhashId] = useState(phashIdvalue);
 
+  //Note States
+  const [targetId, settargetId] = useState(phashIdvalue);
+
+  const [osType, setOS] = useState("Initializing...");
+  const [browserType, setBrowser] = useState("Initializing...");
+  const [downloadSpeed, setDownSpeed] = useState("Initializing...");
+
+  const [lod, setLod] = useState("Initializing...");
+  const [lodingScore, setLoadingScore] = useState("Initializing...");
+  const [loadDuration, setDuration] = useState("Initializing...");
+
   const arDocRef = useRef(null); // Mutable reference for arDoc
   const modelLoadedRef = useRef(false);
 
@@ -56,6 +68,14 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
     onStateChange(0);
     window.location.reload();
   }
+
+  const handlepopup = (show) => {
+    if (show == 1) {
+      console.log("open");
+    } else {
+      console.log("close");
+    }
+  }
   // const phashId = "1111101001001110010100000000011100100111101100101001101010100000";
 
   let counter = 1;
@@ -68,6 +88,10 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
         console.log('OS:' + os + ' ' + 'Browser:' + browser + ' ' + 'DownloadSpeed:' + downloadSpeed);
         setDeviceSpec('OS:' + os + ' ' + 'Browser:' + browser + ' ' + 'DownloadSpeed(Mbps):' + downloadSpeed * 8);
 
+        setOS(os);
+        setBrowser(browser);
+        setDownSpeed(downloadSpeed * 8);
+
         //const response = await fetch(getApiUrl(`content/findv2/${phashId}`));
         const params = new URLSearchParams({
           os: os,
@@ -75,9 +99,11 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
           downloadSpeed: downloadSpeed
         });
 
-        console.log(`content/findv2/${phashId}?${params.toString()}`);
+        console.log(`content/find/advanced/${phashId}?${params.toString()}`);
 
-        const response = await fetch(getApiUrl(`content/findv2/${phashId}?${params.toString()}`));
+        // alert(`content/find/advanced/${phashId}?${params.toString()}`);
+
+        const response = await fetch(getApiUrl(`content/find/advanced/${phashId}?${params.toString()}`));
 
         if (!response.ok) {
           throw new Error('Failed to fetch data');
@@ -194,6 +220,8 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
           var timeSpent = (end - begin);
           setLoading(false)
           progressTime('phase 2', timeSpent);
+
+          setDuration(Math.floor(timeSpent / 1000) + 's');
 
           modelLoadedRef.current = true;
           loadingInProcess = false;
@@ -333,6 +361,9 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
     //   mindarThree.stop();
     //   mindarThree.renderer.setAnimationLoop(null);
     // };
+    setLod(arDoc.lodValue);
+    setLoadingScore(arDoc.loadingScore);
+
   }, [arDoc]);
 
 
@@ -354,9 +385,24 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
           </div>
         </div>
         <div className="rescan-text">Rescan</div>
-        
+      </div>
+      <div style={{display:"flex",justifyContent:"flex-end", zIndex:"9998", cursor:"pointer"}} onclick={handlepopup(1)}>
+          <a className="button" style={{color:"white", alignItems:"right", marginRight:"10px",zIndex:"9998", cursor:"pointer", marginTop:"-50px", marginBottom:"10px"}} href="#popup1">NOTE</a>
       </div>
 
+      {/* <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px", marginTop: "10px" }}>
+        <div className="back-button" onClick={handleStateChange}>
+          <div className="arrow-wrap">
+            <span className="arrow-part-1"></span>
+            <span className="arrow-part-2"></span>
+            <span className="arrow-part-3"></span>
+          </div>
+        </div>
+        <div className="rescan-text">Rescan</div>
+        <div style={{ zIndex: "9998", cursor: "pointer" }} onClick={handlepopup(1)}>
+          <a className="button" style={{ color: "white", marginRight: "10px", cursor: "pointer" }} href="#popup1">NOTE</a>
+        </div>
+      </div> */}
       <ContentPollingComponent
         phashId={arDoc.targetpHash}
         initialDocumentId={arDoc.documentId}
@@ -370,6 +416,21 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
       <div id="control">
         <button id="startButton" className="btn6" style={{ visibility: "hidden" }}>Start</button>
         {/* <button id="stopButton" className="btn6">Stop</button> */}
+      </div>
+
+      <div id="popup1" className="overlay" style={{ zIndex: "9999", cursor: "pointer" }}>
+        <div className="popup">
+          <h2>Experience Note</h2>
+          <a className="close" onclick={handlepopup(0)} href="#">&times;</a>
+          <div className="content">
+            <p><b>OS: </b>{osType}</p>
+            <p><b>Browser: </b>{browserType}</p>
+            <p><b>DownloadSpeed(Mbps): </b>{downloadSpeed}</p>
+            <p><b>Level Of Detail: </b>{lod}</p>
+            <p><b>LoadingScore: </b>{lodingScore}</p>
+            <p><b>Loaded Duration(s): </b>{loadDuration}</p>
+          </div>
+        </div>
       </div>
       {/* <div>
         <ImageHashHandler />

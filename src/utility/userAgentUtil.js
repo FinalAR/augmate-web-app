@@ -27,8 +27,8 @@ async function getUserAgentInfoWithDownloadSpeed(userAgentString) {
     // Download Speed Calculation
     const startTime = performance.now(); // Start time of download
     try {
-      const response = await fetch('https://finalar.github.io/models/chess/M/Chess01.glb');
-      
+      // const response = await fetch('https://finalar.github.io/models/chess/M/Chess01.glb');
+      const response = await fetch('https://finalar.github.io/models/chess/M/Chess01.glb?' + Date.now());
       const endTime = performance.now(); // End time of download
       
       const fileSize = parseInt(response.headers.get('Content-Length')); // Size of the downloaded file in bytes
@@ -45,6 +45,18 @@ async function getUserAgentInfoWithDownloadSpeed(userAgentString) {
         const downloadSpeedMbps = downloadSpeed / (1024*1024); // Download speed in kilobytes per second
         console.log("Download Speed (MB/s):", downloadSpeedMbps);
       
+        caches.keys().then(cacheNames => {
+          console.log("List of cache names:");
+          cacheNames.forEach(cacheName => {
+            console.log(cacheName);
+          });
+        }).catch(error => {
+          console.error("Error listing cache names:", error);
+        });
+
+      // Clear the cached file
+      // const cacheName = 'your-cache-name'; 
+      // await caches.open(cacheName).then(cache => cache.delete('https://finalar.github.io/models/chess/M/Chess01.glb'));
       // Return Data Object with OS, Browser, and Download Speed
       return {
         os: osType,

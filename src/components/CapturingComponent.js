@@ -71,7 +71,8 @@ function CapturingComponent({ onStateChange, onPhashChange }) {
             setSuccessMessage("Identification Successful"); // Display success message
             setFailureMessage(""); // Reset failure message
             setTimeout(() => {
-                onPhashChange("1111101001001110010100000000011100100111101100101001101010100000");
+                onPhashChange("1001110100101101011011111111011100111100011110100111101110110010");
+                //onPhashChange("1111101001001110010100000000011100100111101100101001101010100000");
                 onStateChange(1);
             }, 2000);
 
