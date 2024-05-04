@@ -338,10 +338,10 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
 
   return (
     <div id="container">
-      {/* <Link to='/home'>
+      <Link to='https://augmate.netlify.app/adexplore'>
         <button id="backButton">HOME</button>
-      </Link> */}
-      {/* <div id="device_label">{deviceSpec}</div> */}
+      </Link>
+      <div id="device_label" style={{visibility:"hidden"}} >{deviceSpec}</div>
       <ContentPollingComponent
         phashId={arDoc.targetpHash}
         initialDocumentId={arDoc.documentId}
@@ -363,7 +363,7 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
       {/* <div className="label2" style={{visibility:"hidden"}}>
         <h4>Duration</h4>
       </div> */}
-      <div className='progress3'style={{visibility:"hidden"}}>
+      <div className='progress3' style={{visibility:"hidden"}}>
         <div className='bar' id="phase 2">
           <div className="label" id="phase 2 label">0ms</div>
         </div>
