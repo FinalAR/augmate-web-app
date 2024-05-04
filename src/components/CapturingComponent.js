@@ -151,7 +151,7 @@ function CapturingComponent({ onStateChange, onPhashChange }) {
                 </div>
             </div>
 
-            <Modal isOpen={showModal} onRequestClose={() => setShowModal(false)}>
+            <Modal isOpen={showModal} onRequestClose={() => setShowModal(false)} style={{backgroundColor:"black"}}>
                 {message === "Success" && (
                     <div className="message success">
                         {/* <FaCheckCircle />  */}

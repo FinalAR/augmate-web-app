@@ -72,6 +72,8 @@
     font-size: 14px; /* Adjust font size as needed */
     font-weight: bold; /* Adjust font weight as needed */
     margin-left: 70px; /* Adjust margin as needed */
+    margin-top: -10px;
+    margin-bottom: 10px;
     /* background: #03A9F4;  */
     /* padding: 5px 10px;  */
     /* border-radius: 5px;  */
