@@ -289,13 +289,13 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
 
     //Prgress Loading Function
     function progress(phase, percentage) {
-      var elem = document.getElementById(phase);
+      // var elem = document.getElementById(phase);
       var width = Math.floor(window.innerWidth * percentage)
 
       //var width = Math.floor(percentage * 100);
       //if (width <= 100) {
-      elem.style.width = percentage + '%';
-      document.getElementById(phase + " label").innerHTML = Math.floor(percentage) + '%';
+      // elem.style.width = percentage + '%';
+      // document.getElementById(phase + " label").innerHTML = Math.floor(percentage) + '%';
       //}
       console.log("Progress width: " + width);
       console.log("Progress presentage: " + percentage);
@@ -360,9 +360,9 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
           <div className="label" id="phase 1 label">0%</div>
         </div>
       </div>
-      <div className="label2" style={{visibility:"hidden"}}>
+      {/* <div className="label2" style={{visibility:"hidden"}}>
         <h4>Duration</h4>
-      </div>
+      </div> */}
       <div className='progress3'style={{visibility:"hidden"}}>
         <div className='bar' id="phase 2">
           <div className="label" id="phase 2 label">0ms</div>
