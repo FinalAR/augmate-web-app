@@ -345,7 +345,7 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
     <div id="container">
 
       <div id="device_label" style={{ visibility: "hidden" }} >{deviceSpec}</div>
-      <div style={{ display: "flex", marginBottom: "10px" }}>
+      <div style={{ display: "flex", marginBottom: "10px",marginTop: "10px" }}>
         <div className="back-button" onClick={handleStateChange}>
           <div className="arrow-wrap">
             <span className="arrow-part-1"></span>

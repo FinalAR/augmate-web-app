@@ -1,3 +1,4 @@
+
 .webcontainer {
     position: relative;
     background-color: black;
@@ -208,6 +209,7 @@
     border-radius: 5px; /* Rounded corners */
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Shadow effect */
     font-size: small;
+    margin-top: 45%;
   }
   
   /* Add styles for failure message */
@@ -225,6 +227,7 @@
     border-radius: 5px; /* Rounded corners */
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Shadow effect */
     font-size: small;
+    margin-top: 45%;
   }
   
   /* Add styles for the message icon */
