@@ -338,9 +338,7 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
 
   return (
     <div id="container">
-      <Link to='https://augmate.netlify.app/adexplore'>
-        <button id="backButton">HOME</button>
-      </Link>
+
       <div id="device_label" style={{visibility:"hidden"}} >{deviceSpec}</div>
       <ContentPollingComponent
         phashId={arDoc.targetpHash}
@@ -348,6 +346,9 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
         initialRefVer={arDoc.ref_ver}
         onContentChange={handleContentChange}
       />
+      <Link to='https://augmate.netlify.app/adexplore'>
+        <button id="backButton">HOME</button>
+      </Link>
       <div id="control">
         <button id="startButton" className="btn6" style={{visibility:"hidden"}}>Start</button>
         {/* <button id="stopButton" className="btn6">Stop</button> */}
