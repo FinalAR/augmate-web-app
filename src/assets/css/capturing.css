@@ -204,9 +204,10 @@
     transform: translateX(-50%);
     background-color: #4caf50; /* Green background color */
     color: white; /* White text color */
-    padding: 10px 20px; /* Padding around the message */
+    padding: 5px 10px; /* Padding around the message */
     border-radius: 5px; /* Rounded corners */
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Shadow effect */
+    font-size: small;
   }
   
   /* Add styles for failure message */
@@ -220,13 +221,15 @@
     transform: translateX(-50%);
     background-color: #f44336; /* Red background color */
     color: white; /* White text color */
-    padding: 10px 20px; /* Padding around the message */
+    padding: 5px 10px; /* Padding around the message */
     border-radius: 5px; /* Rounded corners */
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Shadow effect */
+    font-size: small;
   }
   
   /* Add styles for the message icon */
   .message span {
     margin-left: 5px; /* Add some spacing between the icon and text */
+    font-size: small;
   }
   
