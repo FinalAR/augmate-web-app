@@ -2,6 +2,7 @@ import "../assets/css/progress.css";
 import "../assets/css/navBar.css";
 import "../assets/css/popup.css";
 import "../assets/css/elements.css";
+import "../assets/css/backButton.css";
 
 import { Link } from 'react-router-dom';
 import React, { useEffect, useState, useRef } from 'react';
@@ -51,6 +52,9 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
     // console.log("Hi the document is"+ JSON.stringify(arDoc));
   };
 
+  const handleStateChange =() => {
+    onStateChange(0);
+  }
   // const phashId = "1111101001001110010100000000011100100111101100101001101010100000";
 
   let counter = 1;
@@ -346,9 +350,16 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
         initialRefVer={arDoc.ref_ver}
         onContentChange={handleContentChange}
       />
-      <Link to='https://augmate.netlify.app/adexplore'>
+      {/* <Link to='https://augmate.netlify.app/adexplore'>
         <button id="backButton">HOME</button>
-      </Link>
+      </Link> */}
+      <div className="back-button" onClick={handleStateChange}>
+      <div className="arrow-wrap">
+        <span className="arrow-part-1"></span>
+        <span className="arrow-part-2"></span>
+        <span className="arrow-part-3"></span> 
+      </div>
+    </div>
       <div id="control">
         <button id="startButton" className="btn6" style={{visibility:"hidden"}}>Start</button>
         {/* <button id="stopButton" className="btn6">Stop</button> */}
