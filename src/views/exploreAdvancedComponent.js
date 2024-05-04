@@ -354,6 +354,7 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
           </div>
         </div>
         <div className="rescan-text">Rescan</div>
+        
       </div>
 
       <ContentPollingComponent
