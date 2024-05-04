@@ -355,15 +355,15 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
       {/* <div>
         <ImageHashHandler />
       </div> */}
-      <div className="progress">
+      <div className="progress" style={{visibility:"hidden"}}>
         <div className='bar' id="phase 1">
           <div className="label" id="phase 1 label">0%</div>
         </div>
       </div>
-      <div className="label2">
+      <div className="label2" style={{visibility:"hidden"}}>
         <h4>Duration</h4>
       </div>
-      <div className='progress3'>
+      <div className='progress3'style={{visibility:"hidden"}}>
         <div className='bar' id="phase 2">
           <div className="label" id="phase 2 label">0ms</div>
         </div>
