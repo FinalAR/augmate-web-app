@@ -3,13 +3,14 @@
     height: 50px;
     /* position: absolute; */
     /* top: 5%; */
-    left: 50px;
+    left: 100px;
     transform: translate(-50%, -50%);
     border-radius: 50%;
     border: #8c03f4 1px solid;
     overflow: hidden;
     transition: background 0.3s ease;
     z-index: 99999;
+    cursor: pointer;
   }
   
   .back-button.back .arrow-wrap {
