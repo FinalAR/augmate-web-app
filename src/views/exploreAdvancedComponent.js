@@ -22,7 +22,7 @@ import RiseLoading from '../components/loaders/RiseLoader';
 
 import ProgressObject from '../components/loaders/arLoaders/progLoader';
 
-import InitializeLoader from '../components/loaders/InitializeLoader'; 
+import InitializeLoader from '../components/loaders/InitializeLoader';
 
 
 import axios from 'axios';
@@ -52,7 +52,7 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
     // console.log("Hi the document is"+ JSON.stringify(arDoc));
   };
 
-  const handleStateChange =() => {
+  const handleStateChange = () => {
     onStateChange(0);
   }
   // const phashId = "1111101001001110010100000000011100100111101100101001101010100000";
@@ -65,7 +65,7 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
 
         const { os, browser, downloadSpeed } = await getUserAgentInfoWithDownloadSpeed(navigator.userAgent);
         console.log('OS:' + os + ' ' + 'Browser:' + browser + ' ' + 'DownloadSpeed:' + downloadSpeed);
-        setDeviceSpec('OS:' + os + ' ' + 'Browser:' + browser + ' ' + 'DownloadSpeed(Mbps):' + downloadSpeed*8);
+        setDeviceSpec('OS:' + os + ' ' + 'Browser:' + browser + ' ' + 'DownloadSpeed(Mbps):' + downloadSpeed * 8);
 
         //const response = await fetch(getApiUrl(`content/findv2/${phashId}`));
         const params = new URLSearchParams({
@@ -73,7 +73,7 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
           browser: browser,
           downloadSpeed: downloadSpeed
         });
-    
+
         console.log(`content/findv2/${phashId}?${params.toString()}`);
 
         const response = await fetch(getApiUrl(`content/findv2/${phashId}?${params.toString()}`));
@@ -105,7 +105,7 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
 
     let total;
 
-   
+
 
     // Only initialize mindarThree if counter is 1
     if (counter === 1) {
@@ -130,7 +130,7 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
 
 
       counter++;
-      
+
     }
 
     //Models init
@@ -155,7 +155,7 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
       var end;
       let mesh0;
 
-      
+
 
       // alert("Before the loading"+ modelLoaded + " Seccond - " + loadingInProcess);
       if (!modelLoadedRef.current && !loadingInProcess) {
@@ -343,7 +343,15 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
   return (
     <div id="container">
 
-      <div id="device_label" style={{visibility:"hidden"}} >{deviceSpec}</div>
+      <div id="device_label" style={{ visibility: "hidden" }} >{deviceSpec}</div>
+      <div className="back-button" onClick={handleStateChange}>
+        <div className="arrow-wrap">
+          <span className="arrow-part-1"></span>
+          <span className="arrow-part-2"></span>
+          <span className="arrow-part-3"></span>
+        </div>
+        <div className="rescan-text">Rescan</div>
+      </div>
       <ContentPollingComponent
         phashId={arDoc.targetpHash}
         initialDocumentId={arDoc.documentId}
@@ -353,15 +361,9 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
       {/* <Link to='https://augmate.netlify.app/adexplore'>
         <button id="backButton">HOME</button>
       </Link> */}
-      <div className="back-button" onClick={handleStateChange}>
-      <div className="arrow-wrap">
-        <span className="arrow-part-1"></span>
-        <span className="arrow-part-2"></span>
-        <span className="arrow-part-3"></span> 
-      </div>
-    </div>
+
       <div id="control">
-        <button id="startButton" className="btn6" style={{visibility:"hidden"}}>Start</button>
+        <button id="startButton" className="btn6" style={{ visibility: "hidden" }}>Start</button>
         {/* <button id="stopButton" className="btn6">Stop</button> */}
       </div>
       {/* <div>
@@ -375,7 +377,7 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
       {/* <div className="label2" style={{visibility:"hidden"}}>
         <h4>Duration</h4>
       </div> */}
-      <div className='progress3' style={{visibility:"hidden"}}>
+      <div className='progress3' style={{ visibility: "hidden" }}>
         <div className='bar' id="phase 2">
           <div className="label" id="phase 2 label">0ms</div>
         </div>
@@ -385,7 +387,7 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
       </footer>
       {/* <SquareLoading loading={loading} color={color} style={{ zIndex: 9999 }} /> */}
       {/* <BarLoading loading={loading} color={color} style={{ zIndex: 9999 }} />  */}
-      <CircularLoading loading={loading} color={color} progress={progressValue} style={{ zIndex: 9999 }}/>
+      <CircularLoading loading={loading} color={color} progress={progressValue} style={{ zIndex: 9999 }} />
       {/* <SquareLoading loading={loading} color={color} style={{ zIndex: 9999 }} />   */}
       {/* <BounceLoading loading={loading} color={color} style={{ zIndex: 9999 }} />  */}
       {/* <RiseLoading loading={loading} color={color} style={{ zIndex: 9999 }} /> */}
