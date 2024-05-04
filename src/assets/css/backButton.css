@@ -9,6 +9,7 @@
     border: #8c03f4 1px solid;
     overflow: hidden;
     transition: background 0.3s ease;
+    z-index: 99999;
   }
   
   .back-button.back .arrow-wrap {
