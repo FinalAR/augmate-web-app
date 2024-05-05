@@ -183,7 +183,9 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
       let mesh0;
 
 
-
+      if(loadingInProcess){
+        setLoading(true);
+      }
       // alert("Before the loading"+ modelLoaded + " Seccond - " + loadingInProcess);
       if (!modelLoadedRef.current && !loadingInProcess) {
         // alert("Inside the loading");
@@ -255,8 +257,7 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
 
     markerRoot.onTargetLost = () => {
       console.log("Target Lost...");
-      // setLoading(false)
-
+      setLoading(false);
 
       document.getElementById("marker_label").innerHTML = '<b>Target Lost</b>';
 
