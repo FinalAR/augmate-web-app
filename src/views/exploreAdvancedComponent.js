@@ -53,6 +53,11 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
   const arDocRef = useRef(null); // Mutable reference for arDoc
   const modelLoadedRef = useRef(false);
 
+  const startEngineRef = useRef(1); // Initialize with 1
+  const counterRef = useRef(1);
+
+  const mindARRef = useRef();
+
 
   const [progressValue, setProgressValue] = useState(0);
 
@@ -137,15 +142,20 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
 
 
     // Only initialize mindarThree if counter is 1
-    if (counter === 1) {
+    console.log("Before Init"+ counter);
+    if (counterRef.current === 1) {
       console.log("Starting Init"+ counter);
-      mindarThree = new MindARThree({
+      // mindarThree = new MindARThree({
+      //   container: document.querySelector("#container"),
+      //   imageTargetSrc: arDoc.imageTargetSrc
+      // });
+      mindARRef.current = new MindARThree({
         container: document.querySelector("#container"),
         imageTargetSrc: arDoc.imageTargetSrc
       });
 
-
-      const obj = mindarThree;
+      //const obj = mindarThree;
+      const obj = mindARRef.current;
       renderer = obj.renderer;
       scene = obj.scene;
       camera = obj.camera;
@@ -159,13 +169,13 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
 
       console.log("In Init"+ counter);
 
-      counter++;
-
+      // counter++;
+      counterRef.current = counterRef.current + 1;
     }
 
     //Models init
 
-    markerRoot = mindarThree.addAnchor(1);
+    markerRoot = mindARRef.current.addAnchor(1);
 
     var loadingInProcess = false;
 
@@ -278,7 +288,7 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
       console.log("Before starting...");
       let clock = new THREE.Clock();
       try {
-        await mindarThree.start();
+        await mindARRef.current.start();
         console.log("After starting...");
         renderer.setAnimationLoop(() => {
           let t = clock.getElapsedTime() * 0.5;
@@ -293,9 +303,9 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
     const stop = async () => {
       console.log("Before stoping...");
       try {
-        mindarThree.stop();
+        mindARRef.current.stop();
         console.log("After stoping...");
-        mindarThree.renderer.setAnimationLoop(null);
+        mindARRef.current.renderer.setAnimationLoop(null);
       } catch (error) {
         console.error("Error in stop method:", error);
       }
@@ -309,10 +319,10 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
     });
 
     console.log("Before StateEngine" + startEngine)
-    if(startEngine === 1){
+    if(startEngineRef.current === 1){
       console.log("Inside StateEngine" + startEngine)
       startButton.click();
-      startEngine++;
+      startEngineRef.current = startEngineRef.current + 1;
     }
     
     console.log("StateEngine" + startEngine)
@@ -360,8 +370,8 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
 
     const handleBack = () => {
       console.log('Button clicked!');
-      mindarThree.stop();
-      mindarThree.renderer.setAnimationLoop(null);
+      mindARRef.current.stop();
+      mindARRef.current.renderer.setAnimationLoop(null);
     };
 
     // const backButton = document.querySelector("#backButton");
