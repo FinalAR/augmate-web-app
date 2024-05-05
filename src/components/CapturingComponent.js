@@ -211,7 +211,7 @@ function CapturingComponent({ onStateChange, onPhashChange }) {
 
             <Webcam
                 audio={false}
-                mirrored={true}
+                mirrored={false}
                 ref={webcamRef}
                 screenshotFormat="image/jpeg"
                 videoConstraints={videoConstraints}
