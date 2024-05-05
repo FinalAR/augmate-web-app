@@ -125,7 +125,7 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
 
   let renderer, scene, camera;
 
-  var startEngine = true;
+  var startEngine = 1;
 
   useEffect(() => {
     if (!arDoc) return;
@@ -138,6 +138,7 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
 
     // Only initialize mindarThree if counter is 1
     if (counter === 1) {
+      console.log("Starting Init"+ counter);
       mindarThree = new MindARThree({
         container: document.querySelector("#container"),
         imageTargetSrc: arDoc.imageTargetSrc
@@ -156,7 +157,7 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
       directionalLight.position.set(1, 1, 1); // Adjust the light direction
       scene.add(directionalLight);
 
-
+      console.log("In Init"+ counter);
 
       counter++;
 
@@ -307,11 +308,14 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
       start();
     });
 
-    if(startEngine){
+    console.log("Before StateEngine" + startEngine)
+    if(startEngine === 1){
+      console.log("Inside StateEngine" + startEngine)
       startButton.click();
-      startEngine = false;
+      startEngine++;
     }
     
+    console.log("StateEngine" + startEngine)
 
     // stopButton.addEventListener("click", () => {
     //   stop();
