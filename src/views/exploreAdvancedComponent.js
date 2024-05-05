@@ -304,7 +304,7 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
       start();
     });
 
-    if(counter ===1){
+    if(counter === 1){
       startButton.click();
     }
     
