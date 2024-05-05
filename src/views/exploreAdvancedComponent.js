@@ -303,7 +303,11 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
     startButton.addEventListener("click", () => {
       start();
     });
-    startButton.click();
+
+    if(counter ===1){
+      startButton.click();
+    }
+    
 
     // stopButton.addEventListener("click", () => {
     //   stop();
