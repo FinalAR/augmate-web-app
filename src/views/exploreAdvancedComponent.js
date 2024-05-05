@@ -125,6 +125,8 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
 
   let renderer, scene, camera;
 
+  var startEngine = true;
+
   useEffect(() => {
     if (!arDoc) return;
 
@@ -169,6 +171,7 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
     let loadedMesh = null;
 
     // let po = new ProgressObject(1);
+
 
     markerRoot.onTargetFound = () => {
       console.log("markerFound...");
@@ -304,8 +307,9 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
       start();
     });
 
-    if(counter === 1){
+    if(startEngine){
       startButton.click();
+      startEngine = false;
     }
     
 
