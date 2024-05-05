@@ -255,7 +255,7 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
 
     markerRoot.onTargetLost = () => {
       console.log("Target Lost...");
-      setLoading(false)
+      // setLoading(false)
 
 
       document.getElementById("marker_label").innerHTML = '<b>Target Lost</b>';
@@ -449,7 +449,7 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
         </div>
       </div>
       <footer>
-        <div id="marker_label"><b>Target Not Found</b></div>
+        <div id="marker_label" style={{marginTop:"-15px"}}><b>Target Not Found</b></div>
       </footer>
       {/* <SquareLoading loading={loading} color={color} style={{ zIndex: 9999 }} /> */}
       {/* <BarLoading loading={loading} color={color} style={{ zIndex: 9999 }} />  */}
