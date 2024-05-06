@@ -116,7 +116,7 @@ async function identifyImage(capturedImage) {
       descriptors2.delete();
       console.log("Matches Number:" + numGoodMatches);
 
-      if (numGoodMatches > 8) {
+      if (numGoodMatches >= 8) {
         return {
           status: 'Y',
           targetpHash: target.targetpHash
