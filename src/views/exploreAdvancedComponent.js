@@ -175,7 +175,7 @@ function AdexplorePage({ phashIdvalue, onStateChange }) {
 
     //Models init
 
-    markerRoot = mindARRef.current.addAnchor(1);
+    markerRoot = mindARRef.current.addAnchor(0);
 
     var loadingInProcess = false;
 
