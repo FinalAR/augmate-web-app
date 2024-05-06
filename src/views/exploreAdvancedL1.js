@@ -35,7 +35,7 @@ function AdexplorePage() {
   const [arDoc, setDocument] = useState(null);
   const [updateContent, setUpdateFlag] = useState(false);
   const [deviceSpec, setDeviceSpec] = useState("Intializing...");
-  const [phashId, setPhashId] = useState("1111101001001110010100000000011100100111101100101001101010100000");
+  const [phashId, setPhashId] = useState("1111100011110110000000100000000000000100010010101110100101101010");
 
   const arDocRef = useRef(null); // Mutable reference for arDoc
   const modelLoadedRef = useRef(false);
