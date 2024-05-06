@@ -2,6 +2,7 @@
 
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
+import getApiUrl from '../utility/apiUtils';
 
 const ImageFeatureGenerator = () => {
   const [keypoints1, setKeypoints1] = useState([]);
@@ -112,7 +113,7 @@ const ImageFeatureGenerator = () => {
       }
   
       // Get target images from the API
-      const axiosResponse = await axios.get('http://localhost:5000/api/v1/content/list/targets');
+      const axiosResponse = await axios.get(getApiUrl('content/list/targets'));
       const targetImages = axiosResponse.data.data;
   
       for (const target of targetImages) {
