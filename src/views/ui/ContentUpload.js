@@ -44,9 +44,8 @@ const ContentUpload = () => {
     });
 
     function handleContentUpload(values) {
-        console.log(values);
         if(data.contentCount){
-            axios.put(getApiUrl(`content/addContent/${data.docID}`), {
+            axios.put(getApiUrl(`content/addContents/${data.docID}`), {
                 contentImage: values.contentImage,
                 contents: {
                     high: { contentPath: values.high.file, size: values.high.fileSize, polygonCount: values.high.polygon_count, animationRate: values.high.animationRate},
@@ -65,7 +64,6 @@ const ContentUpload = () => {
                   console.log(error);
                 });
         }else{
-            console.log("hit");
             axios.patch(getApiUrl(`content/data/${data.docID}`), {
                 contentImage: values.contentImage,
                 analysis: {},
