@@ -78,7 +78,7 @@ async function identifyImage(capturedImage) {
     }
   };
 
-  let descriptors2;
+
   try {
     // Load the image and extract features
     const capturedFile = new File([capturedImage], 'queryImage.jpg', { type: 'image/jpeg' });
@@ -112,7 +112,8 @@ async function identifyImage(capturedImage) {
 
       // Perform feature matching with the input image
       const numGoodMatches = await performImageMatching(descriptors1, descriptors2);
-
+      
+      descriptors2.delete();
       console.log("Matches Number:" + numGoodMatches);
 
       if (numGoodMatches > 10) {
