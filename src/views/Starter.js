@@ -179,9 +179,9 @@ const ImageTargetForm = (props) => {
                     className="invalid-feedback"
                   />
                 </div>
-                <span></span>
+                <div></div>
                 {!isValidPHash ? <span style={{color: "red"}}>This image target already uploaded!</span> : ""}
-                <span></span>
+                <div></div>
                 <Button type="submit" className="btn" color="success" >Confirm</Button>
                 {/* {imageUrl && isLoading ?
                   <Button type="submit" className="btn" color="success" >Confirm</Button>
