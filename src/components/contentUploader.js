@@ -11,9 +11,9 @@ const UploadComponent = ({ validationProps, fieldName }) => {
 
   const handleFileUpload = async (file) => {
     try {
-      // const savedLocation = await uploadFileToS3(file, handleUploadProgress);
-      // console.log('File uploaded to:', savedLocation);
-      validationProps.setFieldValue(fieldName, "https://augmate-bucket.s3.ap-south-1.amazonaws.com/2024-03-10T18-15-37.967Z_model");
+      const savedLocation = await uploadFileToS3(file, handleUploadProgress);
+      console.log('File uploaded to:', savedLocation);
+      validationProps.setFieldValue(fieldName, savedLocation);
       // onChangeFile("https://augmate-bucket.s3.ap-south-1.amazonaws.com/2024-03-10T18-15-37.967Z_model");
     } catch (error) {
       console.error('Error uploading file:', error);

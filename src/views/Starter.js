@@ -47,6 +47,7 @@ const ImageTargetForm = (props) => {
   const [imageUrl, setImageUrl] = useState("");
   // const [compileFileUrl, setCompileFileUrl] = useState("");
   const [targetHashValue, setHashValue] = useState("");
+  const [isValidPHash, setPhashValidation] = useState(true);
 
   //Firebase upload
   const [progress, setProgress] = useState(0);
@@ -58,14 +59,14 @@ const ImageTargetForm = (props) => {
     } else {
       const currentDate = new Date();
       const imageRef = storageRef(storage, `targets/${currentDate.getTime()}_${file.name}`);
-      try {
-        const hash = await window.pHash.hash(file);
+      const hash = await window.pHash.hash(file);
+      const { data: response } = await axios.get(getApiUrl(`content/find/${hash.value}`));
+      console.log(response);
+      if(response.data.successOrFaliure == "N"){
+        setPhashValidation(true)
         console.log(hash.value)
         setHashValue(hash.value);
-      } catch (error) {
-        console.error('Error generating hash:', error);
-      }
-      await uploadBytes(imageRef, file)
+        await uploadBytes(imageRef, file)
         .then((snapshot) => {
           getDownloadURL(snapshot.ref)
             .then((url) => {
@@ -81,6 +82,9 @@ const ImageTargetForm = (props) => {
           console.log(error.message);
           // toastifyError(error.message);
         });
+      }else{
+        setPhashValidation(false)
+      }
     }
   }
 
@@ -90,28 +94,29 @@ const ImageTargetForm = (props) => {
   // };
 
   const handleSubmit = (e) => {
-    console.log(e);
-    axios.post(getApiUrl('content/create'), {
-      targetpHash: targetHashValue,
-      targetImage: imageUrl,
-      contentImage: "",
-      contentPath: "",
-      description: e.imageName,
-      analysis: {},
-      contents: {},
-      positionY: "",
-      scaleSet: "",
-      size: "",
-      ref_ver: 1,
-      imageTargetSrc: e.imageTargetSrc
-    })
-      .then((response) => {
-        console.log(response);
-      }, (error) => {
-        console.log(error);
-      });
-
-    props.toggle()
+    if(isValidPHash){
+      axios.post(getApiUrl('content/create'), {
+        targetpHash: targetHashValue,
+        targetImage: imageUrl,
+        contentImage: "",
+        contentPath: "",
+        description: e.imageName,
+        analysis: {},
+        contents: {},
+        positionY: "",
+        scaleSet: "",
+        size: "",
+        ref_ver: 1,
+        imageTargetSrc: e.imageTargetSrc
+      })
+        .then((response) => {
+          console.log(response);
+        }, (error) => {
+          console.log(error);
+        });
+  
+      props.toggle()
+    }
   }
 
   const pushTargetData = (targetData) => {
@@ -174,6 +179,9 @@ const ImageTargetForm = (props) => {
                     className="invalid-feedback"
                   />
                 </div>
+                <div></div>
+                {!isValidPHash ? <span style={{color: "red"}}>This image target already uploaded!</span> : ""}
+                <div></div>
                 <Button type="submit" className="btn" color="success" >Confirm</Button>
                 {/* {imageUrl && isLoading ?
                   <Button type="submit" className="btn" color="success" >Confirm</Button>

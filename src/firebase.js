@@ -8,14 +8,22 @@ import { getStorage } from "firebase/storage";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
+  // apiKey: "AIzaSyCMIPwuYRp_59Jyxt-KbG4-tt19WNO5VW4",
+  // authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  // projectId: process.env.FIREBASE_PROJID,
+  // storageBucket: process.env.FIREBASE_STORAGE_NAME,
+  // messagingSenderId: process.env.MESSENGER_ID,
+  // appId: process.env.APP_ID,
+  // measurementId: process.env.MEASUREMENTID,
+  // storageBucket:process.env.FIREBASE_STORAGE_BUCKET
+
   apiKey: "AIzaSyCMIPwuYRp_59Jyxt-KbG4-tt19WNO5VW4",
-  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.FIREBASE_PROJID,
-  storageBucket: process.env.FIREBASE_STORAGE_NAME,
-  messagingSenderId: process.env.MESSENGER_ID,
-  appId: process.env.APP_ID,
-  measurementId: process.env.MEASUREMENTID,
-  storageBucket:process.env.FIREBASE_STORAGE_BUCKET
+  authDomain: "augmate-d844e.firebaseapp.com",
+  projectId: "augmate-d844e",
+  storageBucket: "augmate-d844e.appspot.com",
+  messagingSenderId: "935985492697",
+  appId: "1:935985492697:web:2bd2b66a52a633d70744c8",
+  measurementId: "G-6WS0G7THH5"
 };
 
 // Initialize Firebase
